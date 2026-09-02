@@ -1,0 +1,85 @@
+# ==========================================
+# GitIgnore - Tech Challenge Fase 3
+# Big Data & Analytics - State of Data Brasil
+# ==========================================
+
+# Byte-compiled / optimized / Python files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Ambientes Virtuais (Virtual Environments)
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# Dados e Datasets (ignorar arquivos brutos e processados pesados, mantendo .gitkeep)
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+*.csv
+*.tsv
+*.parquet
+*.orc
+*.avro
+*.json
+*.xlsx
+*.zip
+*.tar.gz
+
+# Saídas e relatórios gerados (preservando gráficos e estrutura de pastas)
+output/graficos/*.tmp
+output/apresentacao/*
+!output/apresentacao/.gitkeep
+*.pdf
+*.pptx
+
+# AWS e Credenciais / Chaves de Segurança
+.aws/
+*credentials*
+*.pem
+*.key
+*.secret
+
+# Logs e arquivos temporários
+*.log
+metastore_db/
+derby.log
+spark-warehouse/
+.sparkStaging/
+
+# IDEs e Editores
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+Thumbs.db

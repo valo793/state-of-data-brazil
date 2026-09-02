@@ -1,0 +1,90 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0">
+  <diagram id="architecture" name="AWS Big Data Pipeline">
+    <mxGraphModel dx="1546" dy="1007" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="s3_group" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=30;dashed=1;dashPattern=8 8;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=14;" value="Amazon S3 Data Lake" vertex="1">
+          <mxGeometry height="320" width="560" x="200" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="s3_raw" parent="s3_group" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Raw&#xa;(CSV Original)" vertex="1">
+          <mxGeometry height="80" width="80" x="40" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="s3_bronze" parent="s3_group" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#cd7f32;strokeColor=#8b4513;fontColor=#ffffff;" value="Bronze&#xa;(Catalogado)" vertex="1">
+          <mxGeometry height="80" width="80" x="40" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="s3_silver" parent="s3_group" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#c0c0c0;strokeColor=#808080;" value="Silver&#xa;(Limpo/Tipado)" vertex="1">
+          <mxGeometry height="80" width="80" x="240" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="s3_gold" parent="s3_group" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#ffd700;strokeColor=#daa520;" value="Gold&#xa;(Agregado)" vertex="1">
+          <mxGeometry height="80" width="80" x="440" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="glue_job1" parent="s3_group" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1" value="Glue Job 1&#xa;(PySpark)" vertex="1">
+          <mxGeometry height="80" width="100" x="230" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="edge3" edge="1" parent="s3_group" source="s3_bronze" target="glue_job1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge4" edge="1" parent="s3_group" source="glue_job1" target="s3_silver">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="glue_job2" parent="s3_group" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1" value="Glue Job 2&#xa;(PySpark)" vertex="1">
+          <mxGeometry height="80" width="100" x="430" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="edge5" edge="1" parent="s3_group" source="s3_silver" target="glue_job2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge6" edge="1" parent="s3_group" source="glue_job2" target="s3_gold">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="source_kaggle" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1" value="Kaggle&#xa;(State of Data BR)" vertex="1">
+          <mxGeometry height="60" width="120" x="20" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="glue_crawler" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1" value="AWS Glue&#xa;Crawler" vertex="1">
+          <mxGeometry height="60" width="100" x="360" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="glue_catalog" parent="1" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1" value="AWS Glue&#xa;Data Catalog" vertex="1">
+          <mxGeometry height="60" width="100" x="520" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="athena" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1" value="Amazon Athena" vertex="1">
+          <mxGeometry height="60" width="120" x="850" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="glue_notebook" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1" value="Glue Notebook&#xa;(Jupyter/Spark)" vertex="1">
+          <mxGeometry height="60" width="120" x="850" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="viz_tools" parent="1" style="shape=display;whiteSpace=wrap;html=1;fillColor=#cdeb8b;strokeColor=#36393d;fontStyle=1" value="Visualização&#xa;(Matplotlib/Plotly)" vertex="1">
+          <mxGeometry height="70" width="120" x="1030" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="edge1" edge="1" parent="1" source="source_kaggle" target="s3_raw">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge2" edge="1" parent="1" source="s3_raw" target="s3_bronze">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge7" edge="1" parent="1" source="s3_gold" target="athena">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge8" edge="1" parent="1" source="s3_gold" target="glue_notebook">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge9" edge="1" parent="1" source="athena" style="entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" target="viz_tools">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge10" edge="1" parent="1" source="glue_crawler" target="glue_catalog">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="480" y="470" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge11" edge="1" parent="1" source="glue_catalog" target="athena">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="910" y="470" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

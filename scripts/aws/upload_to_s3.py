@@ -1,10 +1,10 @@
 """
-Tech Challenge Fase 3 — Upload dos Dados para S3
-=================================================
-Faz o upload dos CSVs locais para o bucket S3, organizados por ano.
+Tech Challenge Fase 3 — Upload dos Dados para a Camada Bronze no S3
+===================================================================
+Faz o upload dos CSVs brutos locais para o bucket S3 na camada Bronze (bronze/).
 
 Uso:
-    python upload_to_s3.py --bucket NOME_DO_BUCKET --data-dir ./data/raw
+    python upload_to_s3.py --bucket NOME_DO_BUCKET --data-dir ./data/bronze
 
 Pré-requisitos:
     - AWS CLI configurado (credenciais do AWS Academy Lab)
@@ -19,7 +19,7 @@ from pathlib import Path
 
 
 def upload_files(bucket_name: str, data_dir: str, region: str = "us-east-1"):
-    """Upload all CSV files from data_dir to S3 raw/ layer."""
+    """Upload all CSV files from data_dir to S3 bronze/ layer."""
     s3_client = boto3.client("s3", region_name=region)
     data_path = Path(data_dir)
 
@@ -33,12 +33,11 @@ def upload_files(bucket_name: str, data_dir: str, region: str = "us-east-1"):
         sys.exit(1)
 
     print(f"📁 Encontrados {len(csv_files)} arquivo(s) CSV em {data_path}")
-    print(f"📤 Upload para s3://{bucket_name}/raw/\n")
+    print(f"📤 Upload para a Camada Bronze (s3://{bucket_name}/bronze/)\n")
 
     for csv_file in csv_files:
-        # Determine the year from filename or parent directory
         relative_path = csv_file.relative_to(data_path)
-        s3_key = f"raw/{relative_path.as_posix()}"
+        s3_key = f"bronze/{relative_path.as_posix()}"
 
         print(f"  Enviando: {csv_file.name}")
         print(f"    → s3://{bucket_name}/{s3_key}")
@@ -50,18 +49,18 @@ def upload_files(bucket_name: str, data_dir: str, region: str = "us-east-1"):
                 s3_key,
                 ExtraArgs={"ContentType": "text/csv"},
             )
-            print(f"    ✓ Upload concluído")
+            print(f"    ✓ Upload concluído com sucesso")
         except Exception as e:
             print(f"    ❌ Erro: {e}")
 
-    print(f"\n✅ Upload finalizado! {len(csv_files)} arquivo(s) enviado(s).")
+    print(f"\n✅ Upload finalizado! {len(csv_files)} arquivo(s) enviado(s) para a Camada Bronze.")
     print(f"\nVerifique com:")
-    print(f"  aws s3 ls s3://{bucket_name}/raw/ --recursive")
+    print(f"  aws s3 ls s3://{bucket_name}/bronze/ --recursive")
 
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Upload dos dados do State of Data Brasil para S3"
+        description="Upload dos dados brutos do State of Data Brasil para a Camada Bronze no S3"
     )
     parser.add_argument(
         "--bucket",
@@ -70,8 +69,8 @@ def main():
     )
     parser.add_argument(
         "--data-dir",
-        default="./data/raw",
-        help="Diretório local com os CSVs (default: ./data/raw)",
+        default="./data/bronze",
+        help="Diretório local com os CSVs (default: ./data/bronze)",
     )
     parser.add_argument(
         "--region",

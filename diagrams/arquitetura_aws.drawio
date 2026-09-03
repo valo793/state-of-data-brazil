@@ -4,86 +4,90 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="s3_group" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=30;dashed=1;dashPattern=8 8;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=14;" value="Amazon S3 Data Lake" vertex="1">
-          <mxGeometry height="320" width="560" x="200" y="80" as="geometry" />
+        
+        <!-- S3 Data Lake Group -->
+        <mxCell id="s3_group" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=30;dashed=1;dashPattern=8 8;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=14;" value="Amazon S3 Data Lake (Camadas Medallion)" vertex="1">
+          <mxGeometry height="300" width="560" x="200" y="80" as="geometry" />
         </mxCell>
-        <mxCell id="s3_raw" parent="s3_group" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Raw&#xa;(CSV Original)" vertex="1">
-          <mxGeometry height="80" width="80" x="40" y="60" as="geometry" />
+        
+        <!-- Camada Bronze -->
+        <mxCell id="s3_bronze" parent="s3_group" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#cd7f32;strokeColor=#8b4513;fontColor=#ffffff;fontStyle=1" value="Camada Bronze&#xa;(Dados Brutos Catalogados)" vertex="1">
+          <mxGeometry height="90" width="100" x="30" y="105" as="geometry" />
         </mxCell>
-        <mxCell id="s3_bronze" parent="s3_group" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#cd7f32;strokeColor=#8b4513;fontColor=#ffffff;" value="Bronze&#xa;(Catalogado)" vertex="1">
-          <mxGeometry height="80" width="80" x="40" y="200" as="geometry" />
+        
+        <!-- Glue Job 1 (Bronze -> Silver) -->
+        <mxCell id="glue_job1" parent="s3_group" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1" value="AWS Glue Job 1&#xa;(Bronze ➔ Silver&#xa;PySpark)" vertex="1">
+          <mxGeometry height="90" width="110" x="165" y="105" as="geometry" />
         </mxCell>
-        <mxCell id="s3_silver" parent="s3_group" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#c0c0c0;strokeColor=#808080;" value="Silver&#xa;(Limpo/Tipado)" vertex="1">
-          <mxGeometry height="80" width="80" x="240" y="60" as="geometry" />
-        </mxCell>
-        <mxCell id="s3_gold" parent="s3_group" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#ffd700;strokeColor=#daa520;" value="Gold&#xa;(Agregado)" vertex="1">
-          <mxGeometry height="80" width="80" x="440" y="200" as="geometry" />
-        </mxCell>
-        <mxCell id="glue_job1" parent="s3_group" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1" value="Glue Job 1&#xa;(PySpark)" vertex="1">
-          <mxGeometry height="80" width="100" x="230" y="200" as="geometry" />
-        </mxCell>
-        <mxCell id="edge3" edge="1" parent="s3_group" source="s3_bronze" target="glue_job1">
+        <mxCell id="edge_b_to_job1" edge="1" parent="s3_group" source="s3_bronze" target="glue_job1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge4" edge="1" parent="s3_group" source="glue_job1" target="s3_silver">
+        
+        <!-- Camada Silver -->
+        <mxCell id="s3_silver" parent="s3_group" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#c0c0c0;strokeColor=#808080;fontStyle=1" value="Camada Silver&#xa;(Limpo, Tipado &amp;&#xa;Harmonizado)" vertex="1">
+          <mxGeometry height="90" width="100" x="310" y="105" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_job1_to_s" edge="1" parent="s3_group" source="glue_job1" target="s3_silver">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="glue_job2" parent="s3_group" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1" value="Glue Job 2&#xa;(PySpark)" vertex="1">
-          <mxGeometry height="80" width="100" x="430" y="60" as="geometry" />
+        
+        <!-- Glue Job 2 (Silver -> Gold) -->
+        <mxCell id="glue_job2" parent="s3_group" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1" value="AWS Glue Job 2&#xa;(Silver ➔ Gold&#xa;PySpark)" vertex="1">
+          <mxGeometry height="90" width="110" x="435" y="105" as="geometry" />
         </mxCell>
-        <mxCell id="edge5" edge="1" parent="s3_group" source="s3_silver" target="glue_job2">
+        <mxCell id="edge_s_to_job2" edge="1" parent="s3_group" source="s3_silver" target="glue_job2">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge6" edge="1" parent="s3_group" source="glue_job2" target="s3_gold">
+        
+        <!-- Camada Gold -->
+        <mxCell id="s3_gold" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#ffd700;strokeColor=#daa520;fontStyle=1" value="Camada Gold&#xa;(Data Marts&#xa;Agregados)" vertex="1">
+          <mxGeometry height="90" width="100" x="780" y="185" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_job2_to_g" edge="1" parent="1" source="glue_job2" target="s3_gold">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="source_kaggle" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1" value="Kaggle&#xa;(State of Data BR)" vertex="1">
-          <mxGeometry height="60" width="120" x="20" y="150" as="geometry" />
+        
+        <!-- Data Source (Kaggle) -->
+        <mxCell id="source_kaggle" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=13" value="Kaggle&#xa;(State of Data Brasil&#xa;2023, 2024, 2025)" vertex="1">
+          <mxGeometry height="70" width="130" x="20" y="195" as="geometry" />
         </mxCell>
+        <mxCell id="edge_kaggle_to_bronze" edge="1" parent="1" source="source_kaggle" target="s3_bronze">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- AWS Glue Crawler & Catalog -->
         <mxCell id="glue_crawler" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1" value="AWS Glue&#xa;Crawler" vertex="1">
-          <mxGeometry height="60" width="100" x="360" y="440" as="geometry" />
+          <mxGeometry height="60" width="110" x="320" y="420" as="geometry" />
         </mxCell>
         <mxCell id="glue_catalog" parent="1" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1" value="AWS Glue&#xa;Data Catalog" vertex="1">
-          <mxGeometry height="60" width="100" x="520" y="440" as="geometry" />
+          <mxGeometry height="60" width="110" x="480" y="420" as="geometry" />
         </mxCell>
-        <mxCell id="athena" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1" value="Amazon Athena" vertex="1">
-          <mxGeometry height="60" width="120" x="850" y="370" as="geometry" />
-        </mxCell>
-        <mxCell id="glue_notebook" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1" value="Glue Notebook&#xa;(Jupyter/Spark)" vertex="1">
-          <mxGeometry height="60" width="120" x="850" y="260" as="geometry" />
-        </mxCell>
-        <mxCell id="viz_tools" parent="1" style="shape=display;whiteSpace=wrap;html=1;fillColor=#cdeb8b;strokeColor=#36393d;fontStyle=1" value="Visualização&#xa;(Matplotlib/Plotly)" vertex="1">
-          <mxGeometry height="70" width="120" x="1030" y="300" as="geometry" />
-        </mxCell>
-        <mxCell id="edge1" edge="1" parent="1" source="source_kaggle" target="s3_raw">
+        <mxCell id="edge_crawler_to_catalog" edge="1" parent="1" source="glue_crawler" target="glue_catalog">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge2" edge="1" parent="1" source="s3_raw" target="s3_bronze">
+        <mxCell id="edge_s3_to_crawler" edge="1" parent="1" source="s3_group" target="glue_crawler">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge7" edge="1" parent="1" source="s3_gold" target="athena">
+        
+        <!-- Amazon Athena -->
+        <mxCell id="athena" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=13" value="Amazon Athena&#xa;(Consultas SQL / Views)" vertex="1">
+          <mxGeometry height="70" width="140" x="930" y="195" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_gold_to_athena" edge="1" parent="1" source="s3_gold" target="athena">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge8" edge="1" parent="1" source="s3_gold" target="glue_notebook">
+        <mxCell id="edge_catalog_to_athena" edge="1" parent="1" source="glue_catalog" target="athena">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge9" edge="1" parent="1" source="athena" style="entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" target="viz_tools">
+        
+        <!-- Presentation & Visualization -->
+        <mxCell id="viz_tools" parent="1" style="shape=display;whiteSpace=wrap;html=1;fillColor=#cdeb8b;strokeColor=#36393d;fontStyle=1;fontSize=13" value="Visualização &amp;&#xa;Storytelling Executivo&#xa;(PowerPoint / DataViz)" vertex="1">
+          <mxGeometry height="80" width="150" x="925" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_athena_to_viz" edge="1" parent="1" source="athena" target="viz_tools">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge10" edge="1" parent="1" source="glue_crawler" target="glue_catalog">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="480" y="470" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="edge11" edge="1" parent="1" source="glue_catalog" target="athena">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="910" y="470" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
+        
       </root>
     </mxGraphModel>
   </diagram>

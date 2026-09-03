@@ -1,8 +1,8 @@
 """
 Tech Challenge Fase 3 — Pipeline de Transformação Local & Validação de Regras ETL
 ================================================================================
-Este script implementa e valida as regras de negócio de tratamento de dados
-para as camadas Bronze -> Silver -> Gold antes do deploy nos Glue Jobs na AWS.
+Este script implementa e valida as regras de tratamento de dados
+para as 3 camadas Medallion (Bronze -> Silver -> Gold) antes do deploy nos Glue Jobs na AWS.
 
 Regras de Tratamento na Camada Silver:
   1. Parsing e harmonização dos cabeçalhos das 3 edições (2023-2024, 2024-2025, 2025-2026).
@@ -29,7 +29,7 @@ import ast
 import pandas as pd
 import numpy as np
 
-RAW_DIR = r"C:\Projects\Tech Challenge 3\data\raw"
+BRONZE_DIR = r"C:\Projects\Tech Challenge 3\data\bronze"
 SILVER_DIR = r"C:\Projects\Tech Challenge 3\data\processed\silver"
 GOLD_DIR = r"C:\Projects\Tech Challenge 3\data\processed\gold"
 
@@ -94,10 +94,10 @@ def normalize_work_model(val):
     return "Outro"
 
 
-def process_edition_2023(df_raw):
+def process_edition_2023(df_bronze):
     """Trata dados da edição 2023-2024 (cabeçalhos em tuplas-string)."""
     p_map = {}
-    for col in df_raw.columns:
+    for col in df_bronze.columns:
         try:
             parsed = ast.literal_eval(str(col))
             if isinstance(parsed, tuple):
@@ -110,144 +110,144 @@ def process_edition_2023(df_raw):
     }
     
     # Mapeamento campo a campo
-    for raw_col, (p_code, desc) in p_map.items():
+    for b_col, (p_code, desc) in p_map.items():
         if p_code == "P0":
-            clean_dict["id_respondente"] = df_raw[raw_col]
+            clean_dict["id_respondente"] = df_bronze[b_col]
         elif p_code == "P1_a":
-            clean_dict["idade"] = pd.to_numeric(df_raw[raw_col], errors="coerce")
+            clean_dict["idade"] = pd.to_numeric(df_bronze[b_col], errors="coerce")
         elif p_code == "P1_a_1":
-            clean_dict["faixa_idade"] = df_raw[raw_col]
+            clean_dict["faixa_idade"] = df_bronze[b_col]
         elif p_code == "P1_b":
-            clean_dict["genero"] = df_raw[raw_col]
+            clean_dict["genero"] = df_bronze[b_col]
         elif p_code == "P1_c":
-            clean_dict["cor_raca_etnia"] = df_raw[raw_col]
+            clean_dict["cor_raca_etnia"] = df_bronze[b_col]
         elif p_code == "P1_d":
-            clean_dict["pcd"] = df_raw[raw_col]
+            clean_dict["pcd"] = df_bronze[b_col]
         elif p_code == "P1_i_1":
-            clean_dict["uf_mora"] = df_raw[raw_col]
+            clean_dict["uf_mora"] = df_bronze[b_col]
         elif p_code == "P1_i_2":
-            clean_dict["regiao_mora"] = df_raw[raw_col]
+            clean_dict["regiao_mora"] = df_bronze[b_col]
         elif p_code == "P1_l":
-            clean_dict["nivel_ensino"] = df_raw[raw_col]
+            clean_dict["nivel_ensino"] = df_bronze[b_col]
         elif p_code == "P1_m":
-            clean_dict["area_formacao"] = df_raw[raw_col]
+            clean_dict["area_formacao"] = df_bronze[b_col]
         elif p_code == "P2_a":
-            clean_dict["situacao_trabalho"] = df_raw[raw_col]
+            clean_dict["situacao_trabalho"] = df_bronze[b_col]
         elif p_code == "P2_b":
-            clean_dict["setor"] = df_raw[raw_col]
+            clean_dict["setor"] = df_bronze[b_col]
         elif p_code == "P2_c":
-            clean_dict["tamanho_empresa"] = df_raw[raw_col]
+            clean_dict["tamanho_empresa"] = df_bronze[b_col]
         elif p_code == "P2_d":
-            clean_dict["is_gestor"] = df_raw[raw_col]
+            clean_dict["is_gestor"] = df_bronze[b_col]
         elif p_code == "P2_e":
-            clean_dict["cargo_gestor"] = df_raw[raw_col]
+            clean_dict["cargo_gestor"] = df_bronze[b_col]
         elif p_code == "P2_f":
-            clean_dict["cargo_atual"] = df_raw[raw_col]
+            clean_dict["cargo_atual"] = df_bronze[b_col]
         elif p_code == "P2_g":
-            clean_dict["senioridade"] = df_raw[raw_col]
+            clean_dict["senioridade"] = df_bronze[b_col]
         elif p_code == "P2_h":
-            clean_dict["faixa_salarial"] = df_raw[raw_col]
+            clean_dict["faixa_salarial"] = df_bronze[b_col]
         elif p_code == "P2_i":
-            clean_dict["tempo_experiencia_dados"] = df_raw[raw_col]
+            clean_dict["tempo_experiencia_dados"] = df_bronze[b_col]
         elif p_code == "P2_j":
-            clean_dict["tempo_experiencia_ti"] = df_raw[raw_col]
+            clean_dict["tempo_experiencia_ti"] = df_bronze[b_col]
         elif p_code == "P2_k":
-            clean_dict["satisfeito_empresa"] = df_raw[raw_col]
+            clean_dict["satisfeito_empresa"] = df_bronze[b_col]
         elif p_code == "P2_l":
-            clean_dict["motivo_insatisfacao"] = df_raw[raw_col]
+            clean_dict["motivo_insatisfacao"] = df_bronze[b_col]
         elif p_code == "P2_r":
-            clean_dict["modelo_trabalho"] = df_raw[raw_col]
+            clean_dict["modelo_trabalho"] = df_bronze[b_col]
         elif p_code == "P4_e":
-            clean_dict["linguagem_mais_usada"] = df_raw[raw_col]
+            clean_dict["linguagem_mais_usada"] = df_bronze[b_col]
         elif p_code == "P4_f":
-            clean_dict["linguagem_preferida"] = df_raw[raw_col]
+            clean_dict["linguagem_preferida"] = df_bronze[b_col]
         elif p_code == "P4_i":
-            clean_dict["cloud_preferida"] = df_raw[raw_col]
+            clean_dict["cloud_preferida"] = df_bronze[b_col]
         elif p_code == "P4_k":
-            clean_dict["bi_preferido"] = df_raw[raw_col]
+            clean_dict["bi_preferido"] = df_bronze[b_col]
         elif p_code == "P3_e":
-            clean_dict["ia_prioridade_empresa"] = df_raw[raw_col]
+            clean_dict["ia_prioridade_empresa"] = df_bronze[b_col]
         elif p_code == "P4_l":
-            clean_dict["tipo_uso_ia_empresa"] = df_raw[raw_col]
+            clean_dict["tipo_uso_ia_empresa"] = df_bronze[b_col]
         elif p_code == "P4_m":
-            clean_dict["uso_pessoal_ia"] = df_raw[raw_col]
+            clean_dict["uso_pessoal_ia"] = df_bronze[b_col]
 
     df_clean = pd.DataFrame(clean_dict)
     return df_clean
 
 
-def process_edition_2024(df_raw):
+def process_edition_2024(df_bronze):
     """Trata dados da edição 2024-2025."""
     clean_dict = {
         "ano_pesquisa": "2024-2025",
-        "id_respondente": df_raw.get("0.a_token"),
-        "idade": pd.to_numeric(df_raw.get("1.a_idade"), errors="coerce"),
-        "faixa_idade": df_raw.get("1.a.1_faixa_idade"),
-        "genero": df_raw.get("1.b_genero"),
-        "cor_raca_etnia": df_raw.get("1.c_cor/raca/etnia"),
-        "pcd": df_raw.get("1.d_pcd"),
-        "uf_mora": df_raw.get("1.i.1_uf_onde_mora"),
-        "regiao_mora": df_raw.get("1.i.2_regiao_onde_mora"),
-        "nivel_ensino": df_raw.get("1.l_nivel_de_ensino"),
-        "area_formacao": df_raw.get("1.m_area_de_formacao"),
-        "situacao_trabalho": df_raw.get("2.a_situacao_atual"),
-        "setor": df_raw.get("2.b_setor"),
-        "tamanho_empresa": df_raw.get("2.c_numero_de_funcionarios"),
-        "is_gestor": df_raw.get("2.d_gestor"),
-        "cargo_gestor": df_raw.get("2.e_cargo_como_gestor"),
-        "cargo_atual": df_raw.get("2.f_cargo_atual"),
-        "senioridade": df_raw.get("2.g_nivel"),
-        "faixa_salarial": df_raw.get("2.h_faixa_salarial"),
-        "tempo_experiencia_dados": df_raw.get("2.i_tempo_de_experiencia_em_dados"),
-        "tempo_experiencia_ti": df_raw.get("2.j_tempo_de_experiencia_em_ti"),
-        "satisfeito_empresa": df_raw.get("2.k_satisfeito_atualmente"),
-        "motivo_insatisfacao": df_raw.get("2.l_motivo_insatisfacao"),
-        "modelo_trabalho": df_raw.get("2.r_modelo_de_trabalho_atual"),
-        "linguagem_mais_usada": df_raw.get("4.e_linguagem_mais_utilizada"),
-        "linguagem_preferida": df_raw.get("4.f_linguagem_preferida"),
-        "cloud_preferida": df_raw.get("4.i_cloud_preferida"),
-        "bi_preferido": df_raw.get("4.k_ferramenta_de_bi_preferida"),
-        "ia_prioridade_empresa": df_raw.get("3.e_ai_generativa_e_llm_é_uma_prioridade?"),
-        "tipo_uso_ia_empresa": df_raw.get("3.f_tipo_de_uso_de_ai_generativa_e_llm_na_empresa"),
-        "uso_pessoal_ia": df_raw.get("4.m_usa_chatgpt_ou_copilot_no_trabalho?"),
+        "id_respondente": df_bronze.get("0.a_token"),
+        "idade": pd.to_numeric(df_bronze.get("1.a_idade"), errors="coerce"),
+        "faixa_idade": df_bronze.get("1.a.1_faixa_idade"),
+        "genero": df_bronze.get("1.b_genero"),
+        "cor_raca_etnia": df_bronze.get("1.c_cor/raca/etnia"),
+        "pcd": df_bronze.get("1.d_pcd"),
+        "uf_mora": df_bronze.get("1.i.1_uf_onde_mora"),
+        "regiao_mora": df_bronze.get("1.i.2_regiao_onde_mora"),
+        "nivel_ensino": df_bronze.get("1.l_nivel_de_ensino"),
+        "area_formacao": df_bronze.get("1.m_area_de_formacao"),
+        "situacao_trabalho": df_bronze.get("2.a_situacao_atual"),
+        "setor": df_bronze.get("2.b_setor"),
+        "tamanho_empresa": df_bronze.get("2.c_numero_de_funcionarios"),
+        "is_gestor": df_bronze.get("2.d_gestor"),
+        "cargo_gestor": df_bronze.get("2.e_cargo_como_gestor"),
+        "cargo_atual": df_bronze.get("2.f_cargo_atual"),
+        "senioridade": df_bronze.get("2.g_nivel"),
+        "faixa_salarial": df_bronze.get("2.h_faixa_salarial"),
+        "tempo_experiencia_dados": df_bronze.get("2.i_tempo_de_experiencia_em_dados"),
+        "tempo_experiencia_ti": df_bronze.get("2.j_tempo_de_experiencia_em_ti"),
+        "satisfeito_empresa": df_bronze.get("2.k_satisfeito_atualmente"),
+        "motivo_insatisfacao": df_bronze.get("2.l_motivo_insatisfacao"),
+        "modelo_trabalho": df_bronze.get("2.r_modelo_de_trabalho_atual"),
+        "linguagem_mais_usada": df_bronze.get("4.e_linguagem_mais_utilizada"),
+        "linguagem_preferida": df_bronze.get("4.f_linguagem_preferida"),
+        "cloud_preferida": df_bronze.get("4.i_cloud_preferida"),
+        "bi_preferido": df_bronze.get("4.k_ferramenta_de_bi_preferida"),
+        "ia_prioridade_empresa": df_bronze.get("3.e_ai_generativa_e_llm_é_uma_prioridade?"),
+        "tipo_uso_ia_empresa": df_bronze.get("3.f_tipo_de_uso_de_ai_generativa_e_llm_na_empresa"),
+        "uso_pessoal_ia": df_bronze.get("4.m_usa_chatgpt_ou_copilot_no_trabalho?"),
     }
     return pd.DataFrame(clean_dict)
 
 
-def process_edition_2025(df_raw):
+def process_edition_2025(df_bronze):
     """Trata dados da edição 2025-2026."""
     clean_dict = {
         "ano_pesquisa": "2025-2026",
-        "id_respondente": df_raw.get("0.a_token"),
-        "idade": pd.to_numeric(df_raw.get("1.a_idade"), errors="coerce"),
-        "faixa_idade": df_raw.get("1.a.1_faixa_idade"),
-        "genero": df_raw.get("1.b_genero"),
-        "cor_raca_etnia": df_raw.get("1.c_cor/raca/etnia"),
-        "pcd": df_raw.get("1.d_pcd"),
-        "uf_mora": df_raw.get("1.i.1_uf_onde_mora"),
-        "regiao_mora": df_raw.get("1.i.2_regiao_onde_mora"),
-        "nivel_ensino": df_raw.get("1.l_nivel_de_ensino"),
-        "area_formacao": df_raw.get("1.m_area_de_formacao"),
-        "situacao_trabalho": df_raw.get("2.a_situacao_atual"),
-        "setor": df_raw.get("2.b_setor"),
-        "tamanho_empresa": df_raw.get("2.c_numero_de_funcionarios"),
-        "is_gestor": df_raw.get("2.d_gestor"),
-        "cargo_gestor": df_raw.get("2.e_cargo_como_gestor"),
-        "cargo_atual": df_raw.get("2.f_cargo_atual"),
-        "senioridade": df_raw.get("2.g_nivel"),
-        "faixa_salarial": df_raw.get("2.h_faixa_salarial"),
-        "tempo_experiencia_dados": df_raw.get("2.i_tempo_de_experiencia_em_dados"),
-        "tempo_experiencia_ti": df_raw.get("2.j_tempo_de_experiencia_em_ti"),
-        "satisfeito_empresa": df_raw.get("2.k_satisfeito_atualmente"),
-        "motivo_insatisfacao": df_raw.get("2.l_motivo_insatisfacao"),
-        "modelo_trabalho": df_raw.get("2.q_modelo_de_trabalho_atual"),
-        "linguagem_mais_usada": df_raw.get("4.b_linguagem_mais_utilizada"),
-        "linguagem_preferida": df_raw.get("4.c_linguagem_preferida"),
-        "cloud_preferida": df_raw.get("4.f_cloud_preferida"),
-        "bi_preferido": df_raw.get("4.h_ferramenta_de_bi_preferida"),
-        "ia_prioridade_empresa": df_raw.get("3.e_ai_generativa_e_llm_é_uma_prioridade?"),
-        "tipo_uso_ia_empresa": df_raw.get("3.f_tipo_de_uso_de_ai_generativa_e_llm_na_empresa"),
-        "uso_pessoal_ia": df_raw.get("4.j_usa_chatgpt_ou_copilot_no_trabalho?"),
+        "id_respondente": df_bronze.get("0.a_token"),
+        "idade": pd.to_numeric(df_bronze.get("1.a_idade"), errors="coerce"),
+        "faixa_idade": df_bronze.get("1.a.1_faixa_idade"),
+        "genero": df_bronze.get("1.b_genero"),
+        "cor_raca_etnia": df_bronze.get("1.c_cor/raca/etnia"),
+        "pcd": df_bronze.get("1.d_pcd"),
+        "uf_mora": df_bronze.get("1.i.1_uf_onde_mora"),
+        "regiao_mora": df_bronze.get("1.i.2_regiao_onde_mora"),
+        "nivel_ensino": df_bronze.get("1.l_nivel_de_ensino"),
+        "area_formacao": df_bronze.get("1.m_area_de_formacao"),
+        "situacao_trabalho": df_bronze.get("2.a_situacao_atual"),
+        "setor": df_bronze.get("2.b_setor"),
+        "tamanho_empresa": df_bronze.get("2.c_numero_de_funcionarios"),
+        "is_gestor": df_bronze.get("2.d_gestor"),
+        "cargo_gestor": df_bronze.get("2.e_cargo_como_gestor"),
+        "cargo_atual": df_bronze.get("2.f_cargo_atual"),
+        "senioridade": df_bronze.get("2.g_nivel"),
+        "faixa_salarial": df_bronze.get("2.h_faixa_salarial"),
+        "tempo_experiencia_dados": df_bronze.get("2.i_tempo_de_experiencia_em_dados"),
+        "tempo_experiencia_ti": df_bronze.get("2.j_tempo_de_experiencia_em_ti"),
+        "satisfeito_empresa": df_bronze.get("2.k_satisfeito_atualmente"),
+        "motivo_insatisfacao": df_bronze.get("2.l_motivo_insatisfacao"),
+        "modelo_trabalho": df_bronze.get("2.q_modelo_de_trabalho_atual"),
+        "linguagem_mais_usada": df_bronze.get("4.b_linguagem_mais_utilizada"),
+        "linguagem_preferida": df_bronze.get("4.c_linguagem_preferida"),
+        "cloud_preferida": df_bronze.get("4.f_cloud_preferida"),
+        "bi_preferido": df_bronze.get("4.h_ferramenta_de_bi_preferida"),
+        "ia_prioridade_empresa": df_bronze.get("3.e_ai_generativa_e_llm_é_uma_prioridade?"),
+        "tipo_uso_ia_empresa": df_bronze.get("3.f_tipo_de_uso_de_ai_generativa_e_llm_na_empresa"),
+        "uso_pessoal_ia": df_bronze.get("4.j_usa_chatgpt_ou_copilot_no_trabalho?"),
     }
     return pd.DataFrame(clean_dict)
 
@@ -257,32 +257,30 @@ def run_pipeline():
     print("EXECUTANDO PIPELINE BRONZE -> SILVER -> GOLD")
     print("=" * 80)
 
-    # 1. Carregar Raw
-    f23 = os.path.join(RAW_DIR, "Final Dataset - State of Data 2023-2024 - Kaggle.csv")
-    f24 = os.path.join(RAW_DIR, "Final Dataset - State of Data 2024-2025 - Kaggle.csv")
-    f25 = os.path.join(RAW_DIR, "Final Dataset - State of Data 2025-2026 - Kaggle.csv")
+    # 1. Carregar Camada Bronze
+    f23 = os.path.join(BRONZE_DIR, "Final Dataset - State of Data 2023-2024 - Kaggle.csv")
+    f24 = os.path.join(BRONZE_DIR, "Final Dataset - State of Data 2024-2025 - Kaggle.csv")
+    f25 = os.path.join(BRONZE_DIR, "Final Dataset - State of Data 2025-2026 - Kaggle.csv")
 
-    df_raw_23 = pd.read_csv(f23, encoding="utf-8", low_memory=False)
-    df_raw_24 = pd.read_csv(f24, encoding="utf-8", low_memory=False)
-    df_raw_25 = pd.read_csv(f25, encoding="utf-8", low_memory=False)
+    df_bronze_23 = pd.read_csv(f23, encoding="utf-8", low_memory=False)
+    df_bronze_24 = pd.read_csv(f24, encoding="utf-8", low_memory=False)
+    df_bronze_25 = pd.read_csv(f25, encoding="utf-8", low_memory=False)
 
-    print(f"✓ Raw 2023-2024: {df_raw_23.shape[0]:,} linhas")
-    print(f"✓ Raw 2024-2025: {df_raw_24.shape[0]:,} linhas")
-    print(f"✓ Raw 2025-2026: {df_raw_25.shape[0]:,} linhas")
+    print(f"✓ Bronze 2023-2024: {df_bronze_23.shape[0]:,} linhas")
+    print(f"✓ Bronze 2024-2025: {df_bronze_24.shape[0]:,} linhas")
+    print(f"✓ Bronze 2025-2026: {df_bronze_25.shape[0]:,} linhas")
 
-    # 2. Transformações Silver
-    s23 = process_edition_2023(df_raw_23)
-    s24 = process_edition_2024(df_raw_24)
-    s25 = process_edition_2025(df_raw_25)
+    # 2. Transformações para a Camada Silver
+    s23 = process_edition_2023(df_bronze_23)
+    s24 = process_edition_2024(df_bronze_24)
+    s25 = process_edition_2025(df_bronze_25)
 
     silver_df = pd.concat([s23, s24, s25], ignore_index=True)
 
-    # Aplicação de regras de higienização
-    # Trim em strings
+    # Higienização e padronização
     for col in silver_df.select_dtypes(include="object").columns:
         silver_df[col] = silver_df[col].astype(str).str.strip().replace({"nan": None, "None": None, "": None})
 
-    # Normalização de campos calculados / padronizados
     silver_df["salario_medio_estimado"] = silver_df["faixa_salarial"].apply(parse_salary_range)
     silver_df["senioridade_padronizada"] = silver_df["senioridade"].apply(normalize_seniority)
     silver_df["modelo_trabalho_padronizado"] = silver_df["modelo_trabalho"].apply(normalize_work_model)
@@ -300,7 +298,7 @@ def run_pipeline():
 
     # 3. Construção da Camada Gold (Data Marts Agregados)
     print("\n" + "=" * 80)
-    print("CONSTRUINDO TABELAS ANALÍTICAS (GOLD)")
+    print("CONSTRUINDO TABELAS ANALÍTICAS (CAMADA GOLD)")
     print("=" * 80)
 
     # Gold 1: Perfil de Mercado por Região & Demografia

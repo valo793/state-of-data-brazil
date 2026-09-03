@@ -27,8 +27,8 @@ sns.set_theme(style="whitegrid", palette="husl")
 plt.rcParams["figure.figsize"] = (14, 6)
 plt.rcParams["font.size"] = 12
 
-# Diretório dos dados brutos — ajuste conforme necessário
-DATA_DIR = Path("../data/raw")
+# Diretório dos dados da camada Bronze — ajuste conforme necessário
+DATA_DIR = Path("../data/bronze")
 
 # %% [markdown]
 # ### 1.1 Descoberta automática dos arquivos CSV

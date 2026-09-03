@@ -21,7 +21,7 @@ warnings.filterwarnings("ignore")
 # =========================================================================
 # Config
 # =========================================================================
-DATA_DIR = r"C:\Projects\Tech Challenge 3\data\raw"
+DATA_DIR = r"C:\Projects\Tech Challenge 3\data\bronze"
 OUTPUT_DIR = r"C:\Projects\Tech Challenge 3\output\graficos"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 

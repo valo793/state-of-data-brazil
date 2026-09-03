@@ -1,10 +1,10 @@
 """
 Tech Challenge Fase 3 — AWS Glue Job: Bronze → Silver
 =====================================================
-PySpark Job para transformar dados brutos (Raw/Bronze) para a camada Silver no Data Lake S3.
+PySpark Job para transformar dados brutos da Camada Bronze para a Camada Silver no Data Lake S3.
 
 Responsabilidades deste Job:
-  1. Ingestão dos CSVs das 3 edições da pesquisa (2023-2024, 2024-2025, 2025-2026).
+  1. Ingestão dos CSVs das 3 edições da pesquisa a partir da Camada Bronze (s3://<bucket>/bronze/).
   2. Parsing e harmonização de esquemas heterogêneos (trata tuplas-string de 2023 e notações ponto de 2024+).
   3. Higienização de strings, tratamento de valores nulos e remoção de duplicatas.
   4. Conversão e inferência de tipos (int, float, boolean, string).
@@ -46,11 +46,11 @@ job.init(args["JOB_NAME"], args)
 BUCKET = args["BUCKET_NAME"]
 DATABASE = args["DATABASE_NAME"]
 
-RAW_PATH = f"s3://{BUCKET}/raw/"
+BRONZE_PATH = f"s3://{BUCKET}/bronze/"
 SILVER_PATH = f"s3://{BUCKET}/silver/state_of_data/"
 
 print(f"[INFO] Iniciando Job Bronze -> Silver")
-print(f"[INFO] S3 Raw: {RAW_PATH}")
+print(f"[INFO] S3 Bronze: {BRONZE_PATH}")
 print(f"[INFO] S3 Silver: {SILVER_PATH}")
 
 # UDF para cálculo numérico de salário médio estimado
@@ -112,12 +112,12 @@ def normalize_work_model_udf(val):
     return "Outro"
 
 
-# 1. Carregamento dos dados brutos
-print("[PASSO 1] Lendo bases de dados brutas do S3...")
+# 1. Carregamento dos dados brutos da Camada Bronze
+print("[PASSO 1] Lendo bases de dados da Camada Bronze no S3...")
 
 # 2023-2024
 df23_raw = spark.read.option("header", "true").option("inferSchema", "false") \
-    .csv(f"{RAW_PATH}*2023-2024*.csv")
+    .csv(f"{BRONZE_PATH}*2023-2024*.csv")
 
 # Mapear colunas de 2023-2024 (código P)
 cols_23 = df23_raw.columns
@@ -194,7 +194,7 @@ df23 = df23_raw.select(
 
 # 2024-2025
 df24_raw = spark.read.option("header", "true").option("inferSchema", "false") \
-    .csv(f"{RAW_PATH}*2024-2025*.csv")
+    .csv(f"{BRONZE_PATH}*2024-2025*.csv")
 
 df24 = df24_raw.select(
     F.lit("2024-2025").alias("ano_pesquisa"),
@@ -232,7 +232,7 @@ df24 = df24_raw.select(
 
 # 2025-2026
 df25_raw = spark.read.option("header", "true").option("inferSchema", "false") \
-    .csv(f"{RAW_PATH}*2025-2026*.csv")
+    .csv(f"{BRONZE_PATH}*2025-2026*.csv")
 
 df25 = df25_raw.select(
     F.lit("2025-2026").alias("ano_pesquisa"),
@@ -284,7 +284,7 @@ df_silver = df_unified \
     ) \
     .dropDuplicates(["ano_pesquisa", "id_respondente"])
 
-print(f"[PASSO 2] Gravando Silver em {SILVER_PATH} particionado por ano_pesquisa...")
+print(f"[PASSO 2] Gravando Camada Silver em {SILVER_PATH} particionado por ano_pesquisa...")
 
 df_silver.write \
     .mode("overwrite") \

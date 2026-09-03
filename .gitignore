@@ -41,8 +41,8 @@ venv.bak/
 */.ipynb_checkpoints/*
 
 # Dados e Datasets (ignorar arquivos brutos e processados pesados, mantendo .gitkeep)
-data/raw/*
-!data/raw/.gitkeep
+data/bronze/*
+!data/bronze/.gitkeep
 data/processed/*
 !data/processed/.gitkeep
 *.csv

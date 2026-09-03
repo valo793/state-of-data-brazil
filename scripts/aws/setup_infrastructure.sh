@@ -1,10 +1,10 @@
 #!/bin/bash
 # =============================================================================
-# Tech Challenge Fase 3 — Setup da Infraestrutura AWS
+# Tech Challenge Fase 3 — Setup da Infraestrutura AWS (3 Camadas)
 # =============================================================================
-# Este script cria a infraestrutura básica no AWS Academy Lab:
-#   - Bucket S3 com estrutura de camadas (raw, bronze, silver, gold)
-#   - Glue Database para o catálogo de dados
+# Este script cria a infraestrutura no AWS Academy Lab:
+#   - Bucket S3 com as 3 camadas Medallion (bronze, silver, gold)
+#   - Glue Database para o catálogo centralizado de metadados
 #   - Glue Crawlers para catalogar cada camada
 #
 # PRÉ-REQUISITOS:
@@ -24,10 +24,10 @@ set -euo pipefail
 AWS_REGION="us-east-1"
 BUCKET_NAME="tech-challenge-3-datalake-$(aws sts get-caller-identity --query Account --output text)"
 GLUE_DATABASE="tech_challenge_3_db"
-GLUE_ROLE_ARN=""  # Preencha com o ARN da role do Glue no AWS Academy Lab
+GLUE_ROLE_ARN=""  # Preencha com o ARN da role do Glue no AWS Academy Lab (ex: LabRole)
 
 echo "============================================="
-echo " Tech Challenge Fase 3 — Setup AWS"
+echo " Tech Challenge Fase 3 — Setup AWS (3 Camadas)"
 echo "============================================="
 echo "Região:   ${AWS_REGION}"
 echo "Bucket:   ${BUCKET_NAME}"
@@ -49,23 +49,23 @@ else
 fi
 
 # ---------------------------------------------------------------------------
-# 2. Criar estrutura de camadas no S3
+# 2. Criar estrutura das 3 camadas no S3 (Bronze, Silver, Gold)
 # ---------------------------------------------------------------------------
 echo ""
-echo "[2/4] Criando estrutura de camadas no S3..."
-for LAYER in raw bronze silver gold; do
+echo "[2/4] Criando estrutura das 3 camadas Medallion no S3..."
+for LAYER in bronze silver gold; do
     aws s3api put-object \
         --bucket "${BUCKET_NAME}" \
         --key "${LAYER}/" \
     && echo "  ✓ Camada criada: s3://${BUCKET_NAME}/${LAYER}/"
 done
 
-# Criar subpastas por ano na camada raw
-for YEAR in 2021 2022 2023; do
+# Criar subpastas por edição na camada Bronze
+for EDITION in "2023_2024" "2024_2025" "2025_2026"; do
     aws s3api put-object \
         --bucket "${BUCKET_NAME}" \
-        --key "raw/state_of_data_${YEAR}/" \
-    && echo "  ✓ Subpasta criada: s3://${BUCKET_NAME}/raw/state_of_data_${YEAR}/"
+        --key "bronze/state_of_data_${EDITION}/" \
+    && echo "  ✓ Subpasta criada: s3://${BUCKET_NAME}/bronze/state_of_data_${EDITION}/"
 done
 
 # ---------------------------------------------------------------------------
@@ -80,7 +80,7 @@ else
         --region "${AWS_REGION}" \
         --database-input "{
             \"Name\": \"${GLUE_DATABASE}\",
-            \"Description\": \"Tech Challenge Fase 3 - State of Data Brasil - Data Lake\"
+            \"Description\": \"Tech Challenge Fase 3 - State of Data Brasil - Data Lake 3 Camadas\"
         }" \
     && echo "  ✓ Database criada: ${GLUE_DATABASE}"
 fi
@@ -89,11 +89,11 @@ fi
 # 4. Criar Glue Crawlers (um por camada)
 # ---------------------------------------------------------------------------
 echo ""
-echo "[4/4] Criando Glue Crawlers..."
+echo "[4/4] Criando Glue Crawlers para as 3 camadas..."
 
 if [ -z "${GLUE_ROLE_ARN}" ]; then
     echo "  ⚠  GLUE_ROLE_ARN não configurado. Pule este passo ou preencha a variável."
-    echo "  ⚠  No AWS Academy Lab, use a role: arn:aws:iam::<ACCOUNT_ID>:role/LabRole"
+    echo "  ⚠  No AWS Academy Lab, use a role padrão: arn:aws:iam::<ACCOUNT_ID>:role/LabRole"
 else
     for LAYER in bronze silver gold; do
         CRAWLER_NAME="tc3-crawler-${LAYER}"
@@ -123,9 +123,8 @@ echo " ✅ Setup concluído!"
 echo "============================================="
 echo ""
 echo "Próximos passos:"
-echo "  1. Configure GLUE_ROLE_ARN se ainda não fez"
-echo "  2. Faça upload dos CSVs para s3://${BUCKET_NAME}/raw/"
-echo "  3. Execute os Glue Crawlers para catalogar os dados"
+echo "  1. Faça upload dos CSVs brutos para s3://${BUCKET_NAME}/bronze/"
+echo "  2. Execute os Glue Crawlers ou Jobs para catalogar e transformar os dados"
 echo ""
 echo "Comandos úteis:"
 echo "  aws s3 ls s3://${BUCKET_NAME}/ --recursive"

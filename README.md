@@ -5,23 +5,22 @@ Este projeto é o **Tech Challenge da Pós-Tech em Data Analytics / Big Data (Fa
 
 Para orientar as decisões de contratação, remuneração, capacitação de equipes e investimento tecnológico, estruturamos um pipeline analítico robusto e moderno em ambiente de nuvem (**AWS**), processando os microdados históricos das 3 últimas edições da pesquisa **State of Data Brasil** (realizada pela comunidade Data Hackers em parceria com a Bain & Company).
 
-A solução contempla desde a ingestão dos dados brutos em Data Lake até o processamento distribuído com **PySpark**, organização em camadas (**Bronze**, **Silver** e **Gold**), catalogação no **AWS Glue**, consultas interativas no **Amazon Athena** e preparação de insights executivos com foco em Storytelling.
+A solução contempla desde a ingestão dos dados na camada **Bronze** em Data Lake até o processamento distribuído com **PySpark**, organização nas camadas **Silver** e **Gold**, catalogação no **AWS Glue Data Catalog**, consultas interativas no **Amazon Athena** e preparação de insights executivos com foco em Storytelling.
 
 ---
 
 ## Arquitetura da Solução AWS
 
-A arquitetura foi concebida seguindo o padrão moderno de **Data Lakehouse em Camadas (Medallion Architecture)** na AWS:
+A arquitetura foi concebida seguindo rigorosamente o padrão de **Data Lakehouse em 3 Camadas (Medallion Architecture)** na AWS:
 
 ```
                   ┌────────────────────────────────────────────────────────┐
                   │                   Amazon S3 Data Lake                  │
                   │                                                        │
 ┌──────────────┐  │  ┌──────────────┐    ┌──────────────┐    ┌───────────┐ │  ┌───────────────┐
-│              │  │  │              │    │              │    │           │ │  │ Amazon Athena │
-│ Kaggle Raw   │─┼─┼─▶  Raw/Bronze  │───▶│    Silver    │───▶│   Gold    │─┼─┼▶ Consultas SQL │
-│ CSV Datasets │  │  │ (Dados Crus) │    │(Limpo/Tipado)│    │(Agregado) │ │  │   Analíticas  │
-│              │  │  └──────┬───────┘    └──────┬───────┘    └─────┬─────┘ │  └───────┬───────┘
+│ Kaggle CSV   │──┼─▶│    Bronze    │───▶│    Silver    │───▶│   Gold    │─┼─┼▶ Amazon Athena│
+│  (Datasets   │  │  │(Dados Brutos)│    │(Limpo/Tipado)│    │(Agregado) │ │  │ Consultas SQL │
+│  Históricos) │  │  └──────┬───────┘    └──────┬───────┘    └─────┬─────┘ │  └───────┬───────┘
 └──────────────┘  │         │                   │                  │       │          │
                   └─────────┼───────────────────┼──────────────────┼───────┘          │
                             │                   │                  │                  │
@@ -33,10 +32,10 @@ A arquitetura foi concebida seguindo o padrão moderno de **Data Lakehouse em Ca
                   └──────────────────┘ └──────────────────┘ └─────────────┘ └─────────────────┘
 ```
 
-### Detalhamento das Camadas de Dados
-* **🥉 Camada Raw / Bronze (`s3://<bucket>/raw/`)**: Armazenamento dos arquivos CSV brutos exatamente como disponibilizados no Kaggle, organizados por ano da pesquisa (2023-2024, 2024-2025, 2025-2026).
-* **🥈 Camada Silver (`s3://<bucket>/silver/`)**: Dados estruturados, limpos e harmonizados. Nesta etapa, corrigimos heterogeneidades nos cabeçalhos das pesquisas, convertemos tipos primitivos, padronizamos nomenclaturas de cargos, modelos de trabalho e senioridades, calculamos métricas contínuas de salário médio estimado e desduplicamos registros. Armazenado em formato colunar **Parquet** particionado por `ano_pesquisa`.
-* **🥇 Camada Gold (`s3://<bucket>/gold/`)**: Data Marts agregados e otimizados para consumo por analistas de negócio e ferramentas de visualização. Cada tabela responde a um eixo estratégico (perfil demográfico, remuneração, diversidade, stack tecnológica, adoção de IA e modelos de trabalho).
+### Detalhamento das 3 Camadas de Dados
+* **🥉 Camada Bronze (`s3://<bucket>/bronze/`)**: Ingestão e catalogação dos dados brutos exatamente como disponibilizados nas pesquisas do Data Hackers (2023-2024, 2024-2025 e 2025-2026), preservando a fidelidade da fonte original.
+* **🥈 Camada Silver (`s3://<bucket>/silver/`)**: Dados limpos, estruturados e harmonizados. Nesta etapa, corrigimos heterogeneidades nos cabeçalhos das pesquisas, convertemos tipos primitivos, padronizamos nomenclaturas de cargos, modelos de trabalho e senioridades, calculamos métricas contínuas de salário médio estimado e removemos registros duplicados. Armazenado em formato colunar **Parquet** particionado por `ano_pesquisa`.
+* **🥇 Camada Gold (`s3://<bucket>/gold/`)**: Data Marts agregados e otimizados para consumo analítico. Cada tabela responde a um eixo estratégico de negócio (perfil demográfico, remuneração, diversidade, stack tecnológica, adoção de IA e modelos de trabalho).
 
 > O diagrama editável oficial encontra-se em [`diagrams/arquitetura_aws.drawio`](diagrams/arquitetura_aws.drawio).
 
@@ -64,7 +63,7 @@ O projeto segue uma arquitetura modular, separando a infraestrutura como código
 state-of-data-brazil/
 │
 ├── data/
-│   ├── raw/                    # Datasets brutos da pesquisa State of Data Brasil (ignorados no Git)
+│   ├── bronze/                 # Datasets da camada Bronze (CSVs originais, ignorados no Git)
 │   │   └── .gitkeep
 │   └── processed/              # Datasets processados nas camadas Silver e Gold (ignorados no Git)
 │       └── .gitkeep
@@ -94,8 +93,8 @@ state-of-data-brazil/
 │
 ├── scripts/
 │   ├── aws/
-│   │   ├── setup_infrastructure.sh # Provisionamento automatizado de S3, Glue Database e Crawlers via AWS CLI
-│   │   └── upload_to_s3.py         # Script Python (Boto3) para upload dos dados brutos ao S3
+│   │   ├── setup_infrastructure.sh # Provisionamento de S3, Glue Database e Crawlers via AWS CLI
+│   │   └── upload_to_s3.py         # Script Python (Boto3) para upload dos dados brutos para a camada Bronze do S3
 │   ├── etl/
 │   │   ├── glue_job_bronze_to_silver.py # AWS Glue Job PySpark: Ingestão, harmonização e limpeza (Silver)
 │   │   ├── glue_job_silver_to_gold.py   # AWS Glue Job PySpark: Agregações analíticas e Data Marts (Gold)
@@ -124,16 +123,16 @@ pip install -r requirements.txt
 ```
 
 ### 3. Provisionamento da Infraestrutura AWS
-Execute o script de automação para criar o bucket S3 particionado e o catálogo de dados no AWS Glue:
+Execute o script de automação para criar o bucket S3 particionado nas 3 camadas e o catálogo de dados no AWS Glue:
 ```bash
 chmod +x scripts/aws/setup_infrastructure.sh
 ./scripts/aws/setup_infrastructure.sh
 ```
 
-### 4. Ingestão dos Dados no S3
-Faça o upload dos datasets brutos (baixados do [Kaggle Data Hackers](https://www.kaggle.com/datahackers/datasets)) para a camada Raw:
+### 4. Ingestão dos Dados na Camada Bronze do S3
+Faça o upload dos datasets brutos (baixados do [Kaggle Data Hackers](https://www.kaggle.com/datahackers/datasets)) diretamente para a camada Bronze:
 ```bash
-python scripts/aws/upload_to_s3.py --bucket seu-bucket-datalake --data-dir ./data/raw
+python scripts/aws/upload_to_s3.py --bucket seu-bucket-datalake --data-dir ./data/bronze
 ```
 
 ### 5. Execução dos Glue Jobs (ETL Distribuído)
@@ -148,5 +147,5 @@ No editor de consultas do **Amazon Athena**, selecione o database `tech_challeng
 
 ## Entregáveis do Tech Challenge
 1. **Material Executivo com DataViz e Storytelling**: Relatório estruturado com diagnóstico de mercado e plano de ação estratégico para a expansão da área de dados do banco.
-2. **Diagrama da Arquitetura AWS**: Arquitetura visual documentada em Draw.io detalhando todo o fluxo de ingestão, processamento e catálogo.
+2. **Diagrama da Arquitetura AWS**: Arquitetura visual documentada em Draw.io detalhando todo o fluxo de ingestão, processamento e catálogo nas 3 camadas.
 3. **Scripts e Pipelines de Dados**: Códigos PySpark para Glue Jobs, scripts de automação de infraestrutura em nuvem e consultas SQL documentadas.

@@ -9,9 +9,9 @@ A solução contempla desde a ingestão dos dados na camada **Bronze** em Data L
 
 ---
 
-## Arquitetura da Solução AWS
+## Arquitetura da Solução AWS (3 Camadas Medallion)
 
-A arquitetura foi concebida seguindo rigorosamente o padrão de **Data Lakehouse em 3 Camadas (Medallion Architecture)** na AWS:
+A arquitetura foi concebida seguindo rigorosamente o padrão de **Data Lakehouse em 3 Camadas** na AWS:
 
 ```
                   ┌────────────────────────────────────────────────────────┐
@@ -32,10 +32,10 @@ A arquitetura foi concebida seguindo rigorosamente o padrão de **Data Lakehouse
                   └──────────────────┘ └──────────────────┘ └─────────────┘ └─────────────────┘
 ```
 
-### Detalhamento das 3 Camadas de Dados
+### Detalhamento das Camadas de Dados
 * **🥉 Camada Bronze (`s3://<bucket>/bronze/`)**: Ingestão e catalogação dos dados brutos exatamente como disponibilizados nas pesquisas do Data Hackers (2023-2024, 2024-2025 e 2025-2026), preservando a fidelidade da fonte original.
-* **🥈 Camada Silver (`s3://<bucket>/silver/`)**: Dados limpos, estruturados e harmonizados. Nesta etapa, corrigimos heterogeneidades nos cabeçalhos das pesquisas, convertemos tipos primitivos, padronizamos nomenclaturas de cargos, modelos de trabalho e senioridades, calculamos métricas contínuas de salário médio estimado e removemos registros duplicados. Armazenado em formato colunar **Parquet** particionado por `ano_pesquisa`.
-* **🥇 Camada Gold (`s3://<bucket>/gold/`)**: Data Marts agregados e otimizados para consumo analítico. Cada tabela responde a um eixo estratégico de negócio (perfil demográfico, remuneração, diversidade, stack tecnológica, adoção de IA e modelos de trabalho).
+* **🥈 Camada Silver (`s3://<bucket>/silver/`)**: Dados limpos, estruturados e harmonizados. Nesta etapa, corrigimos heterogeneidades nos cabeçalhos das pesquisas, convertemos tipos primitivos, padronizamos nomenclaturas de cargos, modelos de trabalho e senioridades, calculamos métricas contínuas de salário médio estimado e removemos registros duplicados com hash técnico SHA-256 para IDs nulos. Armazenado em formato colunar **Parquet** particionado por `ano_pesquisa`.
+* **🥇 Camada Gold (`s3://<bucket>/gold/`)**: Data Marts analíticos e tabelas agregadas preparadas para consumo no Amazon Athena e geração do material executivo. Inclui desaninhamento (*explode*) de tecnologias e contadores para médias ponderadas.
 
 > O diagrama editável oficial encontra-se em [`diagrams/arquitetura_aws.drawio`](diagrams/arquitetura_aws.drawio).
 
@@ -46,7 +46,7 @@ A arquitetura foi concebida seguindo rigorosamente o padrão de **Data Lakehouse
 O pipeline foi projetado para responder às perguntas centrais do case da Instituição Financeira:
 
 1. **Estrutura do Mercado**: Como está distribuído o ecossistema brasileiro de dados em termos de geografia, senioridade e formação acadêmica?
-2. **Valorização Profissional**: Quais cargos, especialidades e níveis de senioridade recebem as maiores remunerações médias?
+2. **Valorização Profissional**: Quais cargos, especialidades e níveis de senioridade recebem as maiores remunerações médias ponderadas?
 3. **Diversidade de Gênero & Inclusão**: Qual é a representatividade feminina e de grupos minorizados, e como ela varia entre cargos técnicos e posições de liderança?
 4. **Adoção Tecnológica**: Quais linguagens de programação, plataformas de nuvem (AWS/GCP/Azure) e ferramentas de BI dominam o mercado?
 5. **Inteligência Artificial & GenAI**: Qual é o grau de priorização de IA Generativa nas empresas e como os profissionais utilizam Copilots/LLMs no cotidiano?
@@ -57,10 +57,13 @@ O pipeline foi projetado para responder às perguntas centrais do case da Instit
 
 ## Estrutura do Repositório
 
-O projeto segue uma arquitetura modular, separando a infraestrutura como código, jobs distribuídos de ETL, validações locais e scripts analíticos:
+O projeto segue uma arquitetura modular com separação de infraestrutura, ETL distribuído, validações locais, testes de qualidade e notebooks:
 
 ```text
 state-of-data-brazil/
+│
+├── config/
+│   └── mapeamento_colunas.json # Mapeamento declarativo de colunas e regras de padronização
 │
 ├── data/
 │   ├── bronze/                 # Datasets da camada Bronze (CSVs originais, ignorados no Git)
@@ -71,41 +74,40 @@ state-of-data-brazil/
 ├── diagrams/
 │   └── arquitetura_aws.drawio  # Diagrama completo da arquitetura AWS (Draw.io / diagrams.net)
 │
+├── docs/
+│   ├── dicionario_dados.md     # Catálogo e descrição detalhada de todas as variáveis
+│   ├── mapeamento_edicoes.md   # Matriz de correspondência de colunas entre os 3 anos
+│   ├── regras_transformacao.md # Regras de higienização, deduplicação e estimativa salarial
+│   └── relatorio_qualidade.md  # Relatório de auditoria e reconciliação Bronze ➔ Silver ➔ Gold
+│
 ├── notebooks/
-│   └── 01_analise_exploratoria.py # Script/Notebook de inspeção inicial dos metadados e qualidade
+│   ├── 01_analise_exploratoria.ipynb # Notebook Jupyter: Inspeção inicial dos dados da Camada Bronze
+│   ├── 02_validacao_silver.ipynb     # Notebook Jupyter: Auditoria e validação da Camada Silver
+│   └── 03_analises_negocio.ipynb     # Notebook Jupyter: Análises estratégicas da Camada Gold
 │
 ├── output/
-│   ├── graficos/               # Visualizações executivas geradas a partir dos dados consolidados
-│   │   ├── 01_respondentes_por_ano.png
-│   │   ├── 02_genero_por_ano.png
-│   │   ├── 03_regiao_por_ano.png
-│   │   ├── 04_nivel_senioridade.png
-│   │   ├── 05_faixa_salarial.png
-│   │   ├── 06_cargo_atual.png
-│   │   ├── 07_modelo_trabalho.png
-│   │   ├── 08_experiencia_dados.png
-│   │   ├── 09_setor.png
-│   │   ├── 10_nivel_ensino.png
-│   │   ├── 11_faixa_etaria.png
-│   │   └── 12_satisfacao.png
+│   ├── graficos/               # Visualizações executivas em alta resolução (300 DPI) com títulos conclusivos
 │   └── apresentacao/           # Diretório reservado para o material executivo final (PDF/PPTX)
 │       └── .gitkeep
 │
 ├── scripts/
 │   ├── aws/
 │   │   ├── setup_infrastructure.sh # Provisionamento de S3, Glue Database e Crawlers via AWS CLI
-│   │   └── upload_to_s3.py         # Script Python (Boto3) para upload dos dados brutos para a camada Bronze do S3
+│   │   └── upload_to_s3.py         # Upload dos dados brutos para a camada Bronze do S3
 │   ├── etl/
 │   │   ├── glue_job_bronze_to_silver.py # AWS Glue Job PySpark: Ingestão, harmonização e limpeza (Silver)
 │   │   ├── glue_job_silver_to_gold.py   # AWS Glue Job PySpark: Agregações analíticas e Data Marts (Gold)
-│   │   └── pipeline_silver_gold.py      # Pipeline local para validação e testes das transformações
-│   └── analytics/
-│       ├── exploracao_completa.py  # Pipeline de geração dos gráficos analíticos consolidados
-│       └── queries_athena.sql      # Consultas SQL no Amazon Athena sobre as tabelas Gold
+│   │   └── pipeline_silver_gold.py      # Pipeline local completo com caminhos relativos e deduplicação
+│   ├── analytics/
+│   │   ├── gerar_graficos_executivos.py # Gerador das visualizações corporativas em 300 DPI
+│   │   └── queries_athena.sql           # Consultas SQL no Amazon Athena (médias ponderadas e KPIs)
+│   └── quality/
+│       ├── validacao_qualidade.py       # Suíte de testes de qualidade e reconciliação
+│       └── gerar_notebooks.py           # Automação de geração dos notebooks Jupyter
 │
 ├── .gitignore                  # Regras de exclusão do Git (ignora dados pesados e credenciais)
 ├── requirements.txt            # Dependências e bibliotecas Python do projeto
-└── README.md                   # Documentação técnica e executiva do projeto (este arquivo)
+└── README.md                   # Documentação técnica e executiva oficial (este arquivo)
 ```
 
 ---
@@ -141,11 +143,11 @@ No console do **AWS Glue** (ou via AWS CLI):
 2. Em seguida, execute o job [`glue_job_silver_to_gold.py`](scripts/etl/glue_job_silver_to_gold.py) para gerar as tabelas analíticas.
 
 ### 6. Consultas Analíticas no Amazon Athena
-No editor de consultas do **Amazon Athena**, selecione o database `tech_challenge_3_db` e execute as queries de [`scripts/analytics/queries_athena.sql`](scripts/analytics/queries_athena.sql) para extrair os indicadores de cada dimensão de negócio.
+No editor de consultas do **Amazon Athena**, selecione o database `tech_challenge_3_db` e execute as queries de [`scripts/analytics/queries_athena.sql`](scripts/analytics/queries_athena.sql) para extrair os indicadores com médias ponderadas de cada dimensão de negócio.
 
 ---
 
 ## Entregáveis do Tech Challenge
 1. **Material Executivo com DataViz e Storytelling**: Relatório estruturado com diagnóstico de mercado e plano de ação estratégico para a expansão da área de dados do banco.
 2. **Diagrama da Arquitetura AWS**: Arquitetura visual documentada em Draw.io detalhando todo o fluxo de ingestão, processamento e catálogo nas 3 camadas.
-3. **Scripts e Pipelines de Dados**: Códigos PySpark para Glue Jobs, scripts de automação de infraestrutura em nuvem e consultas SQL documentadas.
+3. **Scripts e Pipelines de Dados**: Códigos PySpark para Glue Jobs, scripts de automação de infraestrutura em nuvem, consultas SQL documentadas e suíte de qualidade de dados.

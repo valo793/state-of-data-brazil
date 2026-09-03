@@ -3,16 +3,17 @@ Tech Challenge Fase 3 — AWS Glue Job: Bronze → Silver
 =====================================================
 PySpark Job para transformar dados brutos da Camada Bronze para a Camada Silver no Data Lake S3.
 
-Responsabilidades deste Job:
+Responsabilidades Metodológicas deste Job:
   1. Ingestão dos CSVs das 3 edições da pesquisa a partir da Camada Bronze (s3://<bucket>/bronze/).
   2. Parsing e harmonização de esquemas heterogêneos (trata tuplas-string de 2023 e notações ponto de 2024+).
-  3. Higienização de strings, tratamento de valores nulos e remoção de duplicatas.
-  4. Conversão e inferência de tipos (int, float, boolean, string).
-  5. Feature Engineering:
-     - Extração numérica de salário médio estimado a partir das faixas salariais.
-     - Padronização de senioridade (Júnior, Pleno, Sênior, Especialista).
+  3. Deduplicação segura com geração de hash SHA-256 (id_registro_tecnico) caso id_respondente seja nulo.
+  4. Higienização de strings, tratamento de valores nulos e trim.
+  5. Conversão e inferência de tipos primitivos (Integer, Double, Boolean, String).
+  6. Feature Engineering:
+     - Extração numérica de salário médio estimado (salario_medio_estimado) com base na nota metodológica de faixas.
+     - Padronização de senioridade (Júnior, Pleno, Sênior, Especialista/Liderança Técnica).
      - Padronização de modelos de trabalho (100% Remoto, Híbrido Flexível, Híbrido Dias Fixos, 100% Presencial).
-  6. Escrita em formato columnar Parquet compactado (Snappy), particionado por `ano_pesquisa`.
+  7. Escrita em formato columnar Parquet compactado (Snappy), particionado por `ano_pesquisa`.
 
 Execução no AWS Glue:
   - Glue Version: 4.0 (Spark 3.3, Python 3)
@@ -62,17 +63,17 @@ def parse_salary_udf(val):
     if "menos de" in s or "até r$" in s:
         nums = re.findall(r"\d+\.?\d*", s.replace(".", ""))
         if nums:
-            return float(nums[0]) / 2
-        return 1000.0
+            return float(nums[0]) / 2.0
+        return 500.0
     elif "acima de" in s or "mais de" in s:
         nums = re.findall(r"\d+\.?\d*", s.replace(".", ""))
         if nums:
             return float(nums[0]) * 1.2
-        return 45000.0
+        return 48000.0
     else:
         nums = re.findall(r"\d+\.?\d*", s.replace(".", ""))
         if len(nums) >= 2:
-            return (float(nums[0]) + float(nums[1])) / 2
+            return (float(nums[0]) + float(nums[1])) / 2.0
         elif len(nums) == 1:
             return float(nums[0])
     return None
@@ -82,16 +83,16 @@ def parse_salary_udf(val):
 def normalize_seniority_udf(val):
     if val is None or str(val).strip() == "":
         return "Não Informado"
-    s = str(val).strip()
-    if "Júnior" in s or "Junior" in s:
+    s = str(val).strip().lower()
+    if "junior" in s or "júnior" in s:
         return "Júnior"
-    if "Pleno" in s:
+    if "pleno" in s:
         return "Pleno"
-    if "Sênior" in s or "Senior" in s:
+    if "senior" in s or "sênior" in s:
         return "Sênior"
-    if any(k in s.lower() for k in ["lead", "líder", "lider", "especialista", "staff", "principal"]):
+    if any(k in s for k in ["lead", "líder", "lider", "especialista", "staff", "principal", "head", "coordenador", "gerente", "diretor"]):
         return "Especialista/Liderança Técnica"
-    return s
+    return str(val).strip().capitalize()
 
 # UDF para padronização de modelo de trabalho
 @F.udf(returnType=StringType())
@@ -99,7 +100,7 @@ def normalize_work_model_udf(val):
     if val is None or str(val).strip() == "":
         return "Não Informado"
     s = str(val).strip().lower()
-    if "100% remoto" in s or "totalmente remoto" in s:
+    if "100% remoto" in s or "totalmente remoto" in s or "home office" in s:
         return "100% Remoto"
     if "100% presencial" in s or "totalmente presencial" in s:
         return "100% Presencial"
@@ -119,7 +120,6 @@ print("[PASSO 1] Lendo bases de dados da Camada Bronze no S3...")
 df23_raw = spark.read.option("header", "true").option("inferSchema", "false") \
     .csv(f"{BRONZE_PATH}*2023-2024*.csv")
 
-# Mapear colunas de 2023-2024 (código P)
 cols_23 = df23_raw.columns
 def find_c23(prefix):
     for c in cols_23:
@@ -271,8 +271,19 @@ df25 = df25_raw.select(
 # União dos 3 DataFrames
 df_unified = df23.unionByName(df24).unionByName(df25)
 
+# Geração de identificador técnico seguro para IDs nulos antes de deduplicar
+df_with_id = df_unified.withColumn(
+    "id_registro_tecnico",
+    F.when(
+        F.col("id_respondente").isNotNull() & (F.trim(F.col("id_respondente")) != ""),
+        F.col("id_respondente")
+    ).otherwise(
+        F.sha2(F.concat_ws("||", F.col("ano_pesquisa"), F.col("idade"), F.col("genero"), F.col("cargo_atual"), F.col("faixa_salarial")), 256)
+    )
+)
+
 # Limpeza e transformações avançadas
-df_silver = df_unified \
+df_silver = df_with_id \
     .withColumn("salario_medio_estimado", parse_salary_udf(F.col("faixa_salarial"))) \
     .withColumn("senioridade_padronizada", normalize_seniority_udf(F.col("senioridade"))) \
     .withColumn("modelo_trabalho_padronizado", normalize_work_model_udf(F.col("modelo_trabalho"))) \
@@ -282,7 +293,7 @@ df_silver = df_unified \
          .when(F.lower(F.col("satisfeito_empresa")).isin("false", "0", "0.0", "não", "nao"), F.lit(False))
          .otherwise(None)
     ) \
-    .dropDuplicates(["ano_pesquisa", "id_respondente"])
+    .dropDuplicates(["ano_pesquisa", "id_registro_tecnico"])
 
 print(f"[PASSO 2] Gravando Camada Silver em {SILVER_PATH} particionado por ano_pesquisa...")
 

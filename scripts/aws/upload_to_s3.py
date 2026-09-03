@@ -70,12 +70,12 @@ def main():
     parser.add_argument(
         "--data-dir",
         default="./data/bronze",
-        help="Diretório local com os CSVs (default: ./data/bronze)",
+        help="Diretório local com os CSVs brutos",
     )
     parser.add_argument(
         "--region",
         default="us-east-1",
-        help="Região AWS (default: us-east-1)",
+        help="Região AWS",
     )
     args = parser.parse_args()
 

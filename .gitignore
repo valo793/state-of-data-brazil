@@ -50,10 +50,13 @@ data/processed/*
 *.parquet
 *.orc
 *.avro
-*.json
 *.xlsx
 *.zip
 *.tar.gz
+data/*.json
+
+# Permitir configurações
+!config/*.json
 
 # Saídas e relatórios gerados (preservando gráficos e estrutura de pastas)
 output/graficos/*.tmp

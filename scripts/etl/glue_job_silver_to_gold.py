@@ -45,6 +45,38 @@ GOLD_PATH = f"s3://{BUCKET}/gold/"
 print(f"[INFO] Lendo dados Silver de: {SILVER_PATH}")
 df_silver = spark.read.parquet(SILVER_PATH)
 
+# Validação preventiva do contrato da camada Silver.
+REQUIRED_SILVER_COLUMNS = [
+    "ano_pesquisa", "id_respondente", "idade", "genero", "cor_raca_etnia",
+    "regiao_mora", "nivel_ensino", "cargo_atual", "is_gestor",
+    "senioridade_padronizada", "salario_medio_estimado",
+    "modelo_trabalho_padronizado", "satisfeito_empresa_bool",
+    "linguagem_preferida", "cloud_preferida", "bi_preferido",
+    "ia_prioridade_empresa", "uso_pessoal_ia"
+]
+
+missing_columns = sorted(set(REQUIRED_SILVER_COLUMNS) - set(df_silver.columns))
+if missing_columns:
+    raise ValueError(
+        f"Camada Silver incompatível: colunas obrigatórias ausentes: {missing_columns}"
+    )
+
+expected_editions = {"2023-2024", "2024-2025", "2025-2026"}
+found_editions = {
+    row["ano_pesquisa"]
+    for row in df_silver.select("ano_pesquisa").distinct().collect()
+}
+missing_editions = sorted(expected_editions - found_editions)
+if missing_editions:
+    raise ValueError(
+        f"Camada Silver incompleta: partições/edições ausentes: {missing_editions}"
+    )
+
+print(
+    f"[OK] Contrato Silver validado: {len(REQUIRED_SILVER_COLUMNS)} colunas "
+    f"e edições {sorted(found_editions)}."
+)
+
 # =========================================================================
 # 1. Gold: Perfil de Mercado
 # =========================================================================
@@ -64,9 +96,10 @@ gold_remuneracao = df_silver.filter(F.col("cargo_atual").isNotNull()) \
     .groupBy("ano_pesquisa", "cargo_atual", "senioridade_padronizada", "regiao_mora") \
     .agg(
         F.count("id_respondente").alias("total_profissionais"),
+        F.count("salario_medio_estimado").alias("total_salarios_validos"),
         F.sum("salario_medio_estimado").alias("soma_salarios"),
         F.avg("salario_medio_estimado").alias("salario_medio"),
-        F.median("salario_medio_estimado").alias("salario_mediano"),
+        F.expr("percentile_approx(salario_medio_estimado, 0.5)").alias("salario_mediano"),
         F.min("salario_medio_estimado").alias("salario_min"),
         F.max("salario_medio_estimado").alias("salario_max")
     )
@@ -152,19 +185,27 @@ gold_trabalho.write.mode("overwrite").parquet(f"{GOLD_PATH}gold_modelos_trabalho
 # 7. Gold: Indicadores Executivos Consolidados
 # =========================================================================
 print("[STEP 7] Gerando gold_indicadores_executivos...")
-gold_kpis = df_silver.groupBy("ano_pesquisa") \
+gold_kpis_base = df_silver.groupBy("ano_pesquisa") \
     .agg(
         F.count("id_respondente").alias("total_respondentes"),
         F.round(F.avg(F.when(F.col("genero") == "Feminino", 1).otherwise(0)) * 100.0, 2).alias("pct_feminino"),
         F.round(F.avg(F.when(F.col("regiao_mora") == "Sudeste", 1).otherwise(0)) * 100.0, 2).alias("pct_sudeste"),
-        F.round(
-            F.sum(F.when(F.col("satisfeito_empresa_bool") == True, 1).otherwise(0)) * 100.0 /
-            F.nullif(F.sum(F.when(F.col("satisfeito_empresa_bool").isNotNull(), 1).otherwise(0)), 0),
-            2
-        ).alias("taxa_satisfacao_geral"),
+        F.sum(F.when(F.col("satisfeito_empresa_bool") == True, 1).otherwise(0)).alias("total_satisfeitos"),
+        F.sum(F.when(F.col("satisfeito_empresa_bool").isNotNull(), 1).otherwise(0)).alias("total_respostas_satisfacao"),
         F.round(F.avg(F.when(F.col("modelo_trabalho_padronizado") == "100% Remoto", 1).otherwise(0)) * 100.0, 2).alias("pct_remoto"),
         F.round(F.avg("salario_medio_estimado"), 2).alias("media_salarial_geral")
     )
+
+gold_kpis = gold_kpis_base.withColumn(
+    "taxa_satisfacao_geral",
+    F.when(
+        F.col("total_respostas_satisfacao") > 0,
+        F.round(
+            F.col("total_satisfeitos") * 100.0 / F.col("total_respostas_satisfacao"),
+            2
+        )
+    ).otherwise(F.lit(None).cast("double"))
+)
 gold_kpis.write.mode("overwrite").parquet(f"{GOLD_PATH}gold_indicadores_executivos/")
 
 print("\n[SUCESSO] Todas as tabelas da Camada Gold foram geradas e gravadas no S3!")

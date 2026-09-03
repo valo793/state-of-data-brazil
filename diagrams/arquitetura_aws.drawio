@@ -1,93 +1,163 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0">
-  <diagram id="architecture" name="AWS Big Data Pipeline">
-    <mxGraphModel dx="1546" dy="1007" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+  <diagram id="architecture" name="Arquitetura AWS — Tech Challenge Fase 3">
+    <mxGraphModel dx="1600" dy="950" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="680" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        
-        <!-- S3 Data Lake Group -->
-        <mxCell id="s3_group" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=30;dashed=1;dashPattern=8 8;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=14;" value="Amazon S3 Data Lake (Camadas Medallion)" vertex="1">
-          <mxGeometry height="300" width="560" x="200" y="80" as="geometry" />
+
+        <!-- ================================================================= -->
+        <!-- 1. ORIGEM DE DADOS (KAGGLE)                                       -->
+        <!-- ================================================================= -->
+        <mxCell id="source_kaggle" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f0fa;strokeColor=#9673a6;strokeWidth=2;fontStyle=1;fontSize=12;align=center;" value="&lt;b&gt;Fonte de Dados Externa&lt;/b&gt;&lt;br&gt;Kaggle — State of Data Brasil&lt;br&gt;&lt;font color='#666666' size='10'&gt;Edições: 2023–2024 | 2024–2025 | 2025–2026&lt;br&gt;Formato: Arquivos CSV Brutos&lt;/font&gt;" vertex="1">
+          <mxGeometry height="95" width="180" x="30" y="165" as="geometry" />
         </mxCell>
-        
+
+        <!-- Seta Kaggle -> S3 Bronze -->
+        <mxCell id="edge_kaggle_bronze" edge="1" parent="1" source="source_kaggle" target="s3_bronze" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#147EBA;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ================================================================= -->
+        <!-- 2. CONTAINER AMAZON S3 DATA LAKE (3 CAMADAS DENTRO DO S3)         -->
+        <!-- ================================================================= -->
+        <mxCell id="s3_group" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=32;dashed=1;dashPattern=8 8;fillColor=#F8F9FA;strokeColor=#232F3E;strokeWidth=2;fontStyle=1;fontSize=14;fontColor=#232F3E;" value="Amazon S3 Data Lake (3 Camadas Medallion)" vertex="1">
+          <mxGeometry height="210" width="640" x="250" y="110" as="geometry" />
+        </mxCell>
+
         <!-- Camada Bronze -->
-        <mxCell id="s3_bronze" parent="s3_group" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#cd7f32;strokeColor=#8b4513;fontColor=#ffffff;fontStyle=1" value="Camada Bronze&#xa;(Dados Brutos Catalogados)" vertex="1">
-          <mxGeometry height="90" width="100" x="30" y="105" as="geometry" />
+        <mxCell id="s3_bronze" parent="s3_group" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#e6d7c3;strokeColor=#b87333;strokeWidth=2;fontStyle=1;align=center;" value="&lt;b&gt;Camada Bronze&lt;/b&gt;&lt;br&gt;&lt;font size='10' color='#555555'&gt;s3://bucket/bronze/&lt;br&gt;&lt;b&gt;CSV original&lt;/b&gt;&lt;br&gt;Dados brutos preservados&lt;/font&gt;" vertex="1">
+          <mxGeometry height="110" width="160" x="30" y="65" as="geometry" />
         </mxCell>
-        
-        <!-- Glue Job 1 (Bronze -> Silver) -->
-        <mxCell id="glue_job1" parent="s3_group" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1" value="AWS Glue Job 1&#xa;(Bronze ➔ Silver&#xa;PySpark)" vertex="1">
-          <mxGeometry height="90" width="110" x="165" y="105" as="geometry" />
-        </mxCell>
-        <mxCell id="edge_b_to_job1" edge="1" parent="s3_group" source="s3_bronze" target="glue_job1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        
+
         <!-- Camada Silver -->
-        <mxCell id="s3_silver" parent="s3_group" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#c0c0c0;strokeColor=#808080;fontStyle=1" value="Camada Silver&#xa;(Limpo, Tipado &amp;&#xa;Harmonizado)" vertex="1">
-          <mxGeometry height="90" width="100" x="310" y="105" as="geometry" />
+        <mxCell id="s3_silver" parent="s3_group" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#e8ecef;strokeColor=#7f8c8d;strokeWidth=2;fontStyle=1;align=center;" value="&lt;b&gt;Camada Silver&lt;/b&gt;&lt;br&gt;&lt;font size='10' color='#555555'&gt;s3://bucket/silver/&lt;br&gt;&lt;b&gt;Parquet + Snappy&lt;/b&gt;&lt;br&gt;Limpo, tipado e deduplicado&lt;br&gt;Partição: ano_pesquisa&lt;/font&gt;" vertex="1">
+          <mxGeometry height="110" width="160" x="240" y="65" as="geometry" />
         </mxCell>
-        <mxCell id="edge_job1_to_s" edge="1" parent="s3_group" source="glue_job1" target="s3_silver">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        
-        <!-- Glue Job 2 (Silver -> Gold) -->
-        <mxCell id="glue_job2" parent="s3_group" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1" value="AWS Glue Job 2&#xa;(Silver ➔ Gold&#xa;PySpark)" vertex="1">
-          <mxGeometry height="90" width="110" x="435" y="105" as="geometry" />
-        </mxCell>
-        <mxCell id="edge_s_to_job2" edge="1" parent="s3_group" source="s3_silver" target="glue_job2">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        
+
         <!-- Camada Gold -->
-        <mxCell id="s3_gold" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#ffd700;strokeColor=#daa520;fontStyle=1" value="Camada Gold&#xa;(Data Marts&#xa;Agregados)" vertex="1">
-          <mxGeometry height="90" width="100" x="780" y="185" as="geometry" />
+        <mxCell id="s3_gold" parent="s3_group" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#fef5d1;strokeColor=#d4ac0d;strokeWidth=2;fontStyle=1;align=center;" value="&lt;b&gt;Camada Gold&lt;/b&gt;&lt;br&gt;&lt;font size='10' color='#555555'&gt;s3://bucket/gold/&lt;br&gt;&lt;b&gt;Parquet (Data Marts)&lt;/b&gt;&lt;br&gt;Perfil, Salários Ponderados,&lt;br&gt;IA, Cloud, Diversidade e KPIs&lt;/font&gt;" vertex="1">
+          <mxGeometry height="110" width="160" x="450" y="65" as="geometry" />
         </mxCell>
-        <mxCell id="edge_job2_to_g" edge="1" parent="1" source="glue_job2" target="s3_gold">
+
+        <!-- ================================================================= -->
+        <!-- 3. PROCESSAMENTO AWS GLUE JOBS (FORA DO S3, ACIMA DAS CAMADAS)    -->
+        <!-- ================================================================= -->
+        <!-- Glue Job 1 (Bronze -> Silver) -->
+        <mxCell id="glue_job1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f5fe;strokeColor=#0288d1;strokeWidth=2;fontStyle=1;fontSize=11;align=center;" value="&lt;b&gt;AWS Glue Job 1 (PySpark)&lt;/b&gt;&lt;br&gt;tc3-bronze-to-silver&lt;br&gt;&lt;font size='9' color='#555555'&gt;Harmonização, Tipagem,&lt;br&gt;Deduplicação (SHA-256) &amp; Faixas Salariais&lt;/font&gt;" vertex="1">
+          <mxGeometry height="65" width="180" x="330" y="20" as="geometry" />
+        </mxCell>
+
+        <!-- Conexões Glue Job 1 -->
+        <mxCell id="edge_bronze_job1" edge="1" parent="1" source="s3_bronze" target="glue_job1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#0288d1;entryX=0.25;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        
-        <!-- Data Source (Kaggle) -->
-        <mxCell id="source_kaggle" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=13" value="Kaggle&#xa;(State of Data Brasil&#xa;2023, 2024, 2025)" vertex="1">
-          <mxGeometry height="70" width="130" x="20" y="195" as="geometry" />
-        </mxCell>
-        <mxCell id="edge_kaggle_to_bronze" edge="1" parent="1" source="source_kaggle" target="s3_bronze">
+        <mxCell id="edge_job1_silver" edge="1" parent="1" source="glue_job1" target="s3_silver" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#0288d1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        
-        <!-- AWS Glue Crawler & Catalog -->
-        <mxCell id="glue_crawler" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1" value="AWS Glue&#xa;Crawler" vertex="1">
-          <mxGeometry height="60" width="110" x="320" y="420" as="geometry" />
+
+        <!-- Glue Job 2 (Silver -> Gold) -->
+        <mxCell id="glue_job2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f5fe;strokeColor=#0288d1;strokeWidth=2;fontStyle=1;fontSize=11;align=center;" value="&lt;b&gt;AWS Glue Job 2 (PySpark)&lt;/b&gt;&lt;br&gt;tc3-silver-to-gold&lt;br&gt;&lt;font size='9' color='#555555'&gt;Agregações Analíticas, Explode Tecnologias,&lt;br&gt;Médias Ponderadas &amp; Satisfação Válida&lt;/font&gt;" vertex="1">
+          <mxGeometry height="65" width="180" x="550" y="20" as="geometry" />
         </mxCell>
-        <mxCell id="glue_catalog" parent="1" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1" value="AWS Glue&#xa;Data Catalog" vertex="1">
-          <mxGeometry height="60" width="110" x="480" y="420" as="geometry" />
-        </mxCell>
-        <mxCell id="edge_crawler_to_catalog" edge="1" parent="1" source="glue_crawler" target="glue_catalog">
+
+        <!-- Conexões Glue Job 2 -->
+        <mxCell id="edge_silver_job2" edge="1" parent="1" source="s3_silver" target="glue_job2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#0288d1;entryX=0.25;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge_s3_to_crawler" edge="1" parent="1" source="s3_group" target="glue_crawler">
+        <mxCell id="edge_job2_gold" edge="1" parent="1" source="glue_job2" target="s3_gold" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#0288d1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        
+
+        <!-- ================================================================= -->
+        <!-- 4. GOVERNANÇA E CATALOGAÇÃO (CRAWLERS & DATA CATALOG)             -->
+        <!-- ================================================================= -->
+        <!-- AWS Glue Crawlers (Bronze, Silver, Gold) -->
+        <mxCell id="glue_crawlers" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff8e1;strokeColor=#ffa000;strokeWidth=2;fontStyle=1;fontSize=11;align=center;" value="&lt;b&gt;AWS Glue Crawlers&lt;/b&gt;&lt;br&gt;&lt;font size='10'&gt;tc3-crawler-bronze | silver | gold&lt;br&gt;&lt;i color='#666666'&gt;Catalogação automática de esquemas&lt;/i&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="220" x="320" y="360" as="geometry" />
+        </mxCell>
+
+        <!-- Conexão S3 -> Crawlers -->
+        <mxCell id="edge_s3_crawlers" edge="1" parent="1" source="s3_group" target="glue_crawlers" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;strokeColor=#ffa000;dashed=1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- AWS Glue Data Catalog -->
+        <mxCell id="glue_catalog" parent="1" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;fillColor=#fff8e1;strokeColor=#ffa000;strokeWidth=2;fontStyle=1;fontSize=11;align=center;" value="&lt;b&gt;AWS Glue Data Catalog&lt;/b&gt;&lt;br&gt;Database: tech_challenge_3_db&lt;br&gt;&lt;font size='9' color='#666666'&gt;Metadados Centralizados &amp; Partições&lt;/font&gt;" vertex="1">
+          <mxGeometry height="65" width="210" x="580" y="355" as="geometry" />
+        </mxCell>
+
+        <!-- Conexão Crawlers -> Catalog -->
+        <mxCell id="edge_crawler_catalog" edge="1" parent="1" source="glue_crawlers" target="glue_catalog" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#ffa000;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ================================================================= -->
+        <!-- 5. CAMADA DE CONSUMO ANALÍTICO & STORYTELLING                     -->
+        <!-- ================================================================= -->
         <!-- Amazon Athena -->
-        <mxCell id="athena" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=13" value="Amazon Athena&#xa;(Consultas SQL / Views)" vertex="1">
-          <mxGeometry height="70" width="140" x="930" y="195" as="geometry" />
+        <mxCell id="athena" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#43a047;strokeWidth=2;fontStyle=1;fontSize=12;align=center;" value="&lt;b&gt;Amazon Athena&lt;/b&gt;&lt;br&gt;&lt;font size='10' color='#333333'&gt;Consultas SQL Interativas&lt;br&gt;Médias Ponderadas &amp; KPIs&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="190" x="950" y="175" as="geometry" />
         </mxCell>
-        <mxCell id="edge_gold_to_athena" edge="1" parent="1" source="s3_gold" target="athena">
+
+        <!-- S3 Athena Results -->
+        <mxCell id="s3_athena_results" parent="1" style="shape=folder;whiteSpace=wrap;html=1;tabWidth=50;tabHeight=15;fillColor=#f1f8e9;strokeColor=#81c784;fontSize=10;align=center;" value="&lt;b&gt;S3 Athena Results&lt;/b&gt;&lt;br&gt;s3://bucket/athena-results/" vertex="1">
+          <mxGeometry height="50" width="160" x="965" y="80" as="geometry" />
+        </mxCell>
+
+        <!-- Conexão Athena -> Athena Results -->
+        <mxCell id="edge_athena_s3results" edge="1" parent="1" source="athena" target="s3_athena_results" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;strokeColor=#43a047;dashed=1;">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge_catalog_to_athena" edge="1" parent="1" source="glue_catalog" target="athena">
+
+        <!-- Conexões para o Athena -->
+        <mxCell id="edge_gold_athena" edge="1" parent="1" source="s3_gold" target="athena" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#43a047;">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        
-        <!-- Presentation & Visualization -->
-        <mxCell id="viz_tools" parent="1" style="shape=display;whiteSpace=wrap;html=1;fillColor=#cdeb8b;strokeColor=#36393d;fontStyle=1;fontSize=13" value="Visualização &amp;&#xa;Storytelling Executivo&#xa;(PowerPoint / DataViz)" vertex="1">
-          <mxGeometry height="80" width="150" x="925" y="320" as="geometry" />
-        </mxCell>
-        <mxCell id="edge_athena_to_viz" edge="1" parent="1" source="athena" target="viz_tools">
+        <mxCell id="edge_catalog_athena" edge="1" parent="1" source="glue_catalog" target="athena" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;strokeColor=#ffa000;dashed=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        
+
+        <!-- Camada de Visualização (Python / DataViz) -->
+        <mxCell id="viz_python" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fffde7;strokeColor=#fbc02d;strokeWidth=2;fontStyle=1;fontSize=11;align=center;" value="&lt;b&gt;Python / Matplotlib / Seaborn&lt;/b&gt;&lt;br&gt;&lt;font size='10' color='#555555'&gt;Jupyter Notebooks &amp; DataViz 300 DPI&lt;br&gt;Conclusões Dinâmicas &amp; Métricas&lt;/font&gt;" vertex="1">
+          <mxGeometry height="65" width="190" x="950" y="290" as="geometry" />
+        </mxCell>
+
+        <!-- Conexão Athena -> Python DataViz -->
+        <mxCell id="edge_athena_viz" edge="1" parent="1" source="athena" target="viz_python" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#fbc02d;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Entrega Executiva Final -->
+        <mxCell id="final_delivery" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede7f6;strokeColor=#5e35b1;strokeWidth=2;fontStyle=1;fontSize=11;align=center;" value="&lt;b&gt;Material Executivo (PPTX / PDF)&lt;/b&gt;&lt;br&gt;&lt;font size='10' color='#333333'&gt;Storytelling Executivo &amp;&lt;br&gt;Recomendações Estratégicas para o Banco&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="190" x="950" y="395" as="geometry" />
+        </mxCell>
+
+        <!-- Conexão Python DataViz -> PPTX / PDF -->
+        <mxCell id="edge_viz_delivery" edge="1" parent="1" source="viz_python" target="final_delivery" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#5e35b1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ================================================================= -->
+        <!-- 6. RODAPÉ DE GOVERNANÇA, SEGURANÇA E OBSERVABILIDADE              -->
+        <!-- ================================================================= -->
+        <!-- AWS IAM Role -->
+        <mxCell id="iam_role" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fbe9e7;strokeColor=#d84315;strokeWidth=1.5;fontStyle=1;fontSize=10;align=center;" value="&lt;b&gt;AWS IAM Role (LabRole)&lt;/b&gt;&lt;br&gt;Políticas de Acesso: S3, Glue Data Catalog, Athena e CloudWatch" vertex="1">
+          <mxGeometry height="45" width="310" x="250" y="470" as="geometry" />
+        </mxCell>
+
+        <!-- Amazon CloudWatch -->
+        <mxCell id="cloudwatch" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eceff1;strokeColor=#607d8b;strokeWidth=1.5;fontStyle=1;fontSize=10;align=center;" value="&lt;b&gt;Amazon CloudWatch&lt;/b&gt;&lt;br&gt;Logs de Execução, Monitoramento de Falhas e Métricas Operacionais" vertex="1">
+          <mxGeometry height="45" width="310" x="580" y="470" as="geometry" />
+        </mxCell>
+
+        <!-- Linhas tracejadas discretas de governança -->
+        <mxCell id="edge_iam_glue" edge="1" parent="1" source="iam_role" target="glue_crawlers" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1;strokeColor=#d84315;dashed=1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_cw_glue" edge="1" parent="1" source="cloudwatch" target="glue_catalog" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1;strokeColor=#607d8b;dashed=1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
       </root>
     </mxGraphModel>
   </diagram>

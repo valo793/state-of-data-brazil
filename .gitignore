@@ -62,12 +62,19 @@ data/*.json
 output/graficos/*.tmp
 output/apresentacao/*
 !output/apresentacao/.gitkeep
+output/resultados_athena/*
+!output/resultados_athena/.gitkeep
 *.pdf
 *.pptx
 
 # AWS e Credenciais / Chaves de Segurança
 .aws/
 *credentials*
+config/*credentials*.json
+!config/aws_credentials.template.json
+.env
+.env.*
+!.env.example
 *.pem
 *.key
 *.secret

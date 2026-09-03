@@ -112,6 +112,7 @@ print("[STEP 3] Gerando gold_diversidade...")
 gold_diversidade = df_silver.groupBy("ano_pesquisa", "genero", "cor_raca_etnia", "is_gestor") \
     .agg(
         F.count("id_respondente").alias("total"),
+        F.count("salario_medio_estimado").alias("total_salarios_validos"),
         F.sum("salario_medio_estimado").alias("soma_salarios"),
         F.avg("salario_medio_estimado").alias("salario_medio")
     )
@@ -144,9 +145,53 @@ df_bi_pref = df_silver.filter(F.col("bi_preferido").isNotNull()) \
 
 df_tech_all = df_ling_pref.unionByName(df_cloud_pref).unionByName(df_bi_pref)
 
+# Padroniza capitalização, acentuação e sinônimos somente após o explode.
+tech_key = F.lower(F.trim(F.col("tecnologia")))
+tech_key_ascii = F.translate(tech_key, "áàãâéêíóôõúç", "aaaaeeiooouc")
+
+df_tech_all = df_tech_all.withColumn(
+    "tecnologia",
+    F.when(tech_key_ascii == "sql", "SQL")
+     .when(tech_key_ascii == "sas", "SAS")
+     .when(tech_key_ascii == "dax", "DAX")
+     .when(tech_key_ascii.isin("pyspark", "py spark"), "PySpark")
+     .when(tech_key_ascii == "spark", "Apache Spark")
+     .when(tech_key_ascii == "databricks", "Databricks")
+     .when(tech_key_ascii == "superset", "Apache Superset")
+     .when(tech_key_ascii == "javascript", "JavaScript")
+     .when(tech_key_ascii == "microstrategy", "MicroStrategy")
+     .when(tech_key_ascii == "thoughtspot", "ThoughtSpot")
+     .when(tech_key_ascii == "r shiny", "R Shiny")
+     .when(tech_key_ascii == "looker studio", "Looker Studio")
+     .when(tech_key_ascii == "amazon web services (aws)", "Amazon Web Services (AWS)")
+     .when(tech_key_ascii == "google cloud (gcp)", "Google Cloud (GCP)")
+     .when(tech_key_ascii == "azure (microsoft)", "Azure (Microsoft)")
+     .otherwise(F.trim(F.col("tecnologia")))
+).filter(
+    ~(
+        tech_key_ascii.isin(
+            "nao sei", "nenhum", "nenhuma", "nao tenho preferencia",
+            "sem preferencia", "nao informado", "nao utilizo"
+        ) | tech_key_ascii.startswith("nao utilizo")
+    )
+)
+
+# Denominador correto: respondentes válidos por ano e categoria, sem somar seleções.
+tech_denominators = df_tech_all.groupBy("ano_pesquisa", "categoria").agg(
+    F.countDistinct("id_respondente").alias("total_respondentes_validos_categoria")
+)
+
 gold_tech = df_tech_all.groupBy("ano_pesquisa", "categoria", "tecnologia") \
     .agg(
         F.countDistinct("id_respondente").alias("total_usuarios")
+    ).join(tech_denominators, ["ano_pesquisa", "categoria"], "left") \
+    .withColumn(
+        "percentual_adocao",
+        F.round(
+            F.col("total_usuarios") * 100.0 /
+            F.col("total_respondentes_validos_categoria"),
+            2
+        )
     )
 gold_tech.write.mode("overwrite").parquet(f"{GOLD_PATH}gold_tecnologias/")
 
@@ -169,6 +214,7 @@ gold_trabalho = df_silver.groupBy("ano_pesquisa", "modelo_trabalho_padronizado",
         F.count("id_respondente").alias("total_respondentes"),
         F.sum(F.when(F.col("satisfeito_empresa_bool").isNotNull(), 1).otherwise(0)).alias("total_respostas_validas"),
         F.sum(F.when(F.col("satisfeito_empresa_bool") == True, 1).otherwise(0)).alias("total_satisfeitos"),
+        F.count("salario_medio_estimado").alias("total_salarios_validos"),
         F.sum("salario_medio_estimado").alias("soma_salarios"),
         F.avg("salario_medio_estimado").alias("salario_medio")
     ) \

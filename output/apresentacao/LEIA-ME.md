@@ -8,17 +8,20 @@ Este diretório contém os materiais executivos finais gerados para o **Tech Cha
 
 1. **`apresentacao_state_of_data.html`**:
    * Apresentação executiva interativa completa (18 slides) com proporção 16:9 widescreen.
-   * **100% Autônomo e Offline:** Não requer internet, servidores, CDNs ou bibliotecas externas. Abre com duplo clique no Google Chrome, Microsoft Edge ou Firefox.
+   * **Leve e Autônomo:** Pesa ~87 KB e referencia imagens em alta definição da subpasta `./assets/`. Utiliza ícones vetoriais SVG nítidos e modernos (sem emojis ou notas de rodapé de instrução).
    * **Controles Interativos:**
-     * ⬅️ / ➡️ ou Barra de Espaço: Avançar e retroceder slides (exibe estritamente o slide ativo).
-     * `Home` / `End`: Ir para a Capa / Anexo Final.
+     * Teclas direcionais `←` / `→` ou Barra de Espaço: Navegar entre slides (exibe estritamente o slide ativo em tela cheia).
+     * `Home` / `End`: Ir para o início ou final da apresentação.
      * `F`: Alternar modo Tela Cheia (*Fullscreen*).
-     * `T` ou `I`: Abrir menu de Índice (*Table of Contents*).
-     * `Ctrl + P` ou Botão **PDF**: Imprimir / exportar slides limpos em PDF.
+     * `T` ou `I`: Abrir gaveta lateral de Índice (*Table of Contents*).
+     * `Ctrl + P` ou Botão **PDF**: Impressão direta formatada em 16:9 widescreen sem cabeçalhos de navegador.
 
 2. **`apresentacao_state_of_data.pdf`**:
-   * Documento PDF final oficial em formato 16:9 paisagem (18 páginas), preservando todos os gráficos, tabelas e notas metodológicas.
-   * Atende rigorosamente ao formato exigido no enunciado do Tech Challenge.
+   * Documento PDF final oficial gerado em 16:9 paisagem widescreen (18 páginas), preservando todos os gráficos, tabelas e ressalvas metodológicas com alta fidelidade.
+   * Atende rigorosamente ao formato exigido no enunciado do Tech Challenge Fase 3.
+
+3. **`assets/`**:
+   * Diretório contendo os 9 gráficos executivos em PNG de alta resolução gerados a partir dos dados do Amazon Athena e análises complementares.
 
 ---
 

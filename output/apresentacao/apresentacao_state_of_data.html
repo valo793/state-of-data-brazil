@@ -3,15 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dados e IA no Brasil — Evidências para Expansão da Instituição Financeira (Tech Challenge Fase 3)</title>
+  <title>Dados e IA no Brasil — Evidências para Expansão da Instituição Financeira</title>
   <style>
-    @page {
-      size: 16in 9in;
-      margin: 0;
-    }
-
     /* ==========================================================================
-       RESET & THEME SYSTEM (CORES CORPORATIVAS INSTITUCIONAIS)
+       RESET & THEME SYSTEM (PADRÃO CONSULTORIA EXECUTIVA)
        ========================================================================== */
     :root {
       --navy-dark: #0B1E36;
@@ -46,7 +41,7 @@
 
     body {
       font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
-      background-color: #0F172A;
+      background-color: #090E17;
       color: var(--slate-dark);
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
@@ -81,6 +76,12 @@
 
     .slide-wrapper.active {
       display: flex;
+      animation: fadeIn 0.25s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.995); }
+      to { opacity: 1; transform: scale(1); }
     }
 
     /* HEADER */
@@ -229,13 +230,12 @@
     }
 
     .card-icon {
-      width: 22px;
-      height: 22px;
-      border-radius: 4px;
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
     }
 
     .icon-blue { background: var(--blue-light); color: var(--blue-accent); }
@@ -393,7 +393,7 @@
       position: absolute;
       left: 0;
       top: 1px;
-      font-size: 9px;
+      font-size: 8px;
       color: var(--blue-accent);
     }
 
@@ -488,6 +488,9 @@
       font-weight: 700;
       color: #93C5FD;
       margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .cover-card-desc {
@@ -507,14 +510,14 @@
     }
 
     /* ==========================================================================
-       CONTROLES INTERATIVOS & OVERLAYS (TOOLBAR, DRAWER, NOTAS)
+       CONTROLES INTERATIVOS & OVERLAYS (TOOLBAR E DRAWER)
        ========================================================================== */
     #toolbar {
       position: fixed;
       bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(15, 23, 42, 0.85);
+      background: rgba(15, 23, 42, 0.88);
       backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.15);
       padding: 6px 14px;
@@ -530,7 +533,7 @@
       background: transparent;
       border: none;
       color: #F8FAFC;
-      font-size: 13px;
+      font-size: 12px;
       cursor: pointer;
       padding: 6px 10px;
       border-radius: 6px;
@@ -565,7 +568,7 @@
       color: #E2E8F0;
       font-size: 12px;
       font-weight: 700;
-      min-width: 45px;
+      min-width: 50px;
       text-align: center;
     }
 
@@ -599,7 +602,7 @@
     }
 
     .toc-title {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 800;
       color: #38BDF8;
       text-transform: uppercase;
@@ -643,57 +646,8 @@
       width: 20px;
     }
 
-    /* MODAL DE NOTAS DO APRESENTADOR */
-    #notes-modal {
-      position: fixed;
-      bottom: 80px;
-      right: 30px;
-      width: 440px;
-      max-height: 480px;
-      background: #FFFFFF;
-      border: 1px solid #CBD5E1;
-      border-radius: var(--radius-md);
-      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2);
-      z-index: 2000;
-      display: none;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    #notes-modal.open {
-      display: flex;
-    }
-
-    .notes-header {
-      background: var(--navy-dark);
-      color: #FFFFFF;
-      padding: 10px 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .notes-body {
-      padding: 16px 20px;
-      font-size: 12px;
-      line-height: 1.5;
-      color: var(--slate-text);
-      overflow-y: auto;
-    }
-
-    .notes-body ul {
-      padding-left: 16px;
-      margin-top: 6px;
-    }
-
-    .notes-body li {
-      margin-bottom: 6px;
-    }
-
     /* ==========================================================================
-       PRINT CSS (EXIGÊNCIA DE PDF 16:9 PAISAGEM SEM CONTROLES)
+       PRINT CSS (PDF 16:9 PAISAGEM SEM CONTROLES)
        ========================================================================== */
     @page {
       size: 16in 9in landscape;
@@ -701,15 +655,22 @@
     }
 
     @media print {
-      body {
+      html, body {
+        width: 16in !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
         background: transparent !important;
-        overflow: visible !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
       }
 
       #presentation-container {
         display: block !important;
-        width: 100% !important;
+        width: 16in !important;
         height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
         background: transparent !important;
       }
 
@@ -717,16 +678,33 @@
         display: flex !important;
         width: 16in !important;
         height: 9in !important;
-        max-width: none !important;
-        max-height: none !important;
+        max-width: 16in !important;
+        max-height: 9in !important;
+        min-height: 9in !important;
+        box-sizing: border-box !important;
         page-break-after: always !important;
         page-break-inside: avoid !important;
+        break-after: page !important;
+        overflow: hidden !important;
         box-shadow: none !important;
         margin: 0 !important;
         position: relative !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
       }
 
-      #toolbar, #toc-drawer, #notes-modal, #backdrop {
+      .slide-cover {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        background-color: #0B1E36 !important;
+        background: linear-gradient(135deg, #0B1E36 0%, #112A46 50%, #1E3A8A 100%) !important;
+        color: #FFFFFF !important;
+        padding: 50px 70px !important;
+        box-sizing: border-box !important;
+      }
+
+      #toolbar, #toc-drawer {
         display: none !important;
       }
     }
@@ -741,57 +719,48 @@
          ==================================================================== -->
     <section class="slide-wrapper slide-cover active" id="slide-1" data-title="Capa">
       <div>
-        <div class="cover-tag">Tech Challenge Fase 3 • Pós-Tech Data Analytics &amp; Big Data</div>
+        <div class="cover-tag"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg> Diagnóstico Estratégico do Mercado de Dados</div>
         <h1 class="cover-title">Dados e IA no Brasil: Evidências para a Expansão de uma Instituição Financeira</h1>
-        <p class="cover-subtitle">Diagnóstico Estratégico do Mercado de Trabalho, Remuneração, Tecnologias e Governança de IA com base nas pesquisas State of Data Brasil (2023–2026)</p>
+        <p class="cover-subtitle">Diretrizes de Mercado para Contratação, Remuneração, Capacitação, Retenção e Governança de IA com base na série histórica State of Data Brasil (2023–2026)</p>
       </div>
 
       <div class="cover-cards">
         <div class="cover-card">
-          <div class="cover-card-title">🏛️ Caso da Instituição Financeira</div>
-          <div class="cover-card-desc">Suporte a decisões de contratação, remuneração, capacitação técnica, retenção e alocação de capital em iniciativas de Dados &amp; IA.</div>
+          <div class="cover-card-title"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg> Caso da Instituição Financeira</div>
+          <div class="cover-card-desc">Suporte a decisões executivas de atração de talentos, remuneração, formação técnica, políticas de trabalho e investimentos em IA.</div>
         </div>
         <div class="cover-card">
-          <div class="cover-card-title">☁️ Arquitetura Medallion AWS</div>
+          <div class="cover-card-title"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg> Arquitetura Medallion AWS</div>
           <div class="cover-card-desc">Pipeline em 3 camadas no Amazon S3 (Bronze, Silver, Gold), processamento distribuído com PySpark no AWS Glue e consultas no Amazon Athena.</div>
         </div>
         <div class="cover-card">
-          <div class="cover-card-title">📊 Amostra Consolidada</div>
-          <div class="cover-card-desc">14.002 registros históricos (5.293 em 2023–24, 5.215 em 2024–25 e 3.494 em 2025–26) auditados sob rígidos critérios de integridade estatística.</div>
+          <div class="cover-card-title"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg> Base Consolidada</div>
+          <div class="cover-card-desc">14.002 registros históricos (5.293 em 2023–24, 5.215 em 2024–25 e 3.494 em 2025–26) auditados sob rigorosos critérios de integridade estatística.</div>
         </div>
       </div>
 
       <div class="cover-footer">
         <div>Fonte: Microdados State of Data Brasil (Data Hackers &amp; Bain) | Database AWS: <code>db_state_of_data</code></div>
-        <div>Navegue com ⬅️ / ➡️ ou clique em [Índice]</div>
-      </div>
-
-      <div class="speaker-notes-content" style="display:none;">
-        <strong>Notas do Apresentador (Slide 1 — Capa):</strong>
-        <ul>
-          <li>Cumprimentar a banca executiva e introduzir o papel da consultoria estratégica de Big Data & Analytics.</li>
-          <li>Destacar que o trabalho atende aos três entregáveis do Tech Challenge Fase 3: Material Executivo (este), Diagrama AWS no Draw.io e Scripts/Queries auditados.</li>
-          <li>Enfatizar que a apresentação não é um mero resumo descritivo, mas sim uma bússola de tomada de decisão para a expansão do banco.</li>
-        </ul>
+        <div>Navegue com as teclas direcionais ◀ / ▶ ou utilize o Índice</div>
       </div>
     </section>
 
     <!-- ====================================================================
          SLIDE 2: PROBLEMA DE NEGÓCIO & SÍNTESE EXECUTIVA
          ==================================================================== -->
-    <section class="slide-wrapper" id="slide-2" data-title="Problema de Negócio">
+    <section class="slide-wrapper" id="slide-2" data-title="Síntese Executiva">
       <header class="slide-header">
         <div class="slide-title-group">
           <span class="slide-tag">Contexto Estratégico</span>
           <h2 class="slide-title">Desafio do Banco: Escalar a Área de Dados e IA com Eficiência de Capital</h2>
         </div>
-        <div class="slide-meta-badge">Orientação para Decisão</div>
+        <div class="slide-meta-badge">Diretrizes para Tomada de Decisão</div>
       </header>
 
       <div class="slide-body grid-2col">
         <div class="card card-highlight-blue">
           <div class="card-header">
-            <div class="card-icon icon-blue">🎯</div>
+            <div class="card-icon icon-blue"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></div>
             <span>Três Decisões Centrais que o Estudo Orienta</span>
           </div>
           <ul class="exec-list">
@@ -806,7 +775,7 @@
 
         <div class="card card-highlight-green">
           <div class="card-header">
-            <div class="card-icon icon-green">💡</div>
+            <div class="card-icon icon-green"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg></div>
             <span>Tese Central do Diagnóstico de Mercado</span>
           </div>
           <div class="tria-container">
@@ -830,14 +799,6 @@
         <span class="footnote">Diagnóstico estruturado para expansão de Big Data &amp; Analytics no Setor Bancário</span>
         <span class="pagination">02 / 18</span>
       </footer>
-
-      <div class="speaker-notes-content" style="display:none;">
-        <strong>Notas do Apresentador (Slide 2 — Síntese):</strong>
-        <ul>
-          <li>Explicar as três dores do banco: custo de atração elevado, risco de obsolescência tecnológica e pressão por IA generativa sem governança.</li>
-          <li>Apresentar a tese central: não basta copiar o que o mercado faz; o banco deve usar os dados para criar vantagens estruturais de custo e retenção.</li>
-        </ul>
-      </div>
     </section>
 
     <!-- ====================================================================
@@ -855,7 +816,7 @@
       <div class="slide-body grid-2col">
         <div class="card card-highlight-blue">
           <div class="card-header">
-            <div class="card-icon icon-blue">📊</div>
+            <div class="card-icon icon-blue"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg></div>
             <span>Composição Amostral por Edição da Pesquisa</span>
           </div>
           <div class="kpi-row">
@@ -880,17 +841,17 @@
               <tr><th>Etapa de Auditoria</th><th>Regra Aplicada</th><th>Status</th></tr>
             </thead>
             <tbody>
-              <tr><td>Deduplicação de Chave</td><td>Chave <code>(ano, id)</code> com hash SHA-256 para nulos</td><td>✅ 0 duplicatas</td></tr>
-              <tr><td>Estimativa Salarial</td><td>Ponto médio em faixas fechadas; 1.2x no topo aberto</td><td>✅ Métrica contínua</td></tr>
-              <tr><td>Completude Crítica</td><td>Gênero (100%), Região (97,2%), Salário (91,7%)</td><td>✅ Acima dos limites</td></tr>
-              <tr><td>Taxa de Satisfação</td><td>Denominador estrito sobre respostas válidas</td><td>✅ Sem distorção</td></tr>
+              <tr><td>Deduplicação de Chave</td><td>Chave <code>(ano, id)</code> com hash SHA-256 para nulos</td><td>Totalmente Auditado</td></tr>
+              <tr><td>Estimativa Salarial</td><td>Ponto médio em faixas fechadas; 1.2x no topo aberto</td><td>Métrica Contínua</td></tr>
+              <tr><td>Completude Crítica</td><td>Gênero (100%), Região (97,2%), Salário (91,7%)</td><td>Acima dos Limites</td></tr>
+              <tr><td>Taxa de Satisfação</td><td>Denominador estrito sobre respostas válidas</td><td>Sem Distorção</td></tr>
             </tbody>
           </table>
         </div>
 
         <div class="card card-highlight-amber">
           <div class="card-header">
-            <div class="card-icon icon-amber">⚠️</div>
+            <div class="card-icon icon-amber"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></div>
             <span>Limitações e Ressalvas Metodológicas Essenciais</span>
           </div>
           <ul class="exec-list">
@@ -900,7 +861,7 @@
             <li><strong>Faixa Inconsistente Preservada:</strong> Uma inconsistência de digitação na fonte de 2025–2026 foi mantida por integridade (impacto de R$ 0,21 na média geral).</li>
           </ul>
           <div class="callout callout-warning">
-            <strong>Critério Científico:</strong> Variações temporais indicam mudanças na composição da amostra participante, devendo ser interpretadas com cautela estatística.
+            <strong>Critério Analítico:</strong> Variações temporais indicam mudanças na composição da amostra participante, devendo ser interpretadas com cautela estatística.
           </div>
         </div>
       </div>
@@ -909,14 +870,6 @@
         <span class="footnote">Auditoria automatizada executada via <code>scripts/quality/validacao_qualidade.py</code></span>
         <span class="pagination">03 / 18</span>
       </footer>
-
-      <div class="speaker-notes-content" style="display:none;">
-        <strong>Notas do Apresentador (Slide 3 — Metodologia):</strong>
-        <ul>
-          <li>Explicar a transparência metodológica: deduplicamos exatamente 3 registros repetidos (14.005 -> 14.002).</li>
-          <li>Frisar que a redução amostral em 2025-2026 foi controlada em todas as análises através do uso rigoroso de percentuais sobre bases válidas.</li>
-        </ul>
-      </div>
     </section>
 
     <!-- ====================================================================
@@ -954,19 +907,17 @@
       </defs>
 
       <!-- FAIXA SUPERIOR: JOBS PYSPARK (FORA DO S3) -->
-      <!-- Job 1 -->
       <rect x="270" y="20" width="220" height="60" rx="8" fill="#E1F5FE" stroke="#0288D1" stroke-width="2" filter="url(#shadow)" />
       <text x="380" y="42" font-size="12" font-weight="bold" fill="#01579B" text-anchor="middle">AWS Glue Job 1 (PySpark)</text>
       <text x="380" y="58" font-size="10" fill="#555" text-anchor="middle">tc3-bronze-to-silver (Harmonização &amp; SHA-256)</text>
 
-      <!-- Job 2 -->
       <rect x="520" y="20" width="220" height="60" rx="8" fill="#E1F5FE" stroke="#0288D1" stroke-width="2" filter="url(#shadow)" />
       <text x="630" y="42" font-size="12" font-weight="bold" fill="#01579B" text-anchor="middle">AWS Glue Job 2 (PySpark)</text>
       <text x="630" y="58" font-size="10" fill="#555" text-anchor="middle">tc3-silver-to-gold (Data Marts &amp; Médias Ponderadas)</text>
 
       <!-- ORIGEM: KAGGLE -->
       <rect x="20" y="140" width="160" height="110" rx="10" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="2" filter="url(#shadow)" />
-      <text x="100" y="168" font-size="13" font-weight="bold" fill="#4A148C" text-anchor="middle">Fonte de Dados</text>
+      <text x="100" y="168" font-size="13" font-weight="bold" fill="#4A148C" text-anchor="middle">Origem Externa</text>
       <text x="100" y="188" font-size="11" font-weight="bold" fill="#333" text-anchor="middle">Kaggle State of Data</text>
       <text x="100" y="206" font-size="9.5" fill="#666" text-anchor="middle">2023–2024 | 2024–2025</text>
       <text x="100" y="222" font-size="9.5" fill="#666" text-anchor="middle">2025–2026 (CSVs Brutos)</text>
@@ -985,7 +936,7 @@
       <text x="322" y="182" font-size="12" font-weight="bold" fill="#4E342E" text-anchor="middle">Camada Bronze</text>
       <text x="322" y="200" font-size="10" font-weight="bold" fill="#333" text-anchor="middle">CSV Original</text>
       <text x="322" y="216" font-size="9" fill="#555" text-anchor="middle">s3://bucket/bronze/</text>
-      <text x="322" y="232" font-size="9" fill="#666" text-anchor="middle">Dados Brutos Imutáveis</text>
+      <text x="322" y="232" font-size="9" fill="#666" text-anchor="middle">Dados Brutos Preservados</text>
       <text x="322" y="248" font-size="8.5" fill="#888" text-anchor="middle">14.005 linhas brutas</text>
 
       <!-- S3 Silver -->
@@ -1007,31 +958,24 @@
       <text x="682" y="248" font-size="8.5" fill="#888" text-anchor="middle">Contadores Ponderados</text>
 
       <!-- Setas dos Glue Jobs conectando os S3 -->
-      <!-- Bronze -> Job 1 -> Silver -->
       <path d="M 322 145 L 322 80" fill="none" stroke="#0288D1" stroke-width="2" marker-end="url(#arrow-blue)" />
       <path d="M 435 80 L 435 145" fill="none" stroke="#0288D1" stroke-width="2" marker-end="url(#arrow-blue)" />
-
-      <!-- Silver -> Job 2 -> Gold -->
       <path d="M 502 145 L 502 80" fill="none" stroke="#0288D1" stroke-width="2" marker-end="url(#arrow-blue)" />
       <path d="M 615 80 L 615 145" fill="none" stroke="#0288D1" stroke-width="2" marker-end="url(#arrow-blue)" />
 
       <!-- CONSUMO ANALÍTICO: ATHENA, PYTHON & APRESENTAÇÃO -->
-      <!-- S3 Athena Results -->
       <rect x="815" y="90" width="160" height="42" rx="6" fill="#F1F8E9" stroke="#81C784" stroke-width="1.5" />
       <text x="895" y="108" font-size="10.5" font-weight="bold" fill="#2E7D32" text-anchor="middle">S3 Athena Results</text>
       <text x="895" y="122" font-size="8.5" fill="#666" text-anchor="middle">s3://bucket/athena-results/</text>
 
-      <!-- Amazon Athena -->
       <rect x="815" y="150" width="160" height="75" rx="8" fill="#E8F5E9" stroke="#43A047" stroke-width="2" filter="url(#shadow)" />
       <text x="895" y="174" font-size="12" font-weight="bold" fill="#1B5E20" text-anchor="middle">Amazon Athena</text>
       <text x="895" y="192" font-size="9.5" fill="#333" text-anchor="middle">Consultas SQL Interativas</text>
       <text x="895" y="208" font-size="9" font-weight="bold" fill="#43A047" text-anchor="middle">db_state_of_data</text>
 
-      <!-- Setas Gold -> Athena e Athena -> Results -->
       <path d="M 760 195 L 815 195" fill="none" stroke="#107C41" stroke-width="2.5" marker-end="url(#arrow-green)" />
       <path d="M 895 150 L 895 132" fill="none" stroke="#81C784" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arrow-green)" />
 
-      <!-- Extrator e Python DataViz -->
       <rect x="815" y="245" width="160" height="70" rx="8" fill="#FFFDE7" stroke="#FBC02D" stroke-width="2" filter="url(#shadow)" />
       <text x="895" y="268" font-size="11.5" font-weight="bold" fill="#F57F17" text-anchor="middle">Python DataViz (300 DPI)</text>
       <text x="895" y="284" font-size="9" fill="#555" text-anchor="middle">extrair_resultados_athena.py</text>
@@ -1039,7 +983,6 @@
 
       <path d="M 895 225 L 895 245" fill="none" stroke="#FBC02D" stroke-width="2" marker-end="url(#arrow-orange)" />
 
-      <!-- Material Executivo -->
       <rect x="815" y="335" width="160" height="70" rx="8" fill="#EDE7F6" stroke="#5E35B1" stroke-width="2" filter="url(#shadow)" />
       <text x="895" y="358" font-size="11.5" font-weight="bold" fill="#311B92" text-anchor="middle">Material Executivo</text>
       <text x="895" y="374" font-size="9.5" fill="#333" text-anchor="middle">HTML Interativo + PDF</text>
@@ -1048,12 +991,10 @@
       <path d="M 895 315 L 895 335" fill="none" stroke="#5E35B1" stroke-width="2" marker-end="url(#arrow-purple)" />
 
       <!-- FAIXA INFERIOR 1: GOVERNANÇA E CATALOGAÇÃO -->
-      <!-- Glue Crawlers -->
       <rect x="255" y="305" width="230" height="55" rx="8" fill="#FFF8E1" stroke="#FFA000" stroke-width="2" />
       <text x="370" y="328" font-size="11.5" font-weight="bold" fill="#E65100" text-anchor="middle">AWS Glue Crawlers</text>
       <text x="370" y="345" font-size="9.5" fill="#666" text-anchor="middle">tc3-crawler-bronze | silver | gold</text>
 
-      <!-- Glue Data Catalog -->
       <rect x="525" y="305" width="235" height="55" rx="8" fill="#FFF8E1" stroke="#FFA000" stroke-width="2" />
       <text x="642" y="328" font-size="11.5" font-weight="bold" fill="#E65100" text-anchor="middle">AWS Glue Data Catalog</text>
       <text x="642" y="345" font-size="9.5" fill="#666" text-anchor="middle">Metadados: db_state_of_data</text>
@@ -1083,7 +1024,7 @@
 
       <!-- Rodapé / Legenda -->
       <text x="20" y="460" font-size="9" fill="#888" style="font-style: italic;">
-        Arquitetura Oficial — Tech Challenge Fase 3 (Data Lakehouse em 3 Camadas Medallion no Amazon S3 com AWS Glue, PySpark e Athena)
+        Arquitetura da Plataforma de Dados — Data Lakehouse em 3 Camadas Medallion no Amazon S3 com AWS Glue, PySpark e Amazon Athena
       </text>
     </svg>
     
@@ -1091,14 +1032,14 @@
 
         <div class="card card-highlight-blue">
           <div class="card-header">
-            <div class="card-icon icon-blue">⚙️</div>
+            <div class="card-icon icon-blue"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg></div>
             <span>Destaques Técnicos da Solução AWS</span>
           </div>
           <ul class="exec-list" style="font-size: 11px;">
             <li><strong>Amazon S3 Data Lake (3 Camadas):</strong>
-              <br>• 🥉 <em>Bronze</em>: CSVs brutos originais imutáveis.
-              <br>• 🥈 <em>Silver</em>: Parquet + Snappy particionado por ano, tipos inferidos e deduplicado.
-              <br>• 🥇 <em>Gold</em>: 7 Data Marts agregados com contadores ponderados.
+              <br>• <em>Bronze</em>: CSVs brutos originais imutáveis.
+              <br>• <em>Silver</em>: Parquet + Snappy particionado por ano, tipos inferidos e deduplicado.
+              <br>• <em>Gold</em>: 7 Data Marts agregados com contadores ponderados.
             </li>
             <li><strong>AWS Glue Jobs (PySpark):</strong>
               <br>• <code>tc3-bronze-to-silver</code>: Leitura com fail-fast, multiline e padronização.
@@ -1115,26 +1056,18 @@
         <span class="footnote">Diagrama Draw.io editável disponível em <code>diagrams/arquitetura_aws.drawio</code></span>
         <span class="pagination">04 / 18</span>
       </footer>
-
-      <div class="speaker-notes-content" style="display:none;">
-        <strong>Notas do Apresentador (Slide 4 — Arquitetura AWS):</strong>
-        <ul>
-          <li>Ressaltar a conformidade total com o enunciado: 3 camadas estritas no S3, jobs Spark desacoplados e governança no Glue Catalog.</li>
-          <li>Explicar que os Glue Jobs operam fora do bucket S3 como nós de computação efêmeros.</li>
-        </ul>
-      </div>
     </section>
 
     <!-- ====================================================================
          SLIDE 5: PANORAMA GERAL & KPIS
          ==================================================================== -->
-    <section class="slide-wrapper" id="slide-5" data-title="Panorama Geral (KPIs)">
+    <section class="slide-wrapper" id="slide-5" data-title="Panorama Macroeconômico">
       <header class="slide-header">
         <div class="slide-title-group">
-          <span class="slide-tag">Diagnóstico Macroeconômico</span>
+          <span class="slide-tag">Diagnóstico de Mercado</span>
           <h2 class="slide-title">Evolução dos Principais Indicadores do Mercado de Dados</h2>
         </div>
-        <div class="slide-meta-badge">Pergunta 1 do Enunciado</div>
+        <div class="slide-meta-badge">Estrutura &amp; Dinâmica do Setor</div>
       </header>
 
       <div class="slide-body grid-chart-side">
@@ -1162,26 +1095,18 @@
         <span class="footnote">Fonte: State of Data Brasil (Data Hackers &amp; Bain) | Query Athena: <code>08_indicadores_executivos.csv</code></span>
         <span class="pagination">05 / 18</span>
       </footer>
-
-      <div class="speaker-notes-content" style="display:none;">
-        <strong>Notas do Apresentador (Slide 5 — KPIs):</strong>
-        <ul>
-          <li>Destacar que todas as variações estão expressas corretamente em pontos percentuais (p.p.) para proporções e porcentagem (%) para salários.</li>
-          <li>Frisar o crescimento salarial nominal e a estagnação da diversidade.</li>
-        </ul>
-      </div>
     </section>
 
     <!-- ====================================================================
          SLIDE 6: CONCENTRAÇÃO REGIONAL
          ==================================================================== -->
-    <section class="slide-wrapper" id="slide-6" data-title="Concentração Regional">
+    <section class="slide-wrapper" id="slide-6" data-title="Distribuição Regional">
       <header class="slide-header">
         <div class="slide-title-group">
           <span class="slide-tag">Estrutura Geográfica</span>
           <h2 class="slide-title">Concentração no Sudeste e Oportunidades de Expansão Nacional</h2>
         </div>
-        <div class="slide-meta-badge">Pergunta 6 do Enunciado</div>
+        <div class="slide-meta-badge">Mapeamento Regional</div>
       </header>
 
       <div class="slide-body grid-chart-side">
@@ -1209,14 +1134,6 @@
         <span class="footnote">Fonte: State of Data Brasil (Data Hackers &amp; Bain) | Query Athena: <code>02_distribuicao_regional.csv</code></span>
         <span class="pagination">06 / 18</span>
       </footer>
-
-      <div class="speaker-notes-content" style="display:none;">
-        <strong>Notas do Apresentador (Slide 6 — Região):</strong>
-        <ul>
-          <li>Explicar que mais de 37% dos profissionais qualificados estão fora do Sudeste.</li>
-          <li>Propor a abertura de vagas em polos consolidados (ex: Porto Alegre, Recife, Florianópolis, Curitiba).</li>
-        </ul>
-      </div>
     </section>
 
     <!-- ====================================================================
@@ -1228,7 +1145,7 @@
           <span class="slide-tag">Valorização Profissional</span>
           <h2 class="slide-title">Hierarquia Salarial por Cargo e Nível de Senioridade</h2>
         </div>
-        <div class="slide-meta-badge">Pergunta 2 do Enunciado</div>
+        <div class="slide-meta-badge">Perfis Mais Valorizados</div>
       </header>
 
       <div class="slide-body grid-chart-side">
@@ -1256,26 +1173,18 @@
         <span class="footnote">Fonte: State of Data Brasil (Data Hackers &amp; Bain) | Query Athena: <code>03_remuneracao_senioridade.csv</code></span>
         <span class="pagination">07 / 18</span>
       </footer>
-
-      <div class="speaker-notes-content" style="display:none;">
-        <strong>Notas do Apresentador (Slide 7 — Salários):</strong>
-        <ul>
-          <li>Explicar a curva salarial: Engenharia de Dados superou Ciência de Dados pela escassez de profissionais de pipeline robusto.</li>
-          <li>Frisar que o banco deve evitar pagar piso de engenharia para funções de BI básico.</li>
-        </ul>
-      </div>
     </section>
 
     <!-- ====================================================================
          SLIDE 8: TECNOLOGIAS NO DIA A DIA (USO REAL)
          ==================================================================== -->
-    <section class="slide-wrapper" id="slide-8" data-title="Tecnologias: Uso Real">
+    <section class="slide-wrapper" id="slide-8" data-title="Uso Real de Ferramentas">
       <header class="slide-header">
         <div class="slide-title-group">
           <span class="slide-tag">Adoção Tecnológica</span>
           <h2 class="slide-title">Utilização Efetiva de BI e Plataformas Cloud no Cotidiano</h2>
         </div>
-        <div class="slide-meta-badge">Pergunta 4 do Enunciado</div>
+        <div class="slide-meta-badge">Uso Efetivo no Dia a Dia</div>
       </header>
 
       <div class="slide-body grid-chart-side">
@@ -1290,7 +1199,7 @@
           </div>
           <div class="tria-block tria-interpretacao">
             <span class="tria-label">2. Interpretação Estratégica</span>
-            O ecossistema bancário é predominantemente multicloud e híbrido. Power BI e AWS são os líderes de execução diária, mas há forte presença combinada de Azure e GCP.
+            O ecossistema corporativo é predominantemente multicloud e híbrido. Power BI e AWS são os líderes de execução diária, mas há forte presença combinada de Azure e GCP.
           </div>
           <div class="tria-block tria-implicacao">
             <span class="tria-label">3. Implicação para o Banco</span>
@@ -1303,14 +1212,6 @@
         <span class="footnote">Análise complementar local: <code>output/analises_complementares/tecnologias_uso_2025_2026.csv</code> (não calculada no Athena)</span>
         <span class="pagination">08 / 18</span>
       </footer>
-
-      <div class="speaker-notes-content" style="display:none;">
-        <strong>Notas do Apresentador (Slide 8 — Uso Real):</strong>
-        <ul>
-          <li>Destacar a separação metodológica entre USO DIÁRIO (este slide) e PREFERÊNCIA (próximo slide).</li>
-          <li>Mencionar a correção documentada: Looker e Looker Studio foram separados textualmente para evitar a contagem indevida de 206 respostas.</li>
-        </ul>
-      </div>
     </section>
 
     <!-- ====================================================================
@@ -1322,7 +1223,7 @@
           <span class="slide-tag">Capacitação &amp; Stack</span>
           <h2 class="slide-title">Linguagens e Ferramentas Preferidas: Direcionamento de Trilhas</h2>
         </div>
-        <div class="slide-meta-badge">Pergunta 4 do Enunciado</div>
+        <div class="slide-meta-badge">Preferências Técnicas</div>
       </header>
 
       <div class="slide-body grid-chart-side">
@@ -1350,14 +1251,6 @@
         <span class="footnote">Fonte: State of Data Brasil (Data Hackers &amp; Bain) | Query Athena: <code>05_tecnologias.csv</code></span>
         <span class="pagination">09 / 18</span>
       </footer>
-
-      <div class="speaker-notes-content" style="display:none;">
-        <strong>Notas do Apresentador (Slide 9 — Competências):</strong>
-        <ul>
-          <li>Mostrar que SQL e Python são os dois pilares que todo colaborador de dados no banco deve dominar.</li>
-          <li>Alertar para não interpretar preferência como recomendação automática de fornecedor exclusivo.</li>
-        </ul>
-      </div>
     </section>
 
     <!-- ====================================================================
@@ -1369,7 +1262,7 @@
           <span class="slide-tag">Diversidade &amp; Equidade</span>
           <h2 class="slide-title">Cenário de Diversidade e Lacunas de Representatividade Feminina</h2>
         </div>
-        <div class="slide-meta-badge">Pergunta 3 do Enunciado</div>
+        <div class="slide-meta-badge">Equidade &amp; Carreira</div>
       </header>
 
       <div class="slide-body grid-chart-side">
@@ -1397,14 +1290,6 @@
         <span class="footnote">Fonte: State of Data Brasil (Data Hackers &amp; Bain) | Query Athena: <code>04_diversidade_genero.csv</code></span>
         <span class="pagination">10 / 18</span>
       </footer>
-
-      <div class="speaker-notes-content" style="display:none;">
-        <strong>Notas do Apresentador (Slide 10 — Diversidade):</strong>
-        <ul>
-          <li>Explicar a ressalva estatística: a pesquisa mostra o dado agregado bruto, não uma disparidade entre pessoas na mesma mesa com a mesma experiência.</li>
-          <li>Propor metas de progressão interna como a melhor estratégia para fechar a lacuna.</li>
-        </ul>
-      </div>
     </section>
 
     <!-- ====================================================================
@@ -1416,7 +1301,7 @@
           <span class="slide-tag">Cultura &amp; Retenção</span>
           <h2 class="slide-title">Flexibilidade como Alavanca de Satisfação e Retenção de Talentos</h2>
         </div>
-        <div class="slide-meta-badge">Pergunta 6 do Enunciado</div>
+        <div class="slide-meta-badge">Retenção de Talentos</div>
       </header>
 
       <div class="slide-body grid-chart-side">
@@ -1444,14 +1329,6 @@
         <span class="footnote">Fonte: State of Data Brasil (Data Hackers &amp; Bain) | Query Athena: <code>07_modelos_trabalho.csv</code></span>
         <span class="pagination">11 / 18</span>
       </footer>
-
-      <div class="speaker-notes-content" style="display:none;">
-        <strong>Notas do Apresentador (Slide 11 — Retenção):</strong>
-        <ul>
-          <li>Apontar o risco de 'turnover voluntário' caso o banco adote política 100% presencial rígida.</li>
-          <li>O modelo híbrido flexível equilibra governança corporativa e atratividade no recrutamento.</li>
-        </ul>
-      </div>
     </section>
 
     <!-- ====================================================================
@@ -1463,7 +1340,7 @@
           <span class="slide-tag">Inteligência Artificial</span>
           <h2 class="slide-title">Priorização Estratégica de IA na Visão dos Gestores de Dados</h2>
         </div>
-        <div class="slide-meta-badge">Pergunta 5 do Enunciado</div>
+        <div class="slide-meta-badge">Visão da Liderança</div>
       </header>
 
       <div class="slide-body grid-chart-side">
@@ -1491,26 +1368,18 @@
         <span class="footnote">Fonte: State of Data Brasil (Data Hackers &amp; Bain) | Query Athena: <code>06a_prioridade_ia.csv</code></span>
         <span class="pagination">12 / 18</span>
       </footer>
-
-      <div class="speaker-notes-content" style="display:none;">
-        <strong>Notas do Apresentador (Slide 12 — Prioridade IA):</strong>
-        <ul>
-          <li>Destacar que IA deixou de ser área experimental para se tornar prioridade estratégica em mais de 60% das áreas de dados.</li>
-          <li>Frisar a importância de métricas de negócio para não cair na armadilha de 'hype sem ROI'.</li>
-        </ul>
-      </div>
     </section>
 
     <!-- ====================================================================
          SLIDE 13: USO PESSOAL & FINANCIAMENTO DE IA
          ==================================================================== -->
-    <section class="slide-wrapper" id="slide-13" data-title="Uso Individual de IA">
+    <section class="slide-wrapper" id="slide-13" data-title="Adoção Individual de IA">
       <header class="slide-header">
         <div class="slide-title-group">
           <span class="slide-tag">Adoção Individual</span>
           <h2 class="slide-title">Adoção de IA e Transição para Financiamento Corporativo</h2>
         </div>
-        <div class="slide-meta-badge">Pergunta 5 do Enunciado</div>
+        <div class="slide-meta-badge">Adoção Individual &amp; Ferramentas</div>
       </header>
 
       <div class="slide-body grid-chart-side">
@@ -1538,14 +1407,6 @@
         <span class="footnote">Fonte: State of Data Brasil (Data Hackers &amp; Bain) | Query Athena: <code>06b_uso_pessoal_ia.csv</code></span>
         <span class="pagination">13 / 18</span>
       </footer>
-
-      <div class="speaker-notes-content" style="display:none;">
-        <strong>Notas do Apresentador (Slide 13 — Uso Pessoal IA):</strong>
-        <ul>
-          <li>Alertar para o risco de 'Shadow AI' se o banco não fornecer ferramentas oficiais homologadas.</li>
-          <li>Propor a liberação de ferramentas corporativas com trilha de segurança de dados.</li>
-        </ul>
-      </div>
     </section>
 
     <!-- ====================================================================
@@ -1557,7 +1418,7 @@
           <span class="slide-tag">Recomendações de Negócio</span>
           <h2 class="slide-title">Matriz de Decisões Estratégicas para a Instituição Financeira</h2>
         </div>
-        <div class="slide-meta-badge">Pergunta 7 do Enunciado</div>
+        <div class="slide-meta-badge">Pilares de Ação</div>
       </header>
 
       <div class="slide-body grid-full">
@@ -1617,14 +1478,6 @@
         <span class="footnote">Matriz formulada para direcionar o plano executivo do banco</span>
         <span class="pagination">14 / 18</span>
       </footer>
-
-      <div class="speaker-notes-content" style="display:none;">
-        <strong>Notas do Apresentador (Slide 14 — Matriz de Decisões):</strong>
-        <ul>
-          <li>Passar pelos 5 pilares conectando cada evidência da pesquisa a uma decisão executiva objetiva.</li>
-          <li>Ressaltar que cada decisão possui uma métrica interna de acompanhamento.</li>
-        </ul>
-      </div>
     </section>
 
     <!-- ====================================================================
@@ -1636,13 +1489,13 @@
           <span class="slide-tag">Roadmap Executivo</span>
           <h2 class="slide-title">Plano de Ação Proposto: Cronograma de 0 a 90 Dias</h2>
         </div>
-        <div class="slide-meta-badge">Proposta de Implementação</div>
+        <div class="slide-meta-badge">Cronograma de Implementação</div>
       </header>
 
       <div class="slide-body grid-3col">
         <div class="card card-highlight-blue">
           <div class="card-header">
-            <div class="card-icon icon-blue">1</div>
+            <div class="card-icon icon-blue"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
             <span>0 a 30 Dias: Diagnóstico &amp; Alinhamento</span>
           </div>
           <ul class="exec-list">
@@ -1657,7 +1510,7 @@
 
         <div class="card card-highlight-amber">
           <div class="card-header">
-            <div class="card-icon icon-amber">2</div>
+            <div class="card-icon icon-amber"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg></div>
             <span>31 a 60 Dias: Estruturação &amp; Pilotos</span>
           </div>
           <ul class="exec-list">
@@ -1672,7 +1525,7 @@
 
         <div class="card card-highlight-green">
           <div class="card-header">
-            <div class="card-icon icon-green">3</div>
+            <div class="card-icon icon-green"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
             <span>61 a 90 Dias: Mensuração &amp; Escala</span>
           </div>
           <ul class="exec-list">
@@ -1690,14 +1543,6 @@
         <span class="footnote">Proposta cronológica sujeita a validação de orçamento e governança interna do banco</span>
         <span class="pagination">15 / 18</span>
       </footer>
-
-      <div class="speaker-notes-content" style="display:none;">
-        <strong>Notas do Apresentador (Slide 15 — 90 Dias):</strong>
-        <ul>
-          <li>Explicar que o cronograma divide ações de baixo custo inicial (diagnóstico) até escala governada.</li>
-          <li>Frisar que metas financeiras definitivas dependem dos orçamentos da instituição.</li>
-        </ul>
-      </div>
     </section>
 
     <!-- ====================================================================
@@ -1709,14 +1554,14 @@
           <span class="slide-tag">Conclusão Estratégica</span>
           <h2 class="slide-title">Síntese das Três Decisões Executivas Recomendadas</h2>
         </div>
-        <div class="slide-meta-badge">Diretrizes de Governança</div>
+        <div class="slide-meta-badge">Diretrizes Finais de Governança</div>
       </header>
 
       <div class="slide-body grid-3col">
         <div class="card card-highlight-blue">
           <div class="card-header">
-            <div class="card-icon icon-blue">1</div>
-            <span>Capacidades Críticas &amp; Engenharia</span>
+            <div class="card-icon icon-blue"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg></div>
+            <span>1. Capacidades Críticas &amp; Engenharia</span>
           </div>
           <p style="font-size: 11.5px; color: var(--slate-text); line-height: 1.45; margin-bottom: 10px;">
             Contratar sêniores cirurgicamente para arquitetura e liderança de dados, enquanto capacita a base interna em SQL avançado e Python.
@@ -1729,8 +1574,8 @@
 
         <div class="card card-highlight-green">
           <div class="card-header">
-            <div class="card-icon icon-green">2</div>
-            <span>Atração Distribuída &amp; Flexibilidade</span>
+            <div class="card-icon icon-green"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+            <span>2. Atração Distribuída &amp; Flexibilidade</span>
           </div>
           <p style="font-size: 11.5px; color: var(--slate-text); line-height: 1.45; margin-bottom: 10px;">
             Expandir o recrutamento para fora do eixo Rio-SP e consolidar o modelo Híbrido Flexível para blindar a equipe contra o turnover.
@@ -1743,8 +1588,8 @@
 
         <div class="card card-highlight-purple">
           <div class="card-header">
-            <div class="card-icon icon-purple">3</div>
-            <span>Pilotos de IA Governados com ROI</span>
+            <div class="card-icon icon-purple"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+            <span>3. Pilotos de IA Governados com ROI</span>
           </div>
           <p style="font-size: 11.5px; color: var(--slate-text); line-height: 1.45; margin-bottom: 10px;">
             Migrar de licenças dispersas para um sandbox bancário homologado, medindo ganhos de tempo e qualidade em casos de uso prioritários.
@@ -1760,14 +1605,6 @@
         <span class="footnote">Diretrizes finais formuladas pela Consultoria de Big Data &amp; Analytics</span>
         <span class="pagination">16 / 18</span>
       </footer>
-
-      <div class="speaker-notes-content" style="display:none;">
-        <strong>Notas do Apresentador (Slide 16 — Decisões Recomendadas):</strong>
-        <ul>
-          <li>Concluir a apresentação sintetizando as 3 decisões em uma única mensagem coesa.</li>
-          <li>Abrir para perguntas da banca avaliadora / diretoria.</li>
-        </ul>
-      </div>
     </section>
 
     <!-- ====================================================================
@@ -1785,7 +1622,7 @@
       <div class="slide-body grid-2col">
         <div class="card">
           <div class="card-header">
-            <div class="card-icon icon-blue">📐</div>
+            <div class="card-icon icon-blue"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg></div>
             <span>Regras de Tratamento e Fórmulas Aplicadas</span>
           </div>
           <ul class="exec-list" style="font-size: 11px;">
@@ -1801,7 +1638,7 @@
 
         <div class="card">
           <div class="card-header">
-            <div class="card-icon icon-amber">⚠️</div>
+            <div class="card-icon icon-amber"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></div>
             <span>Registro Formal de Limitações da Pesquisa</span>
           </div>
           <ul class="exec-list" style="font-size: 11px;">
@@ -1817,25 +1654,18 @@
         <span class="footnote">Documentação completa em <code>docs/regras_transformacao.md</code> e <code>docs/relatorio_qualidade.md</code></span>
         <span class="pagination">17 / 18</span>
       </footer>
-
-      <div class="speaker-notes-content" style="display:none;">
-        <strong>Notas do Apresentador (Slide 17 — Anexo 1):</strong>
-        <ul>
-          <li>Apresentar este anexo caso a banca faça perguntas técnicas sobre o cálculo das médias ou tratamento de nulos.</li>
-        </ul>
-      </div>
     </section>
 
     <!-- ====================================================================
-         SLIDE 18: ANEXO 2 — RASTREABILIDADE DO ENUNCIADO
+         SLIDE 18: ANEXO 2 — RASTREABILIDADE
          ==================================================================== -->
     <section class="slide-wrapper" id="slide-18" data-title="Anexo 2: Rastreabilidade">
       <header class="slide-header">
         <div class="slide-title-group">
           <span class="slide-tag">Conformidade com o Enunciado</span>
-          <h2 class="slide-title">Anexo 2 — Rastreabilidade das 7 Perguntas e Entregáveis Técnicos</h2>
+          <h2 class="slide-title">Anexo 2 — Rastreabilidade das Perguntas e Entregáveis Técnicos</h2>
         </div>
-        <div class="slide-meta-badge">Tech Challenge Fase 3</div>
+        <div class="slide-meta-badge">Entregáveis Oficiais</div>
       </header>
 
       <div class="slide-body grid-full">
@@ -1843,7 +1673,7 @@
           <table class="table-exec" style="font-size: 10.5px;">
             <thead>
               <tr>
-                <th style="width: 35%;">Pergunta Obrigatória do Enunciado</th>
+                <th style="width: 35%;">Tema / Pergunta de Diagnóstico</th>
                 <th style="width: 15%;">Slide Correspondente</th>
                 <th style="width: 25%;">Evidência / Gráfico</th>
                 <th style="width: 25%;">Código / Script Fonte</th>
@@ -1851,43 +1681,43 @@
             </thead>
             <tbody>
               <tr>
-                <td>1. Como está estruturado o mercado brasileiro de Dados?</td>
+                <td>1. Estruturação do mercado brasileiro de Dados</td>
                 <td>Slides 5 e 6</td>
                 <td><code>01_kpis_executivos.png</code> / <code>02_distribuicao_regional.png</code></td>
                 <td><code>01_estrutura_mercado.csv</code> / Athena Query 1</td>
               </tr>
               <tr>
-                <td>2. Quais perfis profissionais são mais valorizados?</td>
+                <td>2. Perfis profissionais mais valorizados</td>
                 <td>Slide 7</td>
                 <td><code>04_remuneracao_perfis.png</code></td>
                 <td><code>03_remuneracao_senioridade.csv</code> / Athena Query 2</td>
               </tr>
               <tr>
-                <td>3. Qual o cenário de diversidade de gênero nas carreiras?</td>
+                <td>3. Cenário de diversidade de gênero nas carreiras</td>
                 <td>Slide 10</td>
                 <td><code>03_diversidade_genero.png</code></td>
                 <td><code>04_diversidade_genero.csv</code> / Athena Query 3</td>
               </tr>
               <tr>
-                <td>4. Quais tecnologias apresentam maior adoção?</td>
+                <td>4. Adoção tecnológica de ferramentas e linguagens</td>
                 <td>Slides 8 e 9</td>
                 <td><code>09_uso_real_bi_cloud.png</code> / <code>05_tecnologias_top5.png</code></td>
                 <td><code>tecnologias_uso_2025_2026.csv</code> / Athena Query 4</td>
               </tr>
               <tr>
-                <td>5. Qual o índice de adoção de IA e seu impacto?</td>
+                <td>5. Índice de adoção de IA e seu impacto</td>
                 <td>Slides 12 e 13</td>
                 <td><code>06_prioridade_ia.png</code> / <code>07_uso_pessoal_ia.png</code></td>
                 <td><code>06a_prioridade_ia.csv</code> / <code>06b_uso_pessoal_ia.csv</code></td>
               </tr>
               <tr>
-                <td>6. Existem diferenças entre regiões, níveis e modelos?</td>
+                <td>6. Diferenças entre regiões, níveis e modelos</td>
                 <td>Slides 6, 7 e 11</td>
                 <td><code>08_modelos_trabalho_satisfacao.png</code></td>
                 <td><code>07_modelos_trabalho.csv</code> / Athena Query 6</td>
               </tr>
               <tr>
-                <td>7. Quais oportunidades e desafios para investir em Dados e IA?</td>
+                <td>7. Oportunidades e desafios para investir em Dados e IA</td>
                 <td>Slides 14, 15 e 16</td>
                 <td>Matriz Estratégica, Roadmap 90d e 3 Decisões</td>
                 <td>Síntese Estratégica da Consultoria</td>
@@ -1895,10 +1725,10 @@
             </tbody>
           </table>
           <div style="margin-top: 10px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; font-size: 10px; color: var(--slate-muted);">
-            <div style="background:#F1F5F9; padding:6px; border-radius:4px;">📁 <strong>PySpark Glue Jobs:</strong> <code>glue_job_bronze_to_silver.py</code> / <code>glue_job_silver_to_gold.py</code></div>
-            <div style="background:#F1F5F9; padding:6px; border-radius:4px;">📁 <strong>Consultas Athena:</strong> <code>scripts/analytics/queries_athena.sql</code></div>
-            <div style="background:#F1F5F9; padding:6px; border-radius:4px;">📁 <strong>Quality Gate:</strong> <code>scripts/quality/validacao_qualidade.py</code></div>
-            <div style="background:#F1F5F9; padding:6px; border-radius:4px;">📁 <strong>Diagrama AWS:</strong> <code>diagrams/arquitetura_aws.drawio</code></div>
+            <div style="background:#F1F5F9; padding:6px; border-radius:4px;"><strong>PySpark Glue Jobs:</strong> <code>glue_job_bronze_to_silver.py</code> / <code>glue_job_silver_to_gold.py</code></div>
+            <div style="background:#F1F5F9; padding:6px; border-radius:4px;"><strong>Consultas Athena:</strong> <code>scripts/analytics/queries_athena.sql</code></div>
+            <div style="background:#F1F5F9; padding:6px; border-radius:4px;"><strong>Quality Gate:</strong> <code>scripts/quality/validacao_qualidade.py</code></div>
+            <div style="background:#F1F5F9; padding:6px; border-radius:4px;"><strong>Diagrama AWS:</strong> <code>diagrams/arquitetura_aws.drawio</code></div>
           </div>
         </div>
       </div>
@@ -1907,13 +1737,6 @@
         <span class="footnote">Rastreabilidade completa de 100% dos requisitos do Tech Challenge Fase 3</span>
         <span class="pagination">18 / 18</span>
       </footer>
-
-      <div class="speaker-notes-content" style="display:none;">
-        <strong>Notas do Apresentador (Slide 18 — Rastreabilidade):</strong>
-        <ul>
-          <li>Encerrar demonstrando a cobertura completa de todos os critérios do enunciado oficial.</li>
-        </ul>
-      </div>
     </section>
 
   </div>
@@ -1922,16 +1745,15 @@
        TOOLBAR DE NAVEGAÇÃO FLUTUANTE
        ==================================================================== -->
   <div id="toolbar">
-    <button class="btn-tool" id="btn-toc" title="Abrir Índice de Slides">☰ Índice</button>
+    <button class="btn-tool" id="btn-toc" title="Abrir Índice de Slides"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg> Índice</button>
     <button class="btn-tool" id="btn-prev" title="Slide Anterior (Seta Esquerda)">◀</button>
     <div id="counter">01 / 18</div>
     <div id="progress-bar-container">
       <div id="progress-bar"></div>
     </div>
     <button class="btn-tool" id="btn-next" title="Próximo Slide (Seta Direita)">▶</button>
-    <button class="btn-tool" id="btn-notes" title="Notas do Apresentador (N)">📝 Notas</button>
-    <button class="btn-tool" id="btn-fullscreen" title="Tela Cheia (F)">⛶ Tela Cheia</button>
-    <button class="btn-tool" id="btn-print" title="Imprimir / Salvar PDF (Ctrl+P)">🖨️ PDF</button>
+    <button class="btn-tool" id="btn-fullscreen" title="Tela Cheia (F)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg> Tela Cheia</button>
+    <button class="btn-tool" id="btn-print" title="Imprimir / Salvar PDF (Ctrl+P)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> PDF</button>
   </div>
 
   <!-- DRAWER DO ÍNDICE -->
@@ -1943,17 +1765,6 @@
     <ul class="toc-list" id="toc-list">
       <!-- Populado dinamicamente via JS -->
     </ul>
-  </div>
-
-  <!-- MODAL DE NOTAS DO APRESENTADOR -->
-  <div id="notes-modal">
-    <div class="notes-header">
-      <span>Notas do Apresentador</span>
-      <button class="btn-tool" id="btn-close-notes" style="padding:2px 6px;">✕</button>
-    </div>
-    <div class="notes-body" id="notes-content">
-      Selecione um slide para ver as anotações do apresentador.
-    </div>
   </div>
 
   <!-- ====================================================================
@@ -1973,10 +1784,6 @@
       const tocDrawer = document.getElementById('toc-drawer');
       const btnCloseToc = document.getElementById('btn-close-toc');
       const tocList = document.getElementById('toc-list');
-      const btnNotes = document.getElementById('btn-notes');
-      const notesModal = document.getElementById('notes-modal');
-      const btnCloseNotes = document.getElementById('btn-close-notes');
-      const notesContent = document.getElementById('notes-content');
       const btnFullscreen = document.getElementById('btn-fullscreen');
       const btnPrint = document.getElementById('btn-print');
 
@@ -1995,7 +1802,13 @@
 
       function updateSlide() {
         slides.forEach((slide, idx) => {
-          slide.classList.toggle('active', idx === currentSlideIndex);
+          if (idx === currentSlideIndex) {
+            slide.classList.add('active');
+            slide.style.display = 'flex';
+          } else {
+            slide.classList.remove('active');
+            slide.style.display = 'none';
+          }
         });
 
         // Atualiza contador e barra
@@ -2007,15 +1820,6 @@
         tocItems.forEach((item, idx) => {
           item.classList.toggle('active', idx === currentSlideIndex);
         });
-
-        // Atualiza Notas
-        const currentSlide = slides[currentSlideIndex];
-        const notesElem = currentSlide.querySelector('.speaker-notes-content');
-        if (notesElem) {
-          notesContent.innerHTML = notesElem.innerHTML;
-        } else {
-          notesContent.innerHTML = '<em>Nenhuma anotação disponível para este slide.</em>';
-        }
       }
 
       function goToSlide(index) {
@@ -2044,9 +1848,6 @@
       btnToc.addEventListener('click', () => tocDrawer.classList.toggle('open'));
       btnCloseToc.addEventListener('click', () => tocDrawer.classList.remove('open'));
 
-      btnNotes.addEventListener('click', () => notesModal.classList.toggle('open'));
-      btnCloseNotes.addEventListener('click', () => notesModal.classList.remove('open'));
-
       btnFullscreen.addEventListener('click', () => {
         if (!document.fullscreenElement) {
           document.documentElement.requestFullscreen().catch(err => console.log(err));
@@ -2073,13 +1874,10 @@
           } else {
             document.exitFullscreen();
           }
-        } else if (e.key === 'n' || e.key === 'N') {
-          notesModal.classList.toggle('open');
         } else if (e.key === 't' || e.key === 'T' || e.key === 'i' || e.key === 'I') {
           tocDrawer.classList.toggle('open');
         } else if (e.key === 'Escape') {
           tocDrawer.classList.remove('open');
-          notesModal.classList.remove('open');
         }
       });
 

@@ -22,13 +22,7 @@ Este diretório contém os materiais executivos finais gerados para o **Tech Cha
 
 ---
 
-## 🛠️ Como Regenerar os Materiais (se necessário)
+## 🚀 Como Apresentar
 
-Caso queira reconstruir os arquivos a partir do código fonte:
-```powershell
-# Regenerar gráficos executivos
-python scripts/analytics/gerar_graficos_executivos.py
-
-# Regenerar apresentação HTML e PDF
-python scripts/analytics/gerar_apresentacao_executiva.py
-```
+* **Apresentação Interativa:** Abra [`apresentacao_state_of_data.html`](file:///C:/Projects/Tech%20Challenge%203/output/apresentacao/apresentacao_state_of_data.html) com duplo clique no navegador (Chrome, Edge ou Firefox). Pressione `F` para tela cheia e use as setas do teclado para navegar.
+* **Leitura Executiva / Entrega Oficial:** Visualize o documento [`apresentacao_state_of_data.pdf`](file:///C:/Projects/Tech%20Challenge%203/output/apresentacao/apresentacao_state_of_data.pdf) diretamente em qualquer leitor de PDF.

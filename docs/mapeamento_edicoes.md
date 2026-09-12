@@ -50,4 +50,4 @@ Este documento detalha o mapeamento das variáveis originais das três edições
 
 ## 3. Arquivo de Configuração Centralizado
 Para garantir rastreabilidade, auditoria e facilidade de manutenção, todas as correspondências acima estão formalizadas em formato JSON no arquivo:
-👉 [`config/mapeamento_colunas.json`](../config/mapeamento_colunas.json)
+[`config/mapeamento_colunas.json`](../config/mapeamento_colunas.json)

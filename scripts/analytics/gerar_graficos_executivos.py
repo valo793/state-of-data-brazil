@@ -23,7 +23,7 @@ YEARS = ["2023-2024", "2024-2025", "2025-2026"]
 YEAR_LABELS = ["23–24", "24–25", "25–26"]
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_INPUT_DIR = PROJECT_ROOT / "output" / "resultados_athena"
-DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "output" / "graficos_executivos"
+DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "output" / "apresentacao" / "assets"
 
 
 def parse_args():

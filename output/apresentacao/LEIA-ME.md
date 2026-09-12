@@ -1,31 +1,34 @@
-# Instruções de Apresentação e Impressão — Tech Challenge Fase 3
+# Guia de Apresentação Executiva — State of Data Brasil
 
-Este diretório contém os materiais executivos finais gerados para o **Tech Challenge Fase 3 (State of Data Brasil / Caso da Instituição Financeira)**.
+Este diretório reúne os materiais executivos finais desenvolvidos para suporte estratégico à tomada de decisão da Instituição Financeira, com base na série histórica da pesquisa State of Data Brasil (2023–2026).
 
 ---
 
-## 📁 Arquivos Entregues
+## Arquivos Disponibilizados
 
 1. **`apresentacao_state_of_data.html`**:
-   * Apresentação executiva interativa completa (18 slides) com proporção 16:9 widescreen.
-   * **Leve e Autônomo:** Pesa ~87 KB e referencia imagens em alta definição da subpasta `./assets/`. Utiliza ícones vetoriais SVG nítidos e modernos (sem emojis ou notas de rodapé de instrução).
-   * **Controles Interativos:**
-     * Teclas direcionais `←` / `→` ou Barra de Espaço: Navegar entre slides (exibe estritamente o slide ativo em tela cheia).
-     * `Home` / `End`: Ir para o início ou final da apresentação.
+   * Apresentação executiva interativa completa (18 slides) em proporção widescreen (16:9).
+   * **Autônomo e de Carregamento Rápido:** Arquivo leve (~87 KB) com referências relativas aos gráficos de alta resolução da subpasta `./assets/`. Utiliza ícones vetoriais SVG nítidos e estrutura visual limpa (sem emojis ou anotações informais).
+   * **Controles de Navegação:**
+     * Teclas direcionais `←` / `→` ou Barra de Espaço: Avançar e retroceder slides (exibe estritamente o slide ativo em tela cheia).
+     * `Home` / `End`: Ir para o primeiro ou último slide.
      * `F`: Alternar modo Tela Cheia (*Fullscreen*).
-     * `T` ou `I`: Abrir gaveta lateral de Índice (*Table of Contents*).
-     * `Ctrl + P` ou Botão **PDF**: Impressão direta formatada em 16:9 widescreen sem cabeçalhos de navegador.
+     * `T` ou `I`: Abrir menu de navegação rápida (*Table of Contents*).
+     * `Ctrl + P` ou Botão **PDF**: Impressão direta pré-formatada em 16:9 widescreen sem cabeçalhos de navegador.
 
 2. **`apresentacao_state_of_data.pdf`**:
-   * Documento PDF final oficial gerado em 16:9 paisagem widescreen (18 páginas), preservando todos os gráficos, tabelas e ressalvas metodológicas com alta fidelidade.
-   * Atende rigorosamente ao formato exigido no enunciado do Tech Challenge Fase 3.
+   * Relatório executivo oficial consolidado em 18 páginas widescreen (16:9 paisagem).
+   * Preserva a integridade gráfica de todos os gráficos analíticos, matrizes estratégicas, cronograma de implantação e ressalvas metodológicas com alta fidelidade tipográfica.
 
 3. **`assets/`**:
-   * Diretório contendo os 9 gráficos executivos em PNG de alta resolução gerados a partir dos dados do Amazon Athena e análises complementares.
+   * Diretório contendo as visualizações gráficas em alta definição (PNG), geradas a partir das consultas analíticas do Amazon Athena e dados de conciliação técnica.
 
 ---
 
-## 🚀 Como Apresentar
+## Instruções de Navegação e Visualização
 
-* **Apresentação Interativa:** Abra [`apresentacao_state_of_data.html`](file:///C:/Projects/Tech%20Challenge%203/output/apresentacao/apresentacao_state_of_data.html) com duplo clique no navegador (Chrome, Edge ou Firefox). Pressione `F` para tela cheia e use as setas do teclado para navegar.
-* **Leitura Executiva / Entrega Oficial:** Visualize o documento [`apresentacao_state_of_data.pdf`](file:///C:/Projects/Tech%20Challenge%203/output/apresentacao/apresentacao_state_of_data.pdf) diretamente em qualquer leitor de PDF.
+* **Apresentação Interativa em Tela Cheia:**
+  O arquivo [`apresentacao_state_of_data.html`](apresentacao_state_of_data.html) pode ser executado diretamente em qualquer navegador moderno (Google Chrome, Microsoft Edge ou Firefox). Pressione `F` para ativar o modo de tela cheia e navegue utilizando as setas do teclado.
+
+* **Distribuição e Leitura Executiva:**
+  O arquivo [`apresentacao_state_of_data.pdf`](apresentacao_state_of_data.pdf) foi gerado em formato padrão de apresentação widescreen (16:9) e destina-se ao compartilhamento formal com a diretoria e comitês executivos.

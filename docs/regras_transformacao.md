@@ -8,7 +8,7 @@ Este documento descreve as decisões metodológicas e as regras de transformaç�
 
 ### 1.1 IDs Nulos e Hash Criptográfico
 Em algumas edições da pesquisa, certos registros não possuem o identificador de token (`id_respondente` nulo ou vazio).
-* **Regra**: Em vez de descartar registros que possam conter respostas válidas, geramos um hash criptográfico **SHA-256** concatenando os atributos essenciais da resposta:
+* **Regra**: Em vez de descartar registros que possam conter respostas válidas, gera-se um hash criptográfico **SHA-256** concatenando os atributos essenciais da resposta:
   $$\text{id\_registro\_tecnico} = \text{SHA256}(\text{ano} \parallel \text{idade} \parallel \text{genero} \parallel \text{regiao} \parallel \text{cargo} \parallel \text{faixa\_salarial})$$
 * **Deduplicação**: A remoção de duplicatas é executada com base no par `(ano_pesquisa, id_registro_tecnico)`.
 
@@ -16,7 +16,7 @@ Em algumas edições da pesquisa, certos registros não possuem o identificador 
 
 ## 2. Metodologia de Estimativa Salarial
 
-As pesquisas coletam a remuneração em faixas textuais mensais brutas. Para viabilizar cruzamentos numéricos e agregações estatísticas, adotamos o seguinte critério:
+As pesquisas coletam a remuneração em faixas textuais mensais brutas. Para viabilizar cruzamentos numéricos e agregações estatísticas, adota-se o seguinte critério:
 
 1. **Preservação da Faixa Canônica**: O campo original `faixa_salarial` é mantido intacto como dimensão categórica primária.
 2. **Cálculo da Métrica Contínua (`salario_medio_estimado`)**:

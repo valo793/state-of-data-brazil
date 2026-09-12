@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,9 +23,9 @@
       --slate-border: #CBD5E1;
       --bg-page: #F8FAFC;
       --bg-card: #FFFFFF;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -1px rgba(0,0,0,0.04);
-      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.04);
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
       --radius-sm: 6px;
       --radius-md: 10px;
       --radius-lg: 14px;
@@ -65,7 +66,7 @@
       flex-direction: column;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     }
 
     .slide-wrapper.active {
@@ -74,8 +75,15 @@
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.995); }
-      to { opacity: 1; transform: scale(1); }
+      from {
+        opacity: 0;
+        transform: scale(0.995);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     .slide-header {
@@ -186,10 +194,21 @@
       position: relative;
     }
 
-    .card-highlight-blue { border-top: 4px solid var(--blue-accent); }
-    .card-highlight-green { border-top: 4px solid var(--green-accent); }
-    .card-highlight-amber { border-top: 4px solid var(--amber-accent); }
-    .card-highlight-purple { border-top: 4px solid var(--purple-accent); }
+    .card-highlight-blue {
+      border-top: 4px solid var(--blue-accent);
+    }
+
+    .card-highlight-green {
+      border-top: 4px solid var(--green-accent);
+    }
+
+    .card-highlight-amber {
+      border-top: 4px solid var(--amber-accent);
+    }
+
+    .card-highlight-purple {
+      border-top: 4px solid var(--purple-accent);
+    }
 
     .card-header {
       display: flex;
@@ -210,10 +229,25 @@
       justify-content: center;
     }
 
-    .icon-blue { background: var(--blue-light); color: var(--blue-accent); }
-    .icon-green { background: var(--green-light); color: var(--green-accent); }
-    .icon-amber { background: var(--amber-light); color: var(--amber-accent); }
-    .icon-purple { background: var(--purple-light); color: var(--purple-accent); }
+    .icon-blue {
+      background: var(--blue-light);
+      color: var(--blue-accent);
+    }
+
+    .icon-green {
+      background: var(--green-light);
+      color: var(--green-accent);
+    }
+
+    .icon-amber {
+      background: var(--amber-light);
+      color: var(--amber-accent);
+    }
+
+    .icon-purple {
+      background: var(--purple-light);
+      color: var(--purple-accent);
+    }
 
     .chart-container {
       background: #FFFFFF;
@@ -273,9 +307,17 @@
       display: block;
     }
 
-    .tria-evidencia .tria-label { color: #334155; }
-    .tria-interpretacao .tria-label { color: var(--blue-accent); }
-    .tria-implicacao .tria-label { color: var(--green-accent); }
+    .tria-evidencia .tria-label {
+      color: #334155;
+    }
+
+    .tria-interpretacao .tria-label {
+      color: var(--blue-accent);
+    }
+
+    .tria-implicacao .tria-label {
+      color: var(--green-accent);
+    }
 
     .kpi-row {
       display: grid;
@@ -312,9 +354,17 @@
       margin-top: 2px;
     }
 
-    .delta-up { color: var(--green-accent); }
-    .delta-down { color: #DC2626; }
-    .delta-neutral { color: var(--slate-muted); }
+    .delta-up {
+      color: var(--green-accent);
+    }
+
+    .delta-down {
+      color: #DC2626;
+    }
+
+    .delta-neutral {
+      color: var(--slate-muted);
+    }
 
     .table-exec {
       width: 100%;
@@ -489,7 +539,7 @@
       align-items: center;
       gap: 12px;
       z-index: 1000;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
     }
 
     .btn-tool {
@@ -543,7 +593,7 @@
       height: 100vh;
       background: #0F172A;
       border-right: 1px solid #334155;
-      box-shadow: 10px 0 25px rgba(0,0,0,0.5);
+      box-shadow: 10px 0 25px rgba(0, 0, 0, 0.5);
       z-index: 2000;
       transition: left 0.25s cubic-bezier(0.4, 0, 0.2, 1);
       display: flex;
@@ -619,7 +669,8 @@
         transition: none !important;
       }
 
-      html, body {
+      html,
+      body {
         width: 16in !important;
         height: auto !important;
         margin: 0 !important;
@@ -670,12 +721,14 @@
         box-sizing: border-box !important;
       }
 
-      #toolbar, #toc-drawer {
+      #toolbar,
+      #toc-drawer {
         display: none !important;
       }
     }
   </style>
 </head>
+
 <body>
 
   <div id="presentation-container">
@@ -683,28 +736,51 @@
     <!-- SLIDE 1: CAPA -->
     <section class="slide-wrapper slide-cover active" id="slide-1" data-title="Capa">
       <div>
-        <div class="cover-tag"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg> Diagnóstico Estratégico do Mercado de Dados</div>
+        <div class="cover-tag"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+          </svg> Diagnóstico Estratégico do Mercado de Dados</div>
         <h1 class="cover-title">Dados e IA no Brasil: Evidências para a Expansão de uma Instituição Financeira</h1>
-        <p class="cover-subtitle">Diretrizes de Mercado para Contratação, Remuneração, Capacitação, Retenção e Governança de IA com base na série histórica State of Data Brasil (2023–2026)</p>
+        <p class="cover-subtitle">Diretrizes de Mercado para Contratação, Remuneração, Capacitação, Retenção e
+          Governança de IA com base na série histórica State of Data Brasil (2023–2026)</p>
       </div>
 
       <div class="cover-cards">
         <div class="cover-card">
-          <div class="cover-card-title"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg> Caso da Instituição Financeira</div>
-          <div class="cover-card-desc">Suporte a decisões executivas de atração de talentos, remuneração, formação técnica, políticas de trabalho e investimentos em IA.</div>
+          <div class="cover-card-title"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+            </svg> Caso da Instituição Financeira</div>
+          <div class="cover-card-desc">Suporte a decisões executivas de atração de talentos, remuneração, formação
+            técnica, políticas de trabalho e investimentos em IA.</div>
         </div>
         <div class="cover-card">
-          <div class="cover-card-title"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg> Arquitetura Medallion AWS</div>
-          <div class="cover-card-desc">Pipeline em 3 camadas no Amazon S3 (Bronze, Silver, Gold), processamento distribuído com PySpark no AWS Glue e consultas no Amazon Athena.</div>
+          <div class="cover-card-title"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
+            </svg> Arquitetura Medallion AWS</div>
+          <div class="cover-card-desc">Pipeline em 3 camadas no Amazon S3 (Bronze, Silver, Gold), processamento
+            distribuído com PySpark no AWS Glue e consultas no Amazon Athena.</div>
         </div>
         <div class="cover-card">
-          <div class="cover-card-title"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg> Base Consolidada</div>
-          <div class="cover-card-desc">14.002 registros históricos (5.293 em 2023–24, 5.215 em 2024–25 e 3.494 em 2025–26) auditados sob rigorosos critérios de integridade estatística.</div>
+          <div class="cover-card-title"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+              <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+              <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+            </svg> Base Consolidada</div>
+          <div class="cover-card-desc">14.002 registros históricos (5.293 em 2023–24, 5.215 em 2024–25 e 3.494 em
+            2025–26) auditados sob rigorosos critérios de integridade estatística.</div>
         </div>
       </div>
 
       <div class="cover-footer">
-        <div>Fonte: Microdados State of Data Brasil (Data Hackers &amp; Bain) | Database AWS: <code>db_state_of_data</code></div>
+        <div>Fonte: Microdados State of Data Brasil (Data Hackers &amp; Bain) | Database AWS:
+          <code>db_state_of_data</code></div>
         <div>Navegue com as teclas direcionais ◀ / ▶ ou utilize o Índice</div>
       </div>
     </section>
@@ -722,43 +798,64 @@
       <div class="slide-body grid-2col">
         <div class="card card-highlight-blue">
           <div class="card-header">
-            <div class="card-icon icon-blue"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></div>
+            <div class="card-icon icon-blue"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <circle cx="12" cy="12" r="6"></circle>
+                <circle cx="12" cy="12" r="2"></circle>
+              </svg></div>
             <span>Três Decisões Centrais que o Estudo Orienta</span>
           </div>
           <ul class="exec-list">
-            <li><strong>1. Estratégia de Atração e Remuneração de Talentos:</strong> Calibrar contratações para perfis de alta complexidade (Engenharia e IA) sem inflacionar a folha global, explorando contratação distribuída como hipótese a testar.</li>
-            <li><strong>2. Investimento Tecnológico e Capacitação Interna:</strong> Definir uma stack tecnológica interoperável e desenhar trilhas de upskilling focadas em competências fundamentais transferíveis (SQL, Python, Cloud e Modelagem).</li>
-            <li><strong>3. Transição de IA Experimental para Pilotos Governados:</strong> Superar o estágio de licenças isoladas e criar um modelo corporativo de GenAI com segurança de dados sensíveis (LGPD/Sigilo Bancário) e ROI mensurável.</li>
+            <li><strong>1. Estratégia de Atração e Remuneração de Talentos:</strong> Calibrar contratações para perfis
+              de alta complexidade (Engenharia e IA) sem inflacionar a folha global, explorando contratação distribuída
+              como hipótese a testar.</li>
+            <li><strong>2. Investimento Tecnológico e Capacitação Interna:</strong> Definir uma stack tecnológica
+              interoperável e desenhar trilhas de upskilling focadas em competências fundamentais transferíveis (SQL,
+              Python, Cloud e Modelagem).</li>
+            <li><strong>3. Transição de IA Experimental para Pilotos Governados:</strong> Superar o estágio de licenças
+              isoladas e criar um modelo corporativo de GenAI com segurança de dados sensíveis (LGPD/Sigilo Bancário) e
+              ROI mensurável.</li>
           </ul>
           <div class="callout callout-info" style="margin-top:auto;">
-            <strong>Foco Executivo:</strong> Transformar dados empíricos de mercado em escolhas estratégicas defensáveis para a diretoria do banco.
+            <strong>Foco Executivo:</strong> Transformar dados empíricos de mercado em escolhas estratégicas defensáveis
+            para a diretoria do banco.
           </div>
         </div>
 
         <div class="card card-highlight-green">
           <div class="card-header">
-            <div class="card-icon icon-green"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg></div>
+            <div class="card-icon icon-green"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                <polyline points="17 6 23 6 23 12"></polyline>
+              </svg></div>
             <span>Tese Central do Diagnóstico de Mercado</span>
           </div>
           <div class="tria-container">
             <div class="tria-block tria-evidencia">
               <span class="tria-label">O que o Mercado Revela</span>
-              A remuneração nominal média estimada avançou +26,4% no período analisado e cresceu o financiamento empresarial de ferramentas de IA (de 6,4% para 42,3%). Persistem concentração no Sudeste (>60%), baixa participação feminina (22,0%) e disparidade de satisfação em modelos presenciais.
+              A remuneração nominal média estimada avançou +26,4% no período analisado e cresceu o financiamento
+              empresarial de ferramentas de IA (de 6,4% para 42,3%). Persistem concentração no Sudeste (>60%), baixa
+              participação feminina (22,0%) e disparidade de satisfação em modelos presenciais.
             </div>
             <div class="tria-block tria-interpretacao">
               <span class="tria-label">Interpretação para o Setor Financeiro</span>
-              O mercado brasileiro de dados amadureceu em custos e expectativas, mas opera com funis de contratação restritos e riscos de dispersão de orçamento em IA sem governança.
+              O mercado brasileiro de dados amadureceu em custos e expectativas, mas opera com funis de contratação
+              restritos e riscos de dispersão de orçamento em IA sem governança.
             </div>
             <div class="tria-block tria-implicacao">
               <span class="tria-label">Diretriz Estratégica para o Banco</span>
-              Combinar contratação sênior cirúrgica, formação técnica interna de plenos, pilotos de contratação regional distribuída com flexibilidade de trabalho e pilotos governados de IA com validação de retorno.
+              Combinar contratação sênior cirúrgica, formação técnica interna de plenos, pilotos de contratação regional
+              distribuída com flexibilidade de trabalho e pilotos governados de IA com validação de retorno.
             </div>
           </div>
         </div>
       </div>
 
       <footer class="slide-footer">
-        <span class="footnote">Diagnóstico estruturado para expansão de Big Data &amp; Analytics no Setor Bancário</span>
+        <span class="footnote">Diagnóstico estruturado para expansão de Big Data &amp; Analytics no Setor
+          Bancário</span>
         <span class="pagination">02 / 18</span>
       </footer>
     </section>
@@ -776,7 +873,12 @@
       <div class="slide-body grid-2col">
         <div class="card card-highlight-blue">
           <div class="card-header">
-            <div class="card-icon icon-blue"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg></div>
+            <div class="card-icon icon-blue"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+              </svg></div>
             <span>Composição Amostral por Edição da Pesquisa</span>
           </div>
           <div class="kpi-row">
@@ -798,36 +900,67 @@
           </div>
           <table class="table-exec">
             <thead>
-              <tr><th>Etapa de Auditoria</th><th>Regra Aplicada</th><th>Status</th></tr>
+              <tr>
+                <th>Etapa de Auditoria</th>
+                <th>Regra Aplicada</th>
+                <th>Status</th>
+              </tr>
             </thead>
             <tbody>
-              <tr><td>Deduplicação de Chave</td><td>Chave <code>(ano, id)</code> com hash SHA-256 para nulos</td><td>Totalmente Auditado</td></tr>
-              <tr><td>Estimativa Salarial</td><td>Ponto médio em faixas fechadas; 1.2x no topo aberto</td><td>Métrica Contínua</td></tr>
-              <tr><td>Completude Crítica</td><td>Gênero (100%), Região (97,2%), Salário (91,7%)</td><td>Acima dos Limites</td></tr>
-              <tr><td>Taxa de Satisfação</td><td>Denominador estrito sobre respostas válidas</td><td>Sem Distorção</td></tr>
+              <tr>
+                <td>Deduplicação de Chave</td>
+                <td>Chave <code>(ano, id)</code> com hash SHA-256 para nulos</td>
+                <td>Totalmente Auditado</td>
+              </tr>
+              <tr>
+                <td>Estimativa Salarial</td>
+                <td>Ponto médio em faixas fechadas; 1.2x no topo aberto</td>
+                <td>Métrica Contínua</td>
+              </tr>
+              <tr>
+                <td>Completude Crítica</td>
+                <td>Gênero (100%), Região (97,2%), Salário (91,7%)</td>
+                <td>Acima dos Limites</td>
+              </tr>
+              <tr>
+                <td>Taxa de Satisfação</td>
+                <td>Denominador estrito sobre respostas válidas</td>
+                <td>Sem Distorção</td>
+              </tr>
             </tbody>
           </table>
         </div>
 
         <div class="card card-highlight-amber">
           <div class="card-header">
-            <div class="card-icon icon-amber"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></div>
+            <div class="card-icon icon-amber"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg></div>
             <span>Limitações e Ressalvas Metodológicas Essenciais</span>
           </div>
           <ul class="exec-list">
-            <li><strong>Amostra Voluntária de Conveniência:</strong> A pesquisa não constitui um censo populacional nem um painel longitudinal (não acompanha os mesmos indivíduos ano a ano).</li>
-            <li><strong>Variação Volumétrica em 2025–2026:</strong> A redução de ~33% no volume de respondentes reflete dinâmicas de engajamento da coleta, e não retração do mercado de trabalho de dados.</li>
-            <li><strong>Salários Estimados Nominais:</strong> Os valores salariais são aproximações baseadas em faixas textuais brutas sem correção inflacionária pelo IPCA.</li>
-            <li><strong>Faixa Inconsistente Preservada:</strong> Uma inconsistência de digitação na fonte de 2025–2026 foi mantida por integridade (impacto de R$ 0,21 na média geral).</li>
+            <li><strong>Amostra Voluntária de Conveniência:</strong> A pesquisa não constitui um censo populacional nem
+              um painel longitudinal (não acompanha os mesmos indivíduos ano a ano).</li>
+            <li><strong>Variação Volumétrica em 2025–2026:</strong> A redução de ~33% no volume de respondentes reflete
+              dinâmicas de engajamento da coleta, e não retração do mercado de trabalho de dados.</li>
+            <li><strong>Salários Estimados Nominais:</strong> Os valores salariais são aproximações baseadas em faixas
+              textuais brutas sem correção inflacionária pelo IPCA.</li>
+            <li><strong>Faixa Inconsistente Preservada:</strong> Uma inconsistência de digitação na fonte de 2025–2026
+              foi mantida por integridade (impacto de R$ 0,21 na média geral).</li>
           </ul>
           <div class="callout callout-warning">
-            <strong>Critério Analítico:</strong> Variações temporais indicam mudanças na composição da amostra participante, devendo ser interpretadas com cautela estatística.
+            <strong>Critério Analítico:</strong> Variações temporais indicam mudanças na composição da amostra
+            participante, devendo ser interpretadas com cautela estatística.
           </div>
         </div>
       </div>
 
       <footer class="slide-footer">
-        <span class="footnote">Auditoria automatizada executada via <code>scripts/quality/validacao_qualidade.py</code></span>
+        <span class="footnote">Auditoria automatizada executada via
+          <code>scripts/quality/validacao_qualidade.py</code></span>
         <span class="pagination">03 / 18</span>
       </footer>
     </section>
@@ -844,152 +977,217 @@
 
       <div class="slide-body grid-chart-side">
         <div class="chart-container" style="padding: 6px;">
-          
-    <svg viewBox="0 0 1100 480" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;">
-      <defs>
-        <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
-          <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0B1E36" flood-opacity="0.12" />
-        </filter>
-        <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M 0 1 L 10 5 L 0 9 z" fill="#0288D1" />
-        </marker>
-        <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M 0 1 L 10 5 L 0 9 z" fill="#107C41" />
-        </marker>
-        <marker id="arrow-orange" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M 0 1 L 10 5 L 0 9 z" fill="#FF9900" />
-        </marker>
-        <marker id="arrow-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M 0 1 L 10 5 L 0 9 z" fill="#5E35B1" />
-        </marker>
-      </defs>
 
-      <!-- FAIXA SUPERIOR: JOBS PYSPARK (FORA DO S3) -->
-      <rect x="270" y="20" width="220" height="60" rx="8" fill="#E1F5FE" stroke="#0288D1" stroke-width="2" filter="url(#shadow)" />
-      <text x="380" y="42" font-size="12" font-weight="bold" fill="#01579B" text-anchor="middle">AWS Glue Job 1 (PySpark)</text>
-      <text x="380" y="58" font-size="10" fill="#555" text-anchor="middle">tc3-bronze-to-silver (Harmonização &amp; SHA-256)</text>
+          <svg viewBox="0 0 1100 480" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
+            style="font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;">
+            <defs>
+              <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+                <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0B1E36" flood-opacity="0.12" />
+              </filter>
+              <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6"
+                orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#0288D1" />
+              </marker>
+              <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6"
+                orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#107C41" />
+              </marker>
+              <marker id="arrow-orange" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6"
+                orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#FF9900" />
+              </marker>
+              <marker id="arrow-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6"
+                orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#5E35B1" />
+              </marker>
+            </defs>
 
-      <rect x="520" y="20" width="220" height="60" rx="8" fill="#E1F5FE" stroke="#0288D1" stroke-width="2" filter="url(#shadow)" />
-      <text x="630" y="42" font-size="12" font-weight="bold" fill="#01579B" text-anchor="middle">AWS Glue Job 2 (PySpark)</text>
-      <text x="630" y="58" font-size="10" fill="#555" text-anchor="middle">tc3-silver-to-gold (Data Marts &amp; Médias Ponderadas)</text>
+            <!-- FAIXA SUPERIOR: JOBS PYSPARK (FORA DO S3) -->
+            <rect x="270" y="20" width="220" height="60" rx="8" fill="#E1F5FE" stroke="#0288D1" stroke-width="2"
+              filter="url(#shadow)" />
+            <text x="380" y="42" font-size="12" font-weight="bold" fill="#01579B" text-anchor="middle">AWS Glue Job 1
+              (PySpark)</text>
+            <text x="380" y="58" font-size="10" fill="#555" text-anchor="middle">tc3-bronze-to-silver (Harmonização
+              &amp; SHA-256)</text>
 
-      <!-- ORIGEM: KAGGLE -->
-      <rect x="20" y="140" width="160" height="110" rx="10" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="2" filter="url(#shadow)" />
-      <text x="100" y="168" font-size="13" font-weight="bold" fill="#4A148C" text-anchor="middle">Origem Externa</text>
-      <text x="100" y="188" font-size="11" font-weight="bold" fill="#333" text-anchor="middle">Kaggle State of Data</text>
-      <text x="100" y="206" font-size="9.5" fill="#666" text-anchor="middle">2023–2024 | 2024–2025</text>
-      <text x="100" y="222" font-size="9.5" fill="#666" text-anchor="middle">2025–2026 (CSVs Brutos)</text>
-      <text x="100" y="238" font-size="9" font-weight="bold" fill="#7B1FA2" text-anchor="middle">n = 14.002 registros</text>
+            <rect x="520" y="20" width="220" height="60" rx="8" fill="#E1F5FE" stroke="#0288D1" stroke-width="2"
+              filter="url(#shadow)" />
+            <text x="630" y="42" font-size="12" font-weight="bold" fill="#01579B" text-anchor="middle">AWS Glue Job 2
+              (PySpark)</text>
+            <text x="630" y="58" font-size="10" fill="#555" text-anchor="middle">tc3-silver-to-gold (Data Marts &amp;
+              Médias Ponderadas)</text>
 
-      <path d="M 180 195 L 220 195" fill="none" stroke="#0288D1" stroke-width="2.5" marker-end="url(#arrow-blue)" />
+            <!-- ORIGEM: KAGGLE -->
+            <rect x="20" y="140" width="160" height="110" rx="10" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="2"
+              filter="url(#shadow)" />
+            <text x="100" y="168" font-size="13" font-weight="bold" fill="#4A148C" text-anchor="middle">Origem
+              Externa</text>
+            <text x="100" y="188" font-size="11" font-weight="bold" fill="#333" text-anchor="middle">Kaggle State of
+              Data</text>
+            <text x="100" y="206" font-size="9.5" fill="#666" text-anchor="middle">2023–2024 | 2024–2025</text>
+            <text x="100" y="222" font-size="9.5" fill="#666" text-anchor="middle">2025–2026 (CSVs Brutos)</text>
+            <text x="100" y="238" font-size="9" font-weight="bold" fill="#7B1FA2" text-anchor="middle">n = 14.002
+              registros</text>
 
-      <!-- CONTAINER S3 DATA LAKE (3 CAMADAS DENTRO DO S3) -->
-      <rect x="225" y="105" width="555" height="180" rx="12" fill="#F8FAFC" stroke="#232F3E" stroke-width="2" stroke-dasharray="8 6" filter="url(#shadow)" />
-      <text x="245" y="128" font-size="13" font-weight="bold" fill="#232F3E">Amazon S3 Data Lake (3 Camadas Medallion)</text>
+            <path d="M 180 195 L 220 195" fill="none" stroke="#0288D1" stroke-width="2.5"
+              marker-end="url(#arrow-blue)" />
 
-      <!-- S3 Bronze -->
-      <rect x="245" y="145" width="155" height="120" rx="8" fill="#EFEBE9" stroke="#8D6E63" stroke-width="2" />
-      <path d="M 245 160 C 245 152, 400 152, 400 160 C 400 168, 245 168, 245 160 Z" fill="#D7CCC8" stroke="#8D6E63" stroke-width="1.5" />
-      <text x="322" y="182" font-size="12" font-weight="bold" fill="#4E342E" text-anchor="middle">Camada Bronze</text>
-      <text x="322" y="200" font-size="10" font-weight="bold" fill="#333" text-anchor="middle">CSV Original</text>
-      <text x="322" y="216" font-size="9" fill="#555" text-anchor="middle">s3://bucket/bronze/</text>
-      <text x="322" y="232" font-size="9" fill="#666" text-anchor="middle">Dados Brutos Preservados</text>
-      <text x="322" y="248" font-size="8.5" fill="#888" text-anchor="middle">14.005 linhas brutas</text>
+            <!-- CONTAINER S3 DATA LAKE (3 CAMADAS DENTRO DO S3) -->
+            <rect x="225" y="105" width="555" height="180" rx="12" fill="#F8FAFC" stroke="#232F3E" stroke-width="2"
+              stroke-dasharray="8 6" filter="url(#shadow)" />
+            <text x="245" y="128" font-size="13" font-weight="bold" fill="#232F3E">Amazon S3 Data Lake (3 Camadas
+              Medallion)</text>
 
-      <!-- S3 Silver -->
-      <rect x="425" y="145" width="155" height="120" rx="8" fill="#ECEFF1" stroke="#78909C" stroke-width="2" />
-      <path d="M 425 160 C 425 152, 580 152, 580 160 C 580 168, 425 168, 425 160 Z" fill="#CFD8DC" stroke="#78909C" stroke-width="1.5" />
-      <text x="502" y="182" font-size="12" font-weight="bold" fill="#263238" text-anchor="middle">Camada Silver</text>
-      <text x="502" y="200" font-size="10" font-weight="bold" fill="#333" text-anchor="middle">Parquet + Snappy</text>
-      <text x="502" y="216" font-size="9" fill="#555" text-anchor="middle">s3://bucket/silver/</text>
-      <text x="502" y="232" font-size="9" fill="#666" text-anchor="middle">Partição: ano_pesquisa</text>
-      <text x="502" y="248" font-size="8.5" fill="#888" text-anchor="middle">14.002 linhas limpas</text>
+            <!-- S3 Bronze -->
+            <rect x="245" y="145" width="155" height="120" rx="8" fill="#EFEBE9" stroke="#8D6E63" stroke-width="2" />
+            <path d="M 245 160 C 245 152, 400 152, 400 160 C 400 168, 245 168, 245 160 Z" fill="#D7CCC8"
+              stroke="#8D6E63" stroke-width="1.5" />
+            <text x="322" y="182" font-size="12" font-weight="bold" fill="#4E342E" text-anchor="middle">Camada
+              Bronze</text>
+            <text x="322" y="200" font-size="10" font-weight="bold" fill="#333" text-anchor="middle">CSV Original</text>
+            <text x="322" y="216" font-size="9" fill="#555" text-anchor="middle">s3://bucket/bronze/</text>
+            <text x="322" y="232" font-size="9" fill="#666" text-anchor="middle">Dados Brutos Preservados</text>
+            <text x="322" y="248" font-size="8.5" fill="#888" text-anchor="middle">14.005 linhas brutas</text>
 
-      <!-- S3 Gold -->
-      <rect x="605" y="145" width="155" height="120" rx="8" fill="#FFFDE7" stroke="#FBC02D" stroke-width="2" />
-      <path d="M 605 160 C 605 152, 760 152, 760 160 C 760 168, 605 168, 605 160 Z" fill="#FFF9C4" stroke="#FBC02D" stroke-width="1.5" />
-      <text x="682" y="182" font-size="12" font-weight="bold" fill="#F57F17" text-anchor="middle">Camada Gold</text>
-      <text x="682" y="200" font-size="10" font-weight="bold" fill="#333" text-anchor="middle">Parquet (Data Marts)</text>
-      <text x="682" y="216" font-size="9" fill="#555" text-anchor="middle">s3://bucket/gold/</text>
-      <text x="682" y="232" font-size="9" fill="#666" text-anchor="middle">7 Tabelas Analíticas</text>
-      <text x="682" y="248" font-size="8.5" fill="#888" text-anchor="middle">Contadores Ponderados</text>
+            <!-- S3 Silver -->
+            <rect x="425" y="145" width="155" height="120" rx="8" fill="#ECEFF1" stroke="#78909C" stroke-width="2" />
+            <path d="M 425 160 C 425 152, 580 152, 580 160 C 580 168, 425 168, 425 160 Z" fill="#CFD8DC"
+              stroke="#78909C" stroke-width="1.5" />
+            <text x="502" y="182" font-size="12" font-weight="bold" fill="#263238" text-anchor="middle">Camada
+              Silver</text>
+            <text x="502" y="200" font-size="10" font-weight="bold" fill="#333" text-anchor="middle">Parquet +
+              Snappy</text>
+            <text x="502" y="216" font-size="9" fill="#555" text-anchor="middle">s3://bucket/silver/</text>
+            <text x="502" y="232" font-size="9" fill="#666" text-anchor="middle">Partição: ano_pesquisa</text>
+            <text x="502" y="248" font-size="8.5" fill="#888" text-anchor="middle">14.002 linhas limpas</text>
 
-      <!-- Setas dos Glue Jobs conectando os S3 -->
-      <path d="M 322 145 L 322 80" fill="none" stroke="#0288D1" stroke-width="2" marker-end="url(#arrow-blue)" />
-      <path d="M 435 80 L 435 145" fill="none" stroke="#0288D1" stroke-width="2" marker-end="url(#arrow-blue)" />
-      <path d="M 502 145 L 502 80" fill="none" stroke="#0288D1" stroke-width="2" marker-end="url(#arrow-blue)" />
-      <path d="M 615 80 L 615 145" fill="none" stroke="#0288D1" stroke-width="2" marker-end="url(#arrow-blue)" />
+            <!-- S3 Gold -->
+            <rect x="605" y="145" width="155" height="120" rx="8" fill="#FFFDE7" stroke="#FBC02D" stroke-width="2" />
+            <path d="M 605 160 C 605 152, 760 152, 760 160 C 760 168, 605 168, 605 160 Z" fill="#FFF9C4"
+              stroke="#FBC02D" stroke-width="1.5" />
+            <text x="682" y="182" font-size="12" font-weight="bold" fill="#F57F17" text-anchor="middle">Camada
+              Gold</text>
+            <text x="682" y="200" font-size="10" font-weight="bold" fill="#333" text-anchor="middle">Parquet (Data
+              Marts)</text>
+            <text x="682" y="216" font-size="9" fill="#555" text-anchor="middle">s3://bucket/gold/</text>
+            <text x="682" y="232" font-size="9" fill="#666" text-anchor="middle">7 Tabelas Analíticas</text>
+            <text x="682" y="248" font-size="8.5" fill="#888" text-anchor="middle">Contadores Ponderados</text>
 
-      <!-- CONSUMO ANALÍTICO: ATHENA, PYTHON & APRESENTAÇÃO -->
-      <rect x="815" y="90" width="160" height="42" rx="6" fill="#F1F8E9" stroke="#81C784" stroke-width="1.5" />
-      <text x="895" y="108" font-size="10.5" font-weight="bold" fill="#2E7D32" text-anchor="middle">S3 Athena Results</text>
-      <text x="895" y="122" font-size="8.5" fill="#666" text-anchor="middle">s3://bucket/athena-results/</text>
+            <!-- Setas dos Glue Jobs conectando os S3 -->
+            <path d="M 322 145 L 322 80" fill="none" stroke="#0288D1" stroke-width="2" marker-end="url(#arrow-blue)" />
+            <path d="M 435 80 L 435 145" fill="none" stroke="#0288D1" stroke-width="2" marker-end="url(#arrow-blue)" />
+            <path d="M 502 145 L 502 80" fill="none" stroke="#0288D1" stroke-width="2" marker-end="url(#arrow-blue)" />
+            <path d="M 615 80 L 615 145" fill="none" stroke="#0288D1" stroke-width="2" marker-end="url(#arrow-blue)" />
 
-      <rect x="815" y="150" width="160" height="75" rx="8" fill="#E8F5E9" stroke="#43A047" stroke-width="2" filter="url(#shadow)" />
-      <text x="895" y="174" font-size="12" font-weight="bold" fill="#1B5E20" text-anchor="middle">Amazon Athena</text>
-      <text x="895" y="192" font-size="9.5" fill="#333" text-anchor="middle">Consultas SQL Interativas</text>
-      <text x="895" y="208" font-size="9" font-weight="bold" fill="#43A047" text-anchor="middle">db_state_of_data</text>
+            <!-- CONSUMO ANALÍTICO: ATHENA, PYTHON & APRESENTAÇÃO -->
+            <rect x="815" y="90" width="160" height="42" rx="6" fill="#F1F8E9" stroke="#81C784" stroke-width="1.5" />
+            <text x="895" y="108" font-size="10.5" font-weight="bold" fill="#2E7D32" text-anchor="middle">S3 Athena
+              Results</text>
+            <text x="895" y="122" font-size="8.5" fill="#666" text-anchor="middle">s3://bucket/athena-results/</text>
 
-      <path d="M 760 195 L 815 195" fill="none" stroke="#107C41" stroke-width="2.5" marker-end="url(#arrow-green)" />
-      <path d="M 895 150 L 895 132" fill="none" stroke="#81C784" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arrow-green)" />
+            <rect x="815" y="150" width="160" height="75" rx="8" fill="#E8F5E9" stroke="#43A047" stroke-width="2"
+              filter="url(#shadow)" />
+            <text x="895" y="174" font-size="12" font-weight="bold" fill="#1B5E20" text-anchor="middle">Amazon
+              Athena</text>
+            <text x="895" y="192" font-size="9.5" fill="#333" text-anchor="middle">Consultas SQL Interativas</text>
+            <text x="895" y="208" font-size="9" font-weight="bold" fill="#43A047"
+              text-anchor="middle">db_state_of_data</text>
 
-      <rect x="815" y="245" width="160" height="70" rx="8" fill="#FFFDE7" stroke="#FBC02D" stroke-width="2" filter="url(#shadow)" />
-      <text x="895" y="268" font-size="11.5" font-weight="bold" fill="#F57F17" text-anchor="middle">Python DataViz (300 DPI)</text>
-      <text x="895" y="284" font-size="9" fill="#555" text-anchor="middle">extrair_resultados_athena.py</text>
-      <text x="895" y="300" font-size="9" fill="#555" text-anchor="middle">output/resultados_athena/*.csv</text>
+            <path d="M 760 195 L 815 195" fill="none" stroke="#107C41" stroke-width="2.5"
+              marker-end="url(#arrow-green)" />
+            <path d="M 895 150 L 895 132" fill="none" stroke="#81C784" stroke-width="1.5" stroke-dasharray="3 3"
+              marker-end="url(#arrow-green)" />
 
-      <path d="M 895 225 L 895 245" fill="none" stroke="#FBC02D" stroke-width="2" marker-end="url(#arrow-orange)" />
+            <rect x="815" y="245" width="160" height="70" rx="8" fill="#FFFDE7" stroke="#FBC02D" stroke-width="2"
+              filter="url(#shadow)" />
+            <text x="895" y="268" font-size="11.5" font-weight="bold" fill="#F57F17" text-anchor="middle">Python DataViz
+              (300 DPI)</text>
+            <text x="895" y="284" font-size="9" fill="#555" text-anchor="middle">extrair_resultados_athena.py</text>
+            <text x="895" y="300" font-size="9" fill="#555" text-anchor="middle">output/resultados_athena/*.csv</text>
 
-      <rect x="815" y="335" width="160" height="70" rx="8" fill="#EDE7F6" stroke="#5E35B1" stroke-width="2" filter="url(#shadow)" />
-      <text x="895" y="358" font-size="11.5" font-weight="bold" fill="#311B92" text-anchor="middle">Material Executivo</text>
-      <text x="895" y="374" font-size="9.5" fill="#333" text-anchor="middle">HTML Interativo + PDF</text>
-      <text x="895" y="390" font-size="9" font-weight="bold" fill="#5E35B1" text-anchor="middle">Storytelling &amp; Decisões</text>
+            <path d="M 895 225 L 895 245" fill="none" stroke="#FBC02D" stroke-width="2"
+              marker-end="url(#arrow-orange)" />
 
-      <path d="M 895 315 L 895 335" fill="none" stroke="#5E35B1" stroke-width="2" marker-end="url(#arrow-purple)" />
+            <rect x="815" y="335" width="160" height="70" rx="8" fill="#EDE7F6" stroke="#5E35B1" stroke-width="2"
+              filter="url(#shadow)" />
+            <text x="895" y="358" font-size="11.5" font-weight="bold" fill="#311B92" text-anchor="middle">Material
+              Executivo</text>
+            <text x="895" y="374" font-size="9.5" fill="#333" text-anchor="middle">HTML Interativo + PDF</text>
+            <text x="895" y="390" font-size="9" font-weight="bold" fill="#5E35B1" text-anchor="middle">Storytelling
+              &amp; Decisões</text>
 
-      <!-- FAIXA INFERIOR 1: GOVERNANÇA E CATALOGAÇÃO -->
-      <rect x="255" y="305" width="230" height="55" rx="8" fill="#FFF8E1" stroke="#FFA000" stroke-width="2" />
-      <text x="370" y="328" font-size="11.5" font-weight="bold" fill="#E65100" text-anchor="middle">AWS Glue Crawlers</text>
-      <text x="370" y="345" font-size="9.5" fill="#666" text-anchor="middle">tc3-crawler-bronze | silver | gold</text>
+            <path d="M 895 315 L 895 335" fill="none" stroke="#5E35B1" stroke-width="2"
+              marker-end="url(#arrow-purple)" />
 
-      <rect x="525" y="305" width="235" height="55" rx="8" fill="#FFF8E1" stroke="#FFA000" stroke-width="2" />
-      <text x="642" y="328" font-size="11.5" font-weight="bold" fill="#E65100" text-anchor="middle">AWS Glue Data Catalog</text>
-      <text x="642" y="345" font-size="9.5" fill="#666" text-anchor="middle">Metadados: db_state_of_data</text>
+            <!-- FAIXA INFERIOR 1: GOVERNANÇA E CATALOGAÇÃO -->
+            <rect x="255" y="305" width="230" height="55" rx="8" fill="#FFF8E1" stroke="#FFA000" stroke-width="2" />
+            <text x="370" y="328" font-size="11.5" font-weight="bold" fill="#E65100" text-anchor="middle">AWS Glue
+              Crawlers</text>
+            <text x="370" y="345" font-size="9.5" fill="#666" text-anchor="middle">tc3-crawler-bronze | silver |
+              gold</text>
 
-      <path d="M 485 332 L 525 332" fill="none" stroke="#FFA000" stroke-width="2" marker-end="url(#arrow-orange)" />
-      <path d="M 642 305 L 642 285" fill="none" stroke="#FFA000" stroke-width="1.5" stroke-dasharray="4 3" />
-      <path d="M 760 332 L 815 195" fill="none" stroke="#FFA000" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arrow-orange)" />
+            <rect x="525" y="305" width="235" height="55" rx="8" fill="#FFF8E1" stroke="#FFA000" stroke-width="2" />
+            <text x="642" y="328" font-size="11.5" font-weight="bold" fill="#E65100" text-anchor="middle">AWS Glue Data
+              Catalog</text>
+            <text x="642" y="345" font-size="9.5" fill="#666" text-anchor="middle">Metadados: db_state_of_data</text>
 
-      <!-- COMPLEMENTO ANALÍTICO LOCAL (AUDITORIA DE QUALIDADE) -->
-      <rect x="20" y="275" width="180" height="85" rx="8" fill="#FFF3E0" stroke="#E65100" stroke-width="1.5" stroke-dasharray="4 4" />
-      <text x="110" y="296" font-size="10.5" font-weight="bold" fill="#BF360C" text-anchor="middle">Auditoria Local de BI &amp; Cloud</text>
-      <text x="110" y="312" font-size="8.5" fill="#333" text-anchor="middle">Parsing de multirrespostas e desaninhamento</text>
-      <text x="110" y="328" font-size="8.5" fill="#666" text-anchor="middle">tecnologias_uso_2025_2026.csv</text>
-      <text x="110" y="344" font-size="8" font-weight="bold" fill="#D84315" text-anchor="middle">(Validação prévia à evolução do schema Glue)</text>
+            <path d="M 485 332 L 525 332" fill="none" stroke="#FFA000" stroke-width="2"
+              marker-end="url(#arrow-orange)" />
+            <path d="M 642 305 L 642 285" fill="none" stroke="#FFA000" stroke-width="1.5" stroke-dasharray="4 3" />
+            <path d="M 760 332 L 815 195" fill="none" stroke="#FFA000" stroke-width="1.5" stroke-dasharray="4 3"
+              marker-end="url(#arrow-orange)" />
 
-      <!-- FAIXA INFERIOR 2: SEGURANÇA E OBSERVABILIDADE -->
-      <rect x="255" y="380" width="230" height="45" rx="6" fill="#FBE9E7" stroke="#D84315" stroke-width="1.5" />
-      <text x="370" y="400" font-size="10.5" font-weight="bold" fill="#BF360C" text-anchor="middle">AWS IAM Role (LabRole)</text>
-      <text x="370" y="415" font-size="8.5" fill="#666" text-anchor="middle">Políticas de Acesso: S3, Glue, Athena e CloudWatch</text>
+            <!-- COMPLEMENTO ANALÍTICO LOCAL (AUDITORIA DE QUALIDADE) -->
+            <rect x="20" y="275" width="180" height="85" rx="8" fill="#FFF3E0" stroke="#E65100" stroke-width="1.5"
+              stroke-dasharray="4 4" />
+            <text x="110" y="296" font-size="10.5" font-weight="bold" fill="#BF360C" text-anchor="middle">Auditoria
+              Local de BI &amp; Cloud</text>
+            <text x="110" y="312" font-size="8.5" fill="#333" text-anchor="middle">Parsing de multirrespostas e
+              desaninhamento</text>
+            <text x="110" y="328" font-size="8.5" fill="#666" text-anchor="middle">tecnologias_uso_2025_2026.csv</text>
+            <text x="110" y="344" font-size="8" font-weight="bold" fill="#D84315" text-anchor="middle">(Validação prévia
+              à evolução do schema Glue)</text>
 
-      <rect x="525" y="380" width="235" height="45" rx="6" fill="#ECEFF1" stroke="#607D8B" stroke-width="1.5" />
-      <text x="642" y="400" font-size="10.5" font-weight="bold" fill="#37474F" text-anchor="middle">Amazon CloudWatch</text>
-      <text x="642" y="415" font-size="8.5" fill="#666" text-anchor="middle">Logs de Execução, Falhas e Métricas Operacionais</text>
+            <!-- FAIXA INFERIOR 2: SEGURANÇA E OBSERVABILIDADE -->
+            <rect x="255" y="380" width="230" height="45" rx="6" fill="#FBE9E7" stroke="#D84315" stroke-width="1.5" />
+            <text x="370" y="400" font-size="10.5" font-weight="bold" fill="#BF360C" text-anchor="middle">AWS IAM Role
+              (LabRole)</text>
+            <text x="370" y="415" font-size="8.5" fill="#666" text-anchor="middle">Políticas de Acesso: S3, Glue, Athena
+              e CloudWatch</text>
 
-      <path d="M 370 380 L 370 360" fill="none" stroke="#D84315" stroke-width="1" stroke-dasharray="3 3" />
-      <path d="M 642 380 L 642 360" fill="none" stroke="#607D8B" stroke-width="1" stroke-dasharray="3 3" />
+            <rect x="525" y="380" width="235" height="45" rx="6" fill="#ECEFF1" stroke="#607D8B" stroke-width="1.5" />
+            <text x="642" y="400" font-size="10.5" font-weight="bold" fill="#37474F" text-anchor="middle">Amazon
+              CloudWatch</text>
+            <text x="642" y="415" font-size="8.5" fill="#666" text-anchor="middle">Logs de Execução, Falhas e Métricas
+              Operacionais</text>
 
-      <!-- Rodapé / Legenda -->
-      <text x="20" y="460" font-size="9" fill="#888" style="font-style: italic;">
-        Arquitetura da Plataforma de Dados — Data Lakehouse em 3 Camadas Medallion no Amazon S3 com AWS Glue, PySpark e Amazon Athena
-      </text>
-    </svg>
-    
+            <path d="M 370 380 L 370 360" fill="none" stroke="#D84315" stroke-width="1" stroke-dasharray="3 3" />
+            <path d="M 642 380 L 642 360" fill="none" stroke="#607D8B" stroke-width="1" stroke-dasharray="3 3" />
+
+            <!-- Rodapé / Legenda -->
+            <text x="20" y="460" font-size="9" fill="#888" style="font-style: italic;">
+              Arquitetura da Plataforma de Dados — Data Lakehouse em 3 Camadas Medallion no Amazon S3 com AWS Glue,
+              PySpark e Amazon Athena
+            </text>
+          </svg>
+
         </div>
 
         <div class="card card-highlight-blue">
           <div class="card-header">
-            <div class="card-icon icon-blue"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg></div>
+            <div class="card-icon icon-blue"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                <rect x="9" y="9" width="6" height="6"></rect>
+                <line x1="9" y1="1" x2="9" y2="4"></line>
+                <line x1="15" y1="1" x2="15" y2="4"></line>
+                <line x1="9" y1="20" x2="9" y2="23"></line>
+                <line x1="15" y1="20" x2="15" y2="23"></line>
+                <line x1="20" y1="9" x2="23" y2="9"></line>
+                <line x1="20" y1="14" x2="23" y2="14"></line>
+                <line x1="1" y1="9" x2="4" y2="9"></line>
+                <line x1="1" y1="14" x2="4" y2="14"></line>
+              </svg></div>
             <span>Destaques Técnicos da Solução AWS</span>
           </div>
           <ul class="exec-list" style="font-size: 11px;">
@@ -1002,16 +1200,21 @@
               <br>• <code>tc3-bronze-to-silver</code>: Leitura com fail-fast, multiline e padronização.
               <br>• <code>tc3-silver-to-gold</code>: Explode de tecnologias e percentis aproximados.
             </li>
-            <li><strong>AWS Glue Data Catalog &amp; Athena:</strong> Database centralizado <code>db_state_of_data</code> para consultas interativas SQL de alta performance e baixo custo.</li>
+            <li><strong>AWS Glue Data Catalog &amp; Athena:</strong> Database centralizado <code>db_state_of_data</code>
+              para consultas interativas SQL de alta performance e baixo custo.</li>
             <li><strong>Auditoria Local de BI/Cloud (Por que foi necessária?):</strong>
-              <br>A fonte bruta de 2025–2026 continha sobreposição de categorias (a coluna binária de Looker incluía indevidamente 206 seleções de Looker Studio). Para preservar o Data Lake na AWS sem corromper o schema estável da Gold, executou-se essa auditoria e parsing textual local antes de evoluir o schema oficial no Glue.
+              <br>A fonte bruta de 2025–2026 continha sobreposição de categorias (a coluna binária de Looker incluía
+              indevidamente 206 seleções de Looker Studio). Para preservar o Data Lake na AWS sem corromper o schema
+              estável da Gold, executou-se essa auditoria e parsing textual local antes de evoluir o schema oficial no
+              Glue.
             </li>
           </ul>
         </div>
       </div>
 
       <footer class="slide-footer">
-        <span class="footnote">Diagrama Draw.io editável disponível em <code>diagrams/arquitetura_aws.drawio</code></span>
+        <span class="footnote">Diagrama Draw.io editável disponível em
+          <code>diagrams/arquitetura_aws.drawio</code></span>
         <span class="pagination">04 / 18</span>
       </footer>
     </section>
@@ -1034,21 +1237,26 @@
         <div class="tria-container">
           <div class="tria-block tria-evidencia">
             <span class="tria-label">1. Evidência dos Dados</span>
-            A remuneração nominal média estimada cresceu +26,42% (de R$ 10.543,75 para R$ 13.329,00). A concentração no Sudeste subiu +2,16 p.p. (62,11%), enquanto a representatividade feminina caiu -2,48 p.p. (21,95%) e o trabalho 100% remoto recuou -4,92 p.p. (36,66%). A satisfação válida recuou -2,97 p.p. (68,98%).
+            A remuneração nominal média estimada cresceu +26,42% (de R$ 10.543,75 para R$ 13.329,00). A concentração no
+            Sudeste subiu +2,16 p.p. (62,11%), enquanto a representatividade feminina caiu -2,48 p.p. (21,95%) e o
+            trabalho 100% remoto recuou -4,92 p.p. (36,66%). A satisfação válida recuou -2,97 p.p. (68,98%).
           </div>
           <div class="tria-block tria-interpretacao">
             <span class="tria-label">2. Interpretação Estratégica</span>
-            O mercado reflete uma dinâmica de encarecimento nominal da mão de obra, aumento da centralização geográfica e sinais de atrito com políticas corporativas de retorno presencial.
+            O mercado reflete uma dinâmica de encarecimento nominal da mão de obra, aumento da centralização geográfica
+            e sinais de atrito com políticas corporativas de retorno presencial.
           </div>
           <div class="tria-block tria-implicacao">
             <span class="tria-label">3. Implicação para o Banco</span>
-            O banco não deve competir exclusivamente por salário no Sudeste; deve utilizar flexibilidade de trabalho e programas internos de formação como alavancas de eficiência.
+            O banco não deve competir exclusivamente por salário no Sudeste; deve utilizar flexibilidade de trabalho e
+            programas internos de formação como alavancas de eficiência.
           </div>
         </div>
       </div>
 
       <footer class="slide-footer">
-        <span class="footnote">Fonte: State of Data Brasil (Data Hackers &amp; Bain) | Query Athena: <code>08_indicadores_executivos.csv</code></span>
+        <span class="footnote">Fonte: State of Data Brasil (Data Hackers &amp; Bain) | Query Athena:
+          <code>08_indicadores_executivos.csv</code></span>
         <span class="pagination">05 / 18</span>
       </footer>
     </section>
@@ -1071,21 +1279,27 @@
         <div class="tria-container">
           <div class="tria-block tria-evidencia">
             <span class="tria-label">1. Evidência dos Dados</span>
-            O Sudeste concentra 62,11% dos respondentes na última edição (2025–2026), seguido por Sul (18,43%), Nordeste (10,48%), Centro-Oeste (6,55%) e Norte (1,92%). A concentração no Sudeste manteve-se superior a 60% em todas as três edições analisadas.
+            O Sudeste concentra 62,11% dos respondentes na última edição (2025–2026), seguido por Sul (18,43%), Nordeste
+            (10,48%), Centro-Oeste (6,55%) e Norte (1,92%). A concentração no Sudeste manteve-se superior a 60% em todas
+            as três edições analisadas.
           </div>
           <div class="tria-block tria-interpretacao">
             <span class="tria-label">2. Interpretação Estratégica</span>
-            A centralização no Sudeste gera forte concorrência por talentos locais entre bancos e fintechs. Contudo, 62% no Sudeste não comprova, isoladamente, a pronta disponibilidade de profissionais em outras regiões.
+            A centralização no Sudeste gera forte concorrência por talentos locais entre bancos e fintechs. Contudo, 62%
+            no Sudeste não comprova, isoladamente, a pronta disponibilidade de profissionais em outras regiões.
           </div>
           <div class="tria-block tria-implicacao">
             <span class="tria-label">3. Implicação para o Banco</span>
-            <strong>Oportunidade a testar:</strong> Estruturar um piloto controlado de contratação regional distribuída nos polos do Sul (PR/SC/RS), Nordeste (PE/CE/BA) e Centro-Oeste para avaliar custo de atração, tempo de fechamento de vagas e engajamento antes de expandir a operação.
+            <strong>Oportunidade a testar:</strong> Estruturar um piloto controlado de contratação regional distribuída
+            nos polos do Sul (PR/SC/RS), Nordeste (PE/CE/BA) e Centro-Oeste para avaliar custo de atração, tempo de
+            fechamento de vagas e engajamento antes de expandir a operação.
           </div>
         </div>
       </div>
 
       <footer class="slide-footer">
-        <span class="footnote">Fonte: State of Data Brasil (Data Hackers &amp; Bain) | Query Athena: <code>02_distribuicao_regional.csv</code></span>
+        <span class="footnote">Fonte: State of Data Brasil (Data Hackers &amp; Bain) | Query Athena:
+          <code>02_distribuicao_regional.csv</code></span>
         <span class="pagination">06 / 18</span>
       </footer>
     </section>
@@ -1108,21 +1322,27 @@
         <div class="tria-container">
           <div class="tria-block tria-evidencia">
             <span class="tria-label">1. Evidência dos Dados</span>
-            Filtro com mínimo de 30 salários válidos por corte. Sêniores em Engenharia de Dados (R$ 17.689,45), Ciência de Dados (R$ 16.920,40) e Analytics Engineering (R$ 15.650,30) lideram entre funções individuais, enquanto posições especializadas e de liderança técnica superam R$ 20 mil. A progressão de Júnior para Sênior varia de 2,3x a 2,5x.
+            Filtro com mínimo de 30 salários válidos por corte. Sêniores em Engenharia de Dados (R$ 17.689,45), Ciência
+            de Dados (R$ 16.920,40) e Analytics Engineering (R$ 15.650,30) lideram entre funções individuais, enquanto
+            posições especializadas e de liderança técnica superam R$ 20 mil. A progressão de Júnior para Sênior varia
+            de 2,3x a 2,5x.
           </div>
           <div class="tria-block tria-interpretacao">
             <span class="tria-label">2. Interpretação Estratégica</span>
-            O mercado paga prêmio elevado pela capacidade de construir pipelines escaláveis e sustentar modelos em produção. Funções de BI e análise básica apresentam faixas mais acessíveis (R$ 4.500 a R$ 8.500).
+            O mercado paga prêmio elevado pela capacidade de construir pipelines escaláveis e sustentar modelos em
+            produção. Funções de BI e análise básica apresentam faixas mais acessíveis (R$ 4.500 a R$ 8.500).
           </div>
           <div class="tria-block tria-implicacao">
             <span class="tria-label">3. Implicação para o Banco</span>
-            Não tomar o topo do mercado como parâmetro para toda a equipe. Contratar especialistas e arquitetos cirurgicamente, focando na promoção e formação interna de plenos.
+            Não tomar o topo do mercado como parâmetro para toda a equipe. Contratar especialistas e arquitetos
+            cirurgicamente, focando na promoção e formação interna de plenos.
           </div>
         </div>
       </div>
 
       <footer class="slide-footer">
-        <span class="footnote">Fonte: State of Data Brasil (Data Hackers &amp; Bain) | Query Athena: <code>03_remuneracao_senioridade.csv</code></span>
+        <span class="footnote">Fonte: State of Data Brasil (Data Hackers &amp; Bain) | Query Athena:
+          <code>03_remuneracao_senioridade.csv</code></span>
         <span class="pagination">07 / 18</span>
       </footer>
     </section>
@@ -1145,21 +1365,28 @@
         <div class="tria-container">
           <div class="tria-block tria-evidencia">
             <span class="tria-label">1. Evidência dos Dados</span>
-            Na edição 2025–2026 (questões multiseleção 4.g e 4.e): Power BI é usado no dia a dia por 59,00% (1.242/2.105), Looker Studio por 15,58% (328/2.105), Tableau por 13,63% (287/2.105) e Looker por 12,78% (269/2.105). Em Cloud: AWS lidera com 48,26% (1.011/2.095), Azure tem 34,84% (730/2.095) e Google Cloud 30,88% (647/2.095).
+            Na edição 2025–2026 (questões multiseleção 4.g e 4.e): Power BI é usado no dia a dia por 59,00%
+            (1.242/2.105), Looker Studio por 15,58% (328/2.105), Tableau por 13,63% (287/2.105) e Looker por 12,78%
+            (269/2.105). Em Cloud: AWS lidera com 48,26% (1.011/2.095), Azure tem 34,84% (730/2.095) e Google Cloud
+            30,88% (647/2.095).
           </div>
           <div class="tria-block tria-interpretacao">
             <span class="tria-label">2. Interpretação Estratégica</span>
-            O ecossistema corporativo é predominantemente multicloud e híbrido. Power BI e AWS são os líderes de execução diária, mas há forte presença combinada de Azure e GCP.
+            O ecossistema corporativo é predominantemente multicloud e híbrido. Power BI e AWS são os líderes de
+            execução diária, mas há forte presença combinada de Azure e GCP.
           </div>
           <div class="tria-block tria-implicacao">
             <span class="tria-label">3. Implicação para o Banco</span>
-            Garantir arquitetura corporativa interoperável e governança centralizada, sem impor migrações monolíticas desnecessárias. Capacitar equipes em fundamentos multicloud.
+            Garantir arquitetura corporativa interoperável e governança centralizada, sem impor migrações monolíticas
+            desnecessárias. Capacitar equipes em fundamentos multicloud.
           </div>
         </div>
       </div>
 
       <footer class="slide-footer">
-        <span class="footnote">Auditoria local: <code>output/analises_complementares/tecnologias_uso_2025_2026.csv</code> (parsing textual para correção de Looker vs Looker Studio)</span>
+        <span class="footnote">Auditoria local:
+          <code>output/analises_complementares/tecnologias_uso_2025_2026.csv</code> (parsing textual para correção de
+          Looker vs Looker Studio)</span>
         <span class="pagination">08 / 18</span>
       </footer>
     </section>
@@ -1182,21 +1409,26 @@
         <div class="tria-container">
           <div class="tria-block tria-evidencia">
             <span class="tria-label">1. Evidência dos Dados</span>
-            Em preferências técnicas declaradas: Python (92,07%) e SQL (84,19%) são as linguagens hegemônicas absolutas (n=2.094 válidas em 2025–2026). Em preferência de BI: Power BI (50,51%) e Tableau (17,45%). Em preferência de Cloud: AWS (31,74%), GCP (22,55%) e Azure (20,13%).
+            Em preferências técnicas declaradas: Python (92,07%) e SQL (84,19%) são as linguagens hegemônicas absolutas
+            (n=2.094 válidas em 2025–2026). Em preferência de BI: Power BI (50,51%) e Tableau (17,45%). Em preferência
+            de Cloud: AWS (31,74%), GCP (22,55%) e Azure (20,13%).
           </div>
           <div class="tria-block tria-interpretacao">
             <span class="tria-label">2. Interpretação Estratégica</span>
-            SQL e Python são as competências universais de maior liquidez e transferibilidade entre equipes de Engenharia, Analytics e Data Science.
+            SQL e Python são as competências universais de maior liquidez e transferibilidade entre equipes de
+            Engenharia, Analytics e Data Science.
           </div>
           <div class="tria-block tria-implicacao">
             <span class="tria-label">3. Implicação para o Banco</span>
-            Estruturar trilhas internas de upskilling baseadas em SQL avançado (modelagem dimensional), Python para automação/análise e governança de dados na nuvem, reduzindo dependência de contratações externas caras.
+            Estruturar trilhas internas de upskilling baseadas em SQL avançado (modelagem dimensional), Python para
+            automação/análise e governança de dados na nuvem, reduzindo dependência de contratações externas caras.
           </div>
         </div>
       </div>
 
       <footer class="slide-footer">
-        <span class="footnote">Fonte: State of Data Brasil (Data Hackers &amp; Bain) | Query Athena: <code>05_tecnologias.csv</code></span>
+        <span class="footnote">Fonte: State of Data Brasil (Data Hackers &amp; Bain) | Query Athena:
+          <code>05_tecnologias.csv</code></span>
         <span class="pagination">09 / 18</span>
       </footer>
     </section>
@@ -1219,24 +1451,30 @@
         <div class="tria-container">
           <div class="tria-block tria-evidencia">
             <span class="tria-label">1. Evidência dos Dados</span>
-            A participação feminina recuou para 21,95% na amostra de 2025–2026 (contra 24,43% em 2023–2024). A diferença salarial média bruta declarada é de ~19,4% (Homens: R$ 13.944,95 vs Mulheres: R$ 11.238,40).
+            A participação feminina recuou para 21,95% na amostra de 2025–2026 (contra 24,43% em 2023–2024). A diferença
+            salarial média bruta declarada é de ~19,4% (Homens: R$ 13.944,95 vs Mulheres: R$ 11.238,40).
           </div>
           <div class="tria-block tria-interpretacao">
             <span class="tria-label">2. Interpretação Estratégica</span>
-            A disparidade agregada reflete majoritariamente o efeito de funil (pipeline), com menor presença feminina em cargos seniores de engenharia e arquitetura.
+            A disparidade agregada reflete majoritariamente o efeito de funil (pipeline), com menor presença feminina em
+            cargos seniores de engenharia e arquitetura.
           </div>
           <div class="tria-block tria-implicacao">
             <span class="tria-label">3. Implicação para o Banco</span>
-            Implementar metas afirmativas na contratação inicial e programas internos de mentoria e aceleração para posições de liderança técnica.
+            Implementar metas afirmativas na contratação inicial e programas internos de mentoria e aceleração para
+            posições de liderança técnica.
           </div>
           <div class="callout callout-warning" style="margin-top: 4px; font-size: 10.5px;">
-            <strong>Ressalva Metodológica Crítica:</strong> A diferença salarial média observada (~19,4%) é <em>bruta e não controlada</em> por cargo, senioridade, região ou tempo de experiência. Ela reflete a assimetria na composição dos grupos e não deve ser interpretada como remuneração diferente para trabalho de igual valor.
+            <strong>Ressalva Metodológica Crítica:</strong> A diferença salarial média observada (~19,4%) é <em>bruta e
+              não controlada</em> por cargo, senioridade, região ou tempo de experiência. Ela reflete a assimetria na
+            composição dos grupos e não deve ser interpretada como remuneração diferente para trabalho de igual valor.
           </div>
         </div>
       </div>
 
       <footer class="slide-footer">
-        <span class="footnote">Fonte: State of Data Brasil (Data Hackers &amp; Bain) | Query Athena: <code>04_diversidade_genero.csv</code></span>
+        <span class="footnote">Fonte: State of Data Brasil (Data Hackers &amp; Bain) | Query Athena:
+          <code>04_diversidade_genero.csv</code></span>
         <span class="pagination">10 / 18</span>
       </footer>
     </section>
@@ -1259,21 +1497,27 @@
         <div class="tria-container">
           <div class="tria-block tria-evidencia">
             <span class="tria-label">1. Evidência dos Dados</span>
-            Em 2025–2026 (respostas válidas): modelos 100% Remoto (74,80%) e Híbrido Flexível (72,40%) apresentam taxas de satisfação declarada superiores ao 100% Presencial (52,10%) — uma diferença de mais de 20 pontos percentuais.
+            Em 2025–2026 (respostas válidas): modelos 100% Remoto (74,80%) e Híbrido Flexível (72,40%) apresentam taxas
+            de satisfação declarada superiores ao 100% Presencial (52,10%) — uma diferença de mais de 20 pontos
+            percentuais.
           </div>
           <div class="tria-block tria-interpretacao">
             <span class="tria-label">2. Interpretação Estratégica</span>
-            Políticas presenciais rígidas associam-se a risco de perda e menor satisfação dos profissionais em áreas técnicas concorridas.
+            Políticas presenciais rígidas associam-se a risco de perda e menor satisfação dos profissionais em áreas
+            técnicas concorridas.
           </div>
           <div class="tria-block tria-implicacao">
             <span class="tria-label">3. Implicação para o Banco</span>
-            <strong>Hipótese de retenção a testar:</strong> Priorizar modelos híbridos flexíveis como padrão, estabelecendo a frequência presencial ideal através de piloto interno acompanhado de métricas de retenção, engajamento e entregas técnicas.
+            <strong>Hipótese de retenção a testar:</strong> Priorizar modelos híbridos flexíveis como padrão,
+            estabelecendo a frequência presencial ideal através de piloto interno acompanhado de métricas de retenção,
+            engajamento e entregas técnicas.
           </div>
         </div>
       </div>
 
       <footer class="slide-footer">
-        <span class="footnote">Fonte: State of Data Brasil (Data Hackers &amp; Bain) | Query Athena: <code>07_modelos_trabalho.csv</code></span>
+        <span class="footnote">Fonte: State of Data Brasil (Data Hackers &amp; Bain) | Query Athena:
+          <code>07_modelos_trabalho.csv</code></span>
         <span class="pagination">11 / 18</span>
       </footer>
     </section>
@@ -1296,21 +1540,25 @@
         <div class="tria-container">
           <div class="tria-block tria-evidencia">
             <span class="tria-label">1. Evidência dos Dados</span>
-            Entre os gestores respondentes (n=652 em 2025–2026), 60,58% declaram que IA é uma das principais prioridades (39,42% prioridade relevante, 21,16% principal prioridade da empresa), saltando de 36,16% em 2023–2024.
+            Entre os gestores respondentes (n=652 em 2025–2026), 60,58% declaram que IA é uma das principais prioridades
+            (39,42% prioridade relevante, 21,16% principal prioridade da empresa), saltando de 36,16% em 2023–2024.
           </div>
           <div class="tria-block tria-interpretacao">
             <span class="tria-label">2. Interpretação Estratégica</span>
-            <strong>Ressalva:</strong> O indicador mede a percepção dos gestores participantes, não um censo de empresas jurídicas. Ele reflete forte pressão executiva por adoção e alocação de orçamento.
+            <strong>Ressalva:</strong> O indicador mede a percepção dos gestores participantes, não um censo de empresas
+            jurídicas. Ele reflete forte pressão executiva por adoção e alocação de orçamento.
           </div>
           <div class="tria-block tria-implicacao">
             <span class="tria-label">3. Implicação para o Banco</span>
-            Canalizar o apetite executivo para casos de uso estruturantes (ex: concessão de crédito, detecção de fraude, automação de compliance), evitando dispersão em iniciativas sem metas de retorno.
+            Canalizar o apetite executivo para casos de uso estruturantes (ex: concessão de crédito, detecção de fraude,
+            automação de compliance), evitando dispersão em iniciativas sem metas de retorno.
           </div>
         </div>
       </div>
 
       <footer class="slide-footer">
-        <span class="footnote">Fonte: State of Data Brasil (Data Hackers &amp; Bain) | Query Athena: <code>06a_prioridade_ia.csv</code></span>
+        <span class="footnote">Fonte: State of Data Brasil (Data Hackers &amp; Bain) | Query Athena:
+          <code>06a_prioridade_ia.csv</code></span>
         <span class="pagination">12 / 18</span>
       </footer>
     </section>
@@ -1333,21 +1581,26 @@
         <div class="tria-container">
           <div class="tria-block tria-evidencia">
             <span class="tria-label">1. Evidência dos Dados</span>
-            Entre não gestores (n=2.105 em 2025–2026): 42,33% utilizam ferramentas de IA pagas pela empresa (contra 6,36% em 2023–2024). 29,83% usam ferramentas de IA voltadas para código/programação.
+            Entre não gestores (n=2.105 em 2025–2026): 42,33% utilizam ferramentas de IA pagas pela empresa (contra
+            6,36% em 2023–2024). 29,83% usam ferramentas de IA voltadas para código/programação.
           </div>
           <div class="tria-block tria-interpretacao">
             <span class="tria-label">2. Interpretação Estratégica</span>
-            O financiamento corporativo comprova compra institucional de licenças (ex: Copilot, ChatGPT Enterprise), mas não atesta governança de dados sensíveis nem mensuração de produtividade real.
+            O crescimento do uso de soluções pagas pela empresa indica maior institucionalização da adoção de IA (ex:
+            Copilot, ChatGPT Enterprise), mas não atesta governança de dados sensíveis nem mensuração de produtividade
+            real.
           </div>
           <div class="tria-block tria-implicacao">
             <span class="tria-label">3. Implicação para o Banco</span>
-            Criar um ambiente corporativo protegido (sandbox seguro com mascaramento de dados) e medir ganho de produtividade em pilotos controlados de desenvolvimento de software e análise.
+            Criar um ambiente corporativo protegido (sandbox seguro com mascaramento de dados) e medir ganho de
+            produtividade em pilotos controlados de desenvolvimento de software e análise.
           </div>
         </div>
       </div>
 
       <footer class="slide-footer">
-        <span class="footnote">Fonte: State of Data Brasil (Data Hackers &amp; Bain) | Query Athena: <code>06b_uso_pessoal_ia.csv</code></span>
+        <span class="footnote">Fonte: State of Data Brasil (Data Hackers &amp; Bain) | Query Athena:
+          <code>06b_uso_pessoal_ia.csv</code></span>
         <span class="pagination">13 / 18</span>
       </footer>
     </section>
@@ -1378,8 +1631,10 @@
               <tr>
                 <td><strong>1. Contratação</strong></td>
                 <td>Perfis especializados e de liderança técnica superam R$ 20 mil; concentração de 62% no Sudeste.</td>
-                <td>Disputa predatória inflaciona custos locais e alonga o fechamento de vagas.</td>
-                <td>Contratar sêniores cirurgicamente e testar piloto de contratação regional distribuída fora do Sudeste.</td>
+                <td>A elevada concentração regional pode intensificar a competição por talentos e pressionar os custos
+                  de contratação.</td>
+                <td>Contratar sêniores cirurgicamente e testar piloto de contratação regional distribuída fora do
+                  Sudeste.</td>
                 <td>Tempo de fechamento de vagas e custo médio de atração.</td>
               </tr>
               <tr>
@@ -1392,8 +1647,10 @@
               <tr>
                 <td><strong>3. Retenção</strong></td>
                 <td>Modelos flexíveis superam o presencial em mais de 20 p.p. na satisfação declarada.</td>
-                <td>Imposição 100% presencial arrisca aumento de turnover voluntário e menor satisfação dos profissionais.</td>
-                <td>Priorizar modelos híbridos flexíveis, definindo a frequência presencial através de piloto interno.</td>
+                <td>Imposição 100% presencial arrisca aumento de turnover voluntário e menor satisfação dos
+                  profissionais.</td>
+                <td>Priorizar modelos híbridos flexíveis, definindo a frequência presencial através de piloto interno.
+                </td>
                 <td>Turnover voluntário e eNPS (satisfação do colaborador).</td>
               </tr>
               <tr>
@@ -1434,13 +1691,22 @@
       <div class="slide-body grid-3col">
         <div class="card card-highlight-blue">
           <div class="card-header">
-            <div class="card-icon icon-blue"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
+            <div class="card-icon icon-blue"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg></div>
             <span>0 a 30 Dias: Diagnóstico &amp; Alinhamento</span>
           </div>
           <ul class="exec-list">
-            <li><strong>Mapeamento de Competências:</strong> Levantar inventário interno de proficiência em SQL, Python, Cloud e Modelagem.</li>
-            <li><strong>Desenho do Piloto Regional:</strong> Mapear vagas abertas e desenhar teste de atração remota no Sul e Nordeste.</li>
-            <li><strong>Seleção de Casos de Uso de IA:</strong> Selecionar 2 a 3 pilotos de GenAI (ex: esteira de crédito e copiloto de código).</li>
+            <li><strong>Mapeamento de Competências:</strong> Levantar inventário interno de proficiência em SQL, Python,
+              Cloud e Modelagem.</li>
+            <li><strong>Desenho do Piloto Regional:</strong> Mapear vagas abertas e desenhar teste de atração remota no
+              Sul e Nordeste.</li>
+            <li><strong>Seleção de Casos de Uso de IA:</strong> Selecionar 2 a 3 pilotos de GenAI (ex: esteira de
+              crédito e copiloto de código).</li>
           </ul>
           <div class="callout callout-info" style="margin-top:auto;">
             <strong>Entrega:</strong> Matriz de gaps técnicos e termo de abertura dos pilotos de IA.
@@ -1449,13 +1715,21 @@
 
         <div class="card card-highlight-amber">
           <div class="card-header">
-            <div class="card-icon icon-amber"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg></div>
+            <div class="card-icon icon-amber"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                <polyline points="2 17 12 22 22 17"></polyline>
+                <polyline points="2 12 12 17 22 12"></polyline>
+              </svg></div>
             <span>31 a 60 Dias: Estruturação &amp; Pilotos</span>
           </div>
           <ul class="exec-list">
-            <li><strong>Lançamento da Academia de Dados:</strong> Iniciar trilhas internas de SQL e Engenharia de Dados na AWS.</li>
-            <li><strong>Sandbox Seguro de GenAI:</strong> Homologar ambiente protegido com mascaramento de dados (LGPD e sigilo bancário).</li>
-            <li><strong>Piloto de Modelo Híbrido:</strong> Testar política flexível, acompanhando métricas de retenção antes de fixar dias específicos.</li>
+            <li><strong>Lançamento da Academia de Dados:</strong> Iniciar trilhas internas de SQL e Engenharia de Dados
+              na AWS.</li>
+            <li><strong>Sandbox Seguro de GenAI:</strong> Homologar ambiente protegido com mascaramento de dados (LGPD e
+              sigilo bancário).</li>
+            <li><strong>Piloto de Modelo Híbrido:</strong> Testar política flexível, acompanhando métricas de retenção
+              antes de fixar dias específicos.</li>
           </ul>
           <div class="callout callout-warning" style="margin-top:auto;">
             <strong>Entrega:</strong> Pilotos de IA em execução e 1ª turma de capacitação iniciada.
@@ -1464,13 +1738,19 @@
 
         <div class="card card-highlight-green">
           <div class="card-header">
-            <div class="card-icon icon-green"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+            <div class="card-icon icon-green"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg></div>
             <span>61 a 90 Dias: Mensuração &amp; Escala</span>
           </div>
           <ul class="exec-list">
-            <li><strong>Avaliação de ROI dos Pilotos de IA:</strong> Medir ganho de produtividade e acurácia dos modelos frente ao baseline.</li>
-            <li><strong>Auditoria de Equidade Salarial:</strong> Concluir verificação de paridade salarial de gênero para cargos iguais.</li>
-            <li><strong>Avaliação do Piloto Regional:</strong> Medir tempo de fechamento de vagas, aderência técnica e custo de atração no Sul e Nordeste.</li>
+            <li><strong>Avaliação de ROI dos Pilotos de IA:</strong> Medir ganho de produtividade e acurácia dos modelos
+              frente ao baseline.</li>
+            <li><strong>Auditoria de Equidade Salarial:</strong> Concluir verificação de paridade salarial de gênero
+              para cargos iguais.</li>
+            <li><strong>Avaliação do Piloto Regional:</strong> Medir tempo de fechamento de vagas, aderência técnica e
+              custo de atração no Sul e Nordeste.</li>
           </ul>
           <div class="callout callout-success" style="margin-top:auto;">
             <strong>Entrega:</strong> Relatório executivo de ROI dos pilotos e plano de escala para 12 meses.
@@ -1479,7 +1759,8 @@
       </div>
 
       <footer class="slide-footer">
-        <span class="footnote">Proposta cronológica sujeita a validação de orçamento e governança interna do banco</span>
+        <span class="footnote">Proposta cronológica sujeita a validação de orçamento e governança interna do
+          banco</span>
         <span class="pagination">15 / 18</span>
       </footer>
     </section>
@@ -1497,11 +1778,16 @@
       <div class="slide-body grid-3col">
         <div class="card card-highlight-blue">
           <div class="card-header">
-            <div class="card-icon icon-blue"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg></div>
+            <div class="card-icon icon-blue"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="7"></circle>
+                <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+              </svg></div>
             <span>1. Capacidades Críticas &amp; Engenharia</span>
           </div>
           <p style="font-size: 11.5px; color: var(--slate-text); line-height: 1.45; margin-bottom: 10px;">
-            Contratar sêniores cirurgicamente para arquitetura e liderança de dados, enquanto capacita a base interna em SQL avançado e Python.
+            Contratar sêniores cirurgicamente para arquitetura e liderança de dados, enquanto capacita a base interna em
+            SQL avançado e Python.
           </p>
           <div class="tria-block tria-implicacao" style="margin-top:auto;">
             <span class="tria-label">Métrica de Acompanhamento</span>
@@ -1511,11 +1797,18 @@
 
         <div class="card card-highlight-green">
           <div class="card-header">
-            <div class="card-icon icon-green"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+            <div class="card-icon icon-green"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg></div>
             <span>2. Piloto Regional &amp; Flexibilidade Híbrida</span>
           </div>
           <p style="font-size: 11.5px; color: var(--slate-text); line-height: 1.45; margin-bottom: 10px;">
-            Testar contratação fora do Sudeste para verificar disponibilidade real de talentos e adotar modelo híbrido flexível calibrado internamente.
+            Testar contratação fora do Sudeste para verificar disponibilidade real de talentos e adotar modelo híbrido
+            flexível calibrado internamente.
           </p>
           <div class="tria-block tria-implicacao" style="margin-top:auto;">
             <span class="tria-label">Métrica de Acompanhamento</span>
@@ -1525,11 +1818,15 @@
 
         <div class="card card-highlight-purple">
           <div class="card-header">
-            <div class="card-icon icon-purple"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+            <div class="card-icon icon-purple"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg></div>
             <span>3. Pilotos de IA Governados com ROI</span>
           </div>
           <p style="font-size: 11.5px; color: var(--slate-text); line-height: 1.45; margin-bottom: 10px;">
-            Migrar de licenças dispersas para um sandbox bancário homologado, medindo ganhos de tempo e qualidade em casos de uso prioritários.
+            Migrar de licenças dispersas para um sandbox bancário homologado, medindo ganhos de tempo e qualidade em
+            casos de uso prioritários.
           </p>
           <div class="tria-block tria-implicacao" style="margin-top:auto;">
             <span class="tria-label">Métrica de Acompanhamento</span>
@@ -1557,36 +1854,55 @@
       <div class="slide-body grid-2col">
         <div class="card">
           <div class="card-header">
-            <div class="card-icon icon-blue"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg></div>
+            <div class="card-icon icon-blue"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                <polyline points="2 17 12 22 22 17"></polyline>
+                <polyline points="2 12 12 17 22 12"></polyline>
+              </svg></div>
             <span>Regras de Tratamento e Fórmulas Aplicadas</span>
           </div>
           <ul class="exec-list" style="font-size: 11px;">
-            <li><strong>Estimativa Salarial:</strong> Ponto médio em faixas fechadas; R$ 500,00 na faixa inferior aberta (&lt; R$ 1.000); R$ 48.000,00 na superior aberta (&gt; R$ 40.001 com fator 1.2x).</li>
+            <li><strong>Estimativa Salarial:</strong> Ponto médio em faixas fechadas; R$ 500,00 na faixa inferior aberta
+              (&lt; R$ 1.000); R$ 48.000,00 na superior aberta (&gt; R$ 40.001 com fator 1.2x).</li>
             <li><strong>Médias Ponderadas:</strong> Para evitar o viés da 'média de médias', toda agregação utiliza:
               $$\bar{x}_{\text{pond}} = \frac{\sum (\bar{x}_i \cdot n_i)}{\sum n_i}$$
             </li>
-            <li><strong>Deduplicação Criptográfica:</strong> Criação de <code>id_registro_tecnico</code> via hash SHA-256 para respostas válidas com token nulo antes do <code>dropDuplicates</code>.</li>
-            <li><strong>Desaninhamento de Tecnologias (Explode):</strong> Divisão de respostas multivaloradas por vírgula e apuração de respondentes únicos distintos por categoria.</li>
-            <li><strong>Taxa de Satisfação Válida:</strong> Denominador estrito sobre respostas booleanas/válidas, excluindo abstenções da base de cálculo.</li>
+            <li><strong>Deduplicação Criptográfica:</strong> Criação de <code>id_registro_tecnico</code> via hash
+              SHA-256 para respostas válidas com token nulo antes do <code>dropDuplicates</code>.</li>
+            <li><strong>Desaninhamento de Tecnologias (Explode):</strong> Divisão de respostas multivaloradas por
+              vírgula e apuração de respondentes únicos distintos por categoria.</li>
+            <li><strong>Taxa de Satisfação Válida:</strong> Denominador estrito sobre respostas booleanas/válidas,
+              excluindo abstenções da base de cálculo.</li>
           </ul>
         </div>
 
         <div class="card">
           <div class="card-header">
-            <div class="card-icon icon-amber"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></div>
+            <div class="card-icon icon-amber"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg></div>
             <span>Registro Formal de Limitações da Pesquisa</span>
           </div>
           <ul class="exec-list" style="font-size: 11px;">
-            <li><strong>Amostra Voluntária e Causalidade:</strong> Correlações observadas (ex: trabalho remoto e satisfação) não estabelecem relação de causa e efeito estatístico.</li>
-            <li><strong>Faixa Inconsistente em 2025–2026:</strong> A alternativa <code>2.h_faixa_salarial</code> contém uma string divergente na fonte, mantida por auditoria (impacto de R$ 0,21).</li>
-            <li><strong>Looker vs Looker Studio:</strong> Identificação de sobreposição na coluna binária original da pesquisa, corrigida no script de uso real via parsing textual estrito.</li>
-            <li><strong>Uso Pessoal vs Corporativo de IA:</strong> Gestores e não gestores responderam perguntas com universos amostrais e opções de múltipla escolha distintos.</li>
+            <li><strong>Amostra Voluntária e Causalidade:</strong> Correlações observadas (ex: trabalho remoto e
+              satisfação) não estabelecem relação de causa e efeito estatístico.</li>
+            <li><strong>Faixa Inconsistente em 2025–2026:</strong> A alternativa <code>2.h_faixa_salarial</code> contém
+              uma string divergente na fonte, mantida por auditoria (impacto de R$ 0,21).</li>
+            <li><strong>Looker vs Looker Studio:</strong> Identificação de sobreposição na coluna binária original da
+              pesquisa, corrigida no script de uso real via parsing textual estrito.</li>
+            <li><strong>Uso Pessoal vs Corporativo de IA:</strong> Gestores e não gestores responderam perguntas com
+              universos amostrais e opções de múltipla escolha distintos.</li>
           </ul>
         </div>
       </div>
 
       <footer class="slide-footer">
-        <span class="footnote">Documentação completa em <code>docs/regras_transformacao.md</code> e <code>docs/relatorio_qualidade.md</code></span>
+        <span class="footnote">Documentação completa em <code>docs/regras_transformacao.md</code> e
+          <code>docs/relatorio_qualidade.md</code></span>
         <span class="pagination">17 / 18</span>
       </footer>
     </section>
@@ -1657,11 +1973,16 @@
               </tr>
             </tbody>
           </table>
-          <div style="margin-top: 10px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; font-size: 10px; color: var(--slate-muted);">
-            <div style="background:#F1F5F9; padding:6px; border-radius:4px;"><strong>PySpark Glue Jobs:</strong> <code>glue_job_bronze_to_silver.py</code> / <code>glue_job_silver_to_gold.py</code></div>
-            <div style="background:#F1F5F9; padding:6px; border-radius:4px;"><strong>Consultas Athena:</strong> <code>scripts/analytics/queries_athena.sql</code></div>
-            <div style="background:#F1F5F9; padding:6px; border-radius:4px;"><strong>Quality Gate:</strong> <code>scripts/quality/validacao_qualidade.py</code></div>
-            <div style="background:#F1F5F9; padding:6px; border-radius:4px;"><strong>Diagrama AWS:</strong> <code>diagrams/arquitetura_aws.drawio</code></div>
+          <div
+            style="margin-top: 10px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; font-size: 10px; color: var(--slate-muted);">
+            <div style="background:#F1F5F9; padding:6px; border-radius:4px;"><strong>PySpark Glue Jobs:</strong>
+              <code>glue_job_bronze_to_silver.py</code> / <code>glue_job_silver_to_gold.py</code></div>
+            <div style="background:#F1F5F9; padding:6px; border-radius:4px;"><strong>Consultas Athena:</strong>
+              <code>scripts/analytics/queries_athena.sql</code></div>
+            <div style="background:#F1F5F9; padding:6px; border-radius:4px;"><strong>Quality Gate:</strong>
+              <code>scripts/quality/validacao_qualidade.py</code></div>
+            <div style="background:#F1F5F9; padding:6px; border-radius:4px;"><strong>Diagrama AWS:</strong>
+              <code>diagrams/arquitetura_aws.drawio</code></div>
           </div>
         </div>
       </div>
@@ -1676,15 +1997,32 @@
 
   <!-- TOOLBAR DE NAVEGAÇÃO -->
   <div id="toolbar">
-    <button class="btn-tool" id="btn-toc" title="Abrir Índice de Slides"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg> Índice</button>
+    <button class="btn-tool" id="btn-toc" title="Abrir Índice de Slides"><svg width="15" height="15" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+        <polyline points="2 17 12 22 22 17"></polyline>
+        <polyline points="2 12 12 17 22 12"></polyline>
+      </svg> Índice</button>
     <button class="btn-tool" id="btn-prev" title="Slide Anterior (Seta Esquerda)">◀</button>
     <div id="counter">01 / 18</div>
     <div id="progress-bar-container">
       <div id="progress-bar"></div>
     </div>
     <button class="btn-tool" id="btn-next" title="Próximo Slide (Seta Direita)">▶</button>
-    <button class="btn-tool" id="btn-fullscreen" title="Tela Cheia (F)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg> Tela Cheia</button>
-    <button class="btn-tool" id="btn-print" title="Imprimir / Salvar PDF (Ctrl+P)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> PDF</button>
+    <button class="btn-tool" id="btn-fullscreen" title="Tela Cheia (F)"><svg width="15" height="15" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <circle cx="12" cy="12" r="6"></circle>
+        <circle cx="12" cy="12" r="2"></circle>
+      </svg> Tela Cheia</button>
+    <button class="btn-tool" id="btn-print" title="Imprimir / Salvar PDF (Ctrl+P)"><svg width="15" height="15"
+        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+        <line x1="16" y1="2" x2="16" y2="6"></line>
+        <line x1="8" y1="2" x2="8" y2="6"></line>
+        <line x1="3" y1="10" x2="21" y2="10"></line>
+      </svg> PDF</button>
   </div>
 
   <!-- DRAWER DO ÍNDICE -->
@@ -1806,4 +2144,5 @@
     });
   </script>
 </body>
+
 </html>

@@ -60,12 +60,14 @@ data/*.json
 
 # Saídas e relatórios gerados (preservando gráficos e estrutura de pastas)
 output/graficos/*.tmp
-output/apresentacao/*
+output/apresentacao/*.tmp
 !output/apresentacao/.gitkeep
+!output/apresentacao/LEIA-ME.md
+!output/apresentacao/apresentacao_state_of_data.html
+!output/apresentacao/apresentacao_state_of_data.pdf
 output/resultados_athena/*
 !output/resultados_athena/.gitkeep
-*.pdf
-*.pptx
+!output/analises_complementares/*.csv
 
 # AWS e Credenciais / Chaves de Segurança
 .aws/

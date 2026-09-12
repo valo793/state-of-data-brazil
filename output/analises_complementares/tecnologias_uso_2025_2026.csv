@@ -1,0 +1,14 @@
+categoria,tecnologia,total_usuarios,total_respondentes_validos,percentual_uso
+BI (Dia a Dia),Microsoft PowerBI,1242,2105,59.0
+BI (Dia a Dia),Looker Studio (Google),328,2105,15.58
+BI (Dia a Dia),Tableau,287,2105,13.63
+BI (Dia a Dia),Looker,269,2105,12.78
+BI (Dia a Dia),Grafana,183,2105,8.69
+BI (Dia a Dia),Metabase,177,2105,8.41
+BI (Dia a Dia),Amazon QuickSight,143,2105,6.79
+Cloud (Dia a Dia),Amazon Web Services (AWS),1011,2095,48.26
+Cloud (Dia a Dia),Azure (Microsoft),730,2095,34.84
+Cloud (Dia a Dia),Google Cloud (GCP),647,2095,30.88
+Cloud (Dia a Dia),Servidores On-Premise,300,2095,14.32
+Cloud (Dia a Dia),Cloud Própria,114,2095,5.44
+Cloud (Dia a Dia),Oracle Cloud,94,2095,4.49

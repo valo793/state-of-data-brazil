@@ -266,7 +266,7 @@ SELECT
     total_respostas,
     total_respondentes_validos,
     percentual
-FROM db_state_of_data.gold_adlacoa_ia
+FROM db_state_of_data.gold_adocao_ia
 WHERE tipo_indicador = 'Uso pessoal'
 ORDER BY
     ano_pesquisa,

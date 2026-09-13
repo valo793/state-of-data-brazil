@@ -177,7 +177,19 @@ No editor de consultas do Amazon Athena, utilizar o database `db_state_of_data` 
 
 ---
 
-## Entregáveis do Projeto
+## Entrega do Tech Challenge
+
+Acesso direto aos principais artefatos e entregáveis do projeto:
+
+* [Apresentação executiva em PDF](output/apresentacao/apresentacao_state_of_data.pdf)
+* [Apresentação interativa em HTML](output/apresentacao/apresentacao_state_of_data.html)
+* [Diagrama editável da arquitetura AWS](diagrams/arquitetura_aws.drawio)
+* [Consultas analíticas no Athena](scripts/analytics/queries_athena.sql)
+* [Job PySpark Bronze → Silver](scripts/etl/glue_job_bronze_to_silver.py)
+* [Job PySpark Silver → Gold](scripts/etl/glue_job_silver_to_gold.py)
+* [Notebooks do projeto](notebooks/)
+
+### Detalhamento dos Entregáveis
 
 1. **Apresentação Executiva Interativa e Documental**:
    * [`output/apresentacao/apresentacao_state_of_data.html`](output/apresentacao/apresentacao_state_of_data.html): Relatório interativo em formato widescreen (16:9) com navegação por teclado e índice lateral.

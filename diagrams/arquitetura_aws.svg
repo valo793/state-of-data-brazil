@@ -1,0 +1,192 @@
+<svg viewBox="0 0 1100 480" width="1100" height="480" xmlns="http://www.w3.org/2000/svg"
+            style="font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;">
+            <defs>
+              <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+                <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0B1E36" flood-opacity="0.12" />
+              </filter>
+              <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6"
+                orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#0288D1" />
+              </marker>
+              <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6"
+                orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#107C41" />
+              </marker>
+              <marker id="arrow-orange" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6"
+                orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#FF9900" />
+              </marker>
+              <marker id="arrow-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6"
+                orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#5E35B1" />
+              </marker>
+            </defs>
+
+            <!-- FAIXA SUPERIOR: JOBS PYSPARK (FORA DO S3) -->
+            <rect x="270" y="20" width="220" height="60" rx="8" fill="#E1F5FE" stroke="#0288D1" stroke-width="2"
+              filter="url(#shadow)" />
+            <text x="380" y="42" font-size="12" font-weight="bold" fill="#01579B" text-anchor="middle">AWS Glue Job 1
+              (PySpark)</text>
+            <text x="380" y="58" font-size="10" fill="#555" text-anchor="middle">tc3-bronze-to-silver (Harmonização
+              &amp; SHA-256)</text>
+
+            <rect x="520" y="20" width="220" height="60" rx="8" fill="#E1F5FE" stroke="#0288D1" stroke-width="2"
+              filter="url(#shadow)" />
+            <text x="630" y="42" font-size="12" font-weight="bold" fill="#01579B" text-anchor="middle">AWS Glue Job 2
+              (PySpark)</text>
+            <text x="630" y="58" font-size="10" fill="#555" text-anchor="middle">tc3-silver-to-gold (Data Marts &amp;
+              Médias Ponderadas)</text>
+
+            <!-- ORIGEM: KAGGLE -->
+            <rect x="20" y="140" width="160" height="110" rx="10" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="2"
+              filter="url(#shadow)" />
+            <text x="100" y="168" font-size="13" font-weight="bold" fill="#4A148C" text-anchor="middle">Origem
+              Externa</text>
+            <text x="100" y="188" font-size="11" font-weight="bold" fill="#333" text-anchor="middle">Kaggle State of
+              Data</text>
+            <text x="100" y="206" font-size="9.5" fill="#666" text-anchor="middle">2023–2024 | 2024–2025</text>
+            <text x="100" y="222" font-size="9.5" fill="#666" text-anchor="middle">2025–2026 (CSVs Brutos)</text>
+            <text x="100" y="238" font-size="9" font-weight="bold" fill="#7B1FA2" text-anchor="middle">n = 14.002
+              registros</text>
+
+            <path d="M 180 195 L 220 195" fill="none" stroke="#0288D1" stroke-width="2.5"
+              marker-end="url(#arrow-blue)" />
+
+            <!-- CONTAINER S3 DATA LAKE (3 CAMADAS DENTRO DO S3) -->
+            <rect x="225" y="105" width="555" height="180" rx="12" fill="#F8FAFC" stroke="#232F3E" stroke-width="2"
+              stroke-dasharray="8 6" filter="url(#shadow)" />
+            <text x="245" y="128" font-size="13" font-weight="bold" fill="#232F3E">Amazon S3 Data Lake (3 Camadas
+              Medallion)</text>
+
+            <!-- S3 Bronze -->
+            <rect x="245" y="145" width="155" height="120" rx="8" fill="#EFEBE9" stroke="#8D6E63" stroke-width="2" />
+            <path d="M 245 160 C 245 152, 400 152, 400 160 C 400 168, 245 168, 245 160 Z" fill="#D7CCC8"
+              stroke="#8D6E63" stroke-width="1.5" />
+            <text x="322" y="182" font-size="12" font-weight="bold" fill="#4E342E" text-anchor="middle">Camada
+              Bronze</text>
+            <text x="322" y="200" font-size="10" font-weight="bold" fill="#333" text-anchor="middle">CSV Original</text>
+            <text x="322" y="216" font-size="9" fill="#555" text-anchor="middle">s3://bucket/bronze/</text>
+            <text x="322" y="232" font-size="9" fill="#666" text-anchor="middle">Dados Brutos Preservados</text>
+            <text x="322" y="248" font-size="8.5" fill="#888" text-anchor="middle">14.005 linhas brutas</text>
+
+            <!-- S3 Silver -->
+            <rect x="425" y="145" width="155" height="120" rx="8" fill="#ECEFF1" stroke="#78909C" stroke-width="2" />
+            <path d="M 425 160 C 425 152, 580 152, 580 160 C 580 168, 425 168, 425 160 Z" fill="#CFD8DC"
+              stroke="#78909C" stroke-width="1.5" />
+            <text x="502" y="182" font-size="12" font-weight="bold" fill="#263238" text-anchor="middle">Camada
+              Silver</text>
+            <text x="502" y="200" font-size="10" font-weight="bold" fill="#333" text-anchor="middle">Parquet +
+              Snappy</text>
+            <text x="502" y="216" font-size="9" fill="#555" text-anchor="middle">s3://bucket/silver/</text>
+            <text x="502" y="232" font-size="9" fill="#666" text-anchor="middle">Partição: ano_pesquisa</text>
+            <text x="502" y="248" font-size="8.5" fill="#888" text-anchor="middle">14.002 linhas limpas</text>
+
+            <!-- S3 Gold -->
+            <rect x="605" y="145" width="155" height="120" rx="8" fill="#FFFDE7" stroke="#FBC02D" stroke-width="2" />
+            <path d="M 605 160 C 605 152, 760 152, 760 160 C 760 168, 605 168, 605 160 Z" fill="#FFF9C4"
+              stroke="#FBC02D" stroke-width="1.5" />
+            <text x="682" y="182" font-size="12" font-weight="bold" fill="#F57F17" text-anchor="middle">Camada
+              Gold</text>
+            <text x="682" y="200" font-size="10" font-weight="bold" fill="#333" text-anchor="middle">Parquet (Data
+              Marts)</text>
+            <text x="682" y="216" font-size="9" fill="#555" text-anchor="middle">s3://bucket/gold/</text>
+            <text x="682" y="232" font-size="9" fill="#666" text-anchor="middle">7 Tabelas Analíticas</text>
+            <text x="682" y="248" font-size="8.5" fill="#888" text-anchor="middle">Contadores Ponderados</text>
+
+            <!-- Setas dos Glue Jobs conectando os S3 -->
+            <path d="M 322 145 L 322 80" fill="none" stroke="#0288D1" stroke-width="2" marker-end="url(#arrow-blue)" />
+            <path d="M 435 80 L 435 145" fill="none" stroke="#0288D1" stroke-width="2" marker-end="url(#arrow-blue)" />
+            <path d="M 502 145 L 502 80" fill="none" stroke="#0288D1" stroke-width="2" marker-end="url(#arrow-blue)" />
+            <path d="M 615 80 L 615 145" fill="none" stroke="#0288D1" stroke-width="2" marker-end="url(#arrow-blue)" />
+
+            <!-- CONSUMO ANALÍTICO: ATHENA, PYTHON & APRESENTAÇÃO -->
+            <rect x="815" y="90" width="160" height="42" rx="6" fill="#F1F8E9" stroke="#81C784" stroke-width="1.5" />
+            <text x="895" y="108" font-size="10.5" font-weight="bold" fill="#2E7D32" text-anchor="middle">S3 Athena
+              Results</text>
+            <text x="895" y="122" font-size="8.5" fill="#666" text-anchor="middle">s3://bucket/athena-results/</text>
+
+            <rect x="815" y="150" width="160" height="75" rx="8" fill="#E8F5E9" stroke="#43A047" stroke-width="2"
+              filter="url(#shadow)" />
+            <text x="895" y="174" font-size="12" font-weight="bold" fill="#1B5E20" text-anchor="middle">Amazon
+              Athena</text>
+            <text x="895" y="192" font-size="9.5" fill="#333" text-anchor="middle">Consultas SQL Interativas</text>
+            <text x="895" y="208" font-size="9" font-weight="bold" fill="#43A047"
+              text-anchor="middle">db_state_of_data</text>
+
+            <path d="M 760 195 L 815 195" fill="none" stroke="#107C41" stroke-width="2.5"
+              marker-end="url(#arrow-green)" />
+            <path d="M 895 150 L 895 132" fill="none" stroke="#81C784" stroke-width="1.5" stroke-dasharray="3 3"
+              marker-end="url(#arrow-green)" />
+
+            <rect x="815" y="245" width="160" height="70" rx="8" fill="#FFFDE7" stroke="#FBC02D" stroke-width="2"
+              filter="url(#shadow)" />
+            <text x="895" y="268" font-size="11.5" font-weight="bold" fill="#F57F17" text-anchor="middle">Python DataViz
+              (300 DPI)</text>
+            <text x="895" y="284" font-size="9" fill="#555" text-anchor="middle">extrair_resultados_athena.py</text>
+            <text x="895" y="300" font-size="9" fill="#555" text-anchor="middle">output/resultados_athena/*.csv</text>
+
+            <path d="M 895 225 L 895 245" fill="none" stroke="#FBC02D" stroke-width="2"
+              marker-end="url(#arrow-orange)" />
+
+            <rect x="815" y="335" width="160" height="70" rx="8" fill="#EDE7F6" stroke="#5E35B1" stroke-width="2"
+              filter="url(#shadow)" />
+            <text x="895" y="358" font-size="11.5" font-weight="bold" fill="#311B92" text-anchor="middle">Material
+              Executivo</text>
+            <text x="895" y="374" font-size="9.5" fill="#333" text-anchor="middle">HTML Interativo + PDF</text>
+            <text x="895" y="390" font-size="9" font-weight="bold" fill="#5E35B1" text-anchor="middle">Storytelling
+              &amp; Decisões</text>
+
+            <path d="M 895 315 L 895 335" fill="none" stroke="#5E35B1" stroke-width="2"
+              marker-end="url(#arrow-purple)" />
+
+            <!-- FAIXA INFERIOR 1: GOVERNANÇA E CATALOGAÇÃO -->
+            <rect x="255" y="305" width="230" height="55" rx="8" fill="#FFF8E1" stroke="#FFA000" stroke-width="2" />
+            <text x="370" y="328" font-size="11.5" font-weight="bold" fill="#E65100" text-anchor="middle">AWS Glue
+              Crawlers</text>
+            <text x="370" y="345" font-size="9.5" fill="#666" text-anchor="middle">tc3-crawler-bronze | silver |
+              gold</text>
+
+            <rect x="525" y="305" width="235" height="55" rx="8" fill="#FFF8E1" stroke="#FFA000" stroke-width="2" />
+            <text x="642" y="328" font-size="11.5" font-weight="bold" fill="#E65100" text-anchor="middle">AWS Glue Data
+              Catalog</text>
+            <text x="642" y="345" font-size="9.5" fill="#666" text-anchor="middle">Metadados: db_state_of_data</text>
+
+            <path d="M 485 332 L 525 332" fill="none" stroke="#FFA000" stroke-width="2"
+              marker-end="url(#arrow-orange)" />
+            <path d="M 642 305 L 642 285" fill="none" stroke="#FFA000" stroke-width="1.5" stroke-dasharray="4 3" />
+            <path d="M 760 332 L 815 195" fill="none" stroke="#FFA000" stroke-width="1.5" stroke-dasharray="4 3"
+              marker-end="url(#arrow-orange)" />
+
+            <!-- COMPLEMENTO ANALÍTICO LOCAL (AUDITORIA DE QUALIDADE) -->
+            <rect x="20" y="275" width="180" height="85" rx="8" fill="#FFF3E0" stroke="#E65100" stroke-width="1.5"
+              stroke-dasharray="4 4" />
+            <text x="110" y="296" font-size="10.5" font-weight="bold" fill="#BF360C" text-anchor="middle">Auditoria
+              Local de BI &amp; Cloud</text>
+            <text x="110" y="312" font-size="8.5" fill="#333" text-anchor="middle">Parsing de multirrespostas e
+              desaninhamento</text>
+            <text x="110" y="328" font-size="8.5" fill="#666" text-anchor="middle">tecnologias_uso_2025_2026.csv</text>
+            <text x="110" y="344" font-size="8" font-weight="bold" fill="#D84315" text-anchor="middle">(Validação prévia
+              à evolução do schema Glue)</text>
+
+            <!-- FAIXA INFERIOR 2: SEGURANÇA E OBSERVABILIDADE -->
+            <rect x="255" y="380" width="230" height="45" rx="6" fill="#FBE9E7" stroke="#D84315" stroke-width="1.5" />
+            <text x="370" y="400" font-size="10.5" font-weight="bold" fill="#BF360C" text-anchor="middle">AWS IAM Role
+              (LabRole)</text>
+            <text x="370" y="415" font-size="8.5" fill="#666" text-anchor="middle">Políticas de Acesso: S3, Glue, Athena
+              e CloudWatch</text>
+
+            <rect x="525" y="380" width="235" height="45" rx="6" fill="#ECEFF1" stroke="#607D8B" stroke-width="1.5" />
+            <text x="642" y="400" font-size="10.5" font-weight="bold" fill="#37474F" text-anchor="middle">Amazon
+              CloudWatch</text>
+            <text x="642" y="415" font-size="8.5" fill="#666" text-anchor="middle">Logs de Execução, Falhas e Métricas
+              Operacionais</text>
+
+            <path d="M 370 380 L 370 360" fill="none" stroke="#D84315" stroke-width="1" stroke-dasharray="3 3" />
+            <path d="M 642 380 L 642 360" fill="none" stroke="#607D8B" stroke-width="1" stroke-dasharray="3 3" />
+
+            <!-- Rodapé / Legenda -->
+            <text x="20" y="460" font-size="9" fill="#888" style="font-style: italic;">
+              Arquitetura da Plataforma de Dados — Data Lakehouse em 3 Camadas Medallion no Amazon S3 com AWS Glue,
+              PySpark e Amazon Athena
+            </text>
+          </svg>

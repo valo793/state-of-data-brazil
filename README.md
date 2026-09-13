@@ -14,32 +14,52 @@ A solução abrange desde a ingestão dos dados na camada **Bronze** em Data Lak
 
 A arquitetura adota o padrão de **Data Lakehouse em 3 Camadas** no Amazon S3 com governança centralizada no AWS Glue:
 
-`	ext
-                  ┌────────────────────────────────────────────────────────┐
-                  │                   Amazon S3 Data Lake                  │
-                  │                                                        │
-┌──────────────┐  │  ┌──────────────┐    ┌──────────────┐    ┌───────────┐ │  ┌───────────────┐
-│ Kaggle CSV   │──┼─▶│    Bronze    │───▶│    Silver    │───▶│   Gold    │─┼─┼▶ Amazon Athena│
-│  (Microdados │  │  │(Dados Brutos)│    │(Normalizados)│    │(Agregados)│ │  │ Consultas SQL │
-│  Históricos) │  │  └──────┬───────┘    └──────┬───────┘    └─────┬─────┘ │  └───────┬───────┘
-└──────────────┘  │         │                   │                  │       │          │
-                  └─────────┼───────────────────┼──────────────────┼───────┘          │
-                            │                   │                  │                  │
-                            ▼                   ▼                  ▼                  ▼
-                  ┌──────────────────┐ ┌──────────────────┐ ┌─────────────┐ ┌─────────────────┐
-                  │ AWS Glue Crawler │ │AWS Glue Job (ETL)│ │  AWS Glue   │ │  Apresentação   │
-                  │  & Data Catalog  │ │  Bronze ➔ Silver │ │  Job (ETL)  │ │   Executiva     │
-                  │  (Metadados)     │ │  (PySpark Glue)  │ │Silver ➔ Gold│ │  (HTML5 / PDF)  │
-                  └──────────────────┘ └──────────────────┘ └─────────────┘ └─────────────────┘
-`
+<p align="center">
+  <img src="diagrams/arquitetura_aws.png" alt="Arquitetura da Plataforma AWS (3 Camadas Medallion)" width="100%">
+</p>
+
+> Diagrama técnico disponível em formato editável [`diagrams/arquitetura_aws.drawio`](diagrams/arquitetura_aws.drawio) e vetorizado [`diagrams/arquitetura_aws.svg`](diagrams/arquitetura_aws.svg).
+
+<details>
+<summary><b>Visualizar especificação técnica em Mermaid</b></summary>
+
+```mermaid
+flowchart LR
+    subgraph S3["Amazon S3 Data Lake (3 Camadas Medallion)"]
+        direction LR
+        Bronze["Camada Bronze<br/><b>CSV Original</b><br/>s3://bucket/bronze/"]
+        Silver["Camada Silver<br/><b>Parquet + Snappy</b><br/>s3://bucket/silver/"]
+        Gold["Camada Gold<br/><b>Parquet Data Marts</b><br/>s3://bucket/gold/"]
+    end
+
+    Kaggle["Origem Externa<br/><b>Kaggle State of Data</b><br/>(2023–2026)"] --> Bronze
+
+    Job1["AWS Glue Job 1<br/><b>tc3-bronze-to-silver</b><br/>PySpark"]
+    Bronze --> Job1 --> Silver
+
+    Job2["AWS Glue Job 2<br/><b>tc3-silver-to-gold</b><br/>PySpark"]
+    Silver --> Job2 --> Gold
+
+    Athena["Amazon Athena<br/><b>SQL Interativo</b><br/>db_state_of_data"]
+    Gold --> Athena
+
+    Catalog["AWS Glue Data Catalog<br/><b>Metadados Centralizados</b>"]
+    Crawlers["AWS Glue Crawlers<br/><b>Catalogação Automática</b>"]
+    Crawlers --> Catalog
+    Catalog -.-> Athena
+
+    DataViz["Python DataViz<br/><b>Gráficos Executivos</b>"]
+    ExecReport["Material Executivo<br/><b>HTML5 / PDF 16:9</b>"]
+    Athena --> DataViz --> ExecReport
+```
+
+</details>
 
 ### Detalhamento das Camadas de Dados
 
-* **Camada Bronze (s3://<bucket>/bronze/)**: Armazenamento e catalogação dos dados brutos originais das pesquisas (2023–2024, 2024–2025 e 2025–2026), mantendo a fidelidade integral das respostas primárias.
-* **Camada Silver (s3://<bucket>/silver/)**: Dados normalizados, tipados e enriquecidos. Abrange a harmonização de esquemas heterogêneos entre as edições, conversão de tipos de dados, padronização de taxonomias (cargos, modelos de trabalho e níveis de senioridade), cálculo contínuo de estimativa salarial e eliminação de redundâncias via hash SHA-256 para respostas sem identificador de token. Armazenamento colunar em formato **Parquet** particionado por no_pesquisa.
-* **Camada Gold (s3://<bucket>/gold/)**: Data Marts agregados e otimizados para consumo analítico no Amazon Athena e geração de relatórios executivos. Contempla o desaninhamento (*explode*) de tecnologias multivaloradas e cálculo de bases com pesos amostrais.
-
-> O diagrama editável encontra-se disponível em [diagrams/arquitetura_aws.drawio](diagrams/arquitetura_aws.drawio).
+* **Camada Bronze (`s3://<bucket>/bronze/`)**: Armazenamento e catalogação dos dados brutos originais das pesquisas (2023–2024, 2024–2025 e 2025–2026), mantendo a fidelidade integral das respostas primárias.
+* **Camada Silver (`s3://<bucket>/silver/`)**: Dados normalizados, tipados e enriquecidos. Abrange a harmonização de esquemas heterogêneos entre as edições, conversão de tipos de dados, padronização de taxonomias (cargos, modelos de trabalho e níveis de senioridade), cálculo contínuo de estimativa salarial e eliminação de redundâncias via hash SHA-256 para respostas sem identificador de token. Armazenamento colunar em formato **Parquet** particionado por `ano_pesquisa`.
+* **Camada Gold (`s3://<bucket>/gold/`)**: Data Marts agregados e otimizados para consumo analítico no Amazon Athena e geração de relatórios executivos. Contempla o desaninhamento (*explode*) de tecnologias multivaloradas e cálculo de bases com pesos amostrais.
 
 ---
 
@@ -59,7 +79,7 @@ O pipeline analítico foi estruturado para responder a sete eixos fundamentais p
 
 ## Estrutura do Repositório
 
-`	ext
+```text
 state-of-data-brazil/
 │
 ├── config/
@@ -73,7 +93,9 @@ state-of-data-brazil/
 │       └── .gitkeep
 │
 ├── diagrams/
-│   └── arquitetura_aws.drawio        # Diagrama técnico da arquitetura Medallion na AWS (Draw.io)
+│   ├── arquitetura_aws.drawio        # Diagrama técnico editável da arquitetura AWS (Draw.io)
+│   ├── arquitetura_aws.png           # Imagem da arquitetura em alta definição (2292x1000)
+│   └── arquitetura_aws.svg           # Vetor escalável da arquitetura da plataforma
 │
 ├── docs/
 │   ├── dicionario_dados.md           # Catálogo e semântica de todas as variáveis
@@ -116,7 +138,7 @@ state-of-data-brazil/
 ├── .gitignore                        # Regras de exclusão do Git
 ├── requirements.txt                  # Dependências e bibliotecas Python
 └── README.md                         # Documentação técnica e arquitetural da plataforma
-`
+```
 
 ---
 
@@ -125,42 +147,43 @@ state-of-data-brazil/
 ### 1. Pré-requisitos
 * Python 3.10 ou superior.
 * Acesso a ambiente AWS (S3, AWS Glue e Amazon Athena).
-* AWS CLI configurado localmente (ws configure) ou credenciais via variáveis de ambiente.
+* AWS CLI configurado localmente (`aws configure`) ou credenciais via variáveis de ambiente.
 
 ### 2. Instalação de Dependências Locais
-`ash
+```bash
 pip install -r requirements.txt
-`
+```
 
 ### 3. Provisionamento da Infraestrutura AWS
 Execução do script de automação para criação da estrutura de buckets no S3 e registro do database no AWS Glue Data Catalog:
-`ash
+```bash
 chmod +x scripts/aws/setup_infrastructure.sh
 ./scripts/aws/setup_infrastructure.sh
-`
+```
 
 ### 4. Ingestão dos Dados na Camada Bronze
 Transferência dos arquivos brutos para o prefixo Bronze no Amazon S3:
-`ash
+```bash
 python scripts/aws/upload_to_s3.py --bucket <nome-do-bucket> --data-dir ./data/bronze
-`
+```
 
 ### 5. Processamento Distribuído no AWS Glue
 No console do AWS Glue ou via AWS CLI:
-1. Executar o job [glue_job_bronze_to_silver.py](scripts/etl/glue_job_bronze_to_silver.py) com os parâmetros --BUCKET_NAME e --DATABASE_NAME.
-2. Executar o job [glue_job_silver_to_gold.py](scripts/etl/glue_job_silver_to_gold.py) para consolidação dos Data Marts.
+1. Executar o job [`glue_job_bronze_to_silver.py`](scripts/etl/glue_job_bronze_to_silver.py) com os parâmetros `--BUCKET_NAME` e `--DATABASE_NAME`.
+2. Executar o job [`glue_job_silver_to_gold.py`](scripts/etl/glue_job_silver_to_gold.py) para consolidação dos Data Marts.
 
 ### 6. Consultas Analíticas no Amazon Athena
-No editor de consultas do Amazon Athena, utilizar o database db_state_of_data e executar as consultas documentadas em [scripts/analytics/queries_athena.sql](scripts/analytics/queries_athena.sql) para extração dos indicadores consolidados.
+No editor de consultas do Amazon Athena, utilizar o database `db_state_of_data` e executar as consultas documentadas em [`scripts/analytics/queries_athena.sql`](scripts/analytics/queries_athena.sql) para extração dos indicadores consolidados.
 
 ---
 
 ## Entregáveis do Projeto
 
 1. **Apresentação Executiva Interativa e Documental**:
-   * [output/apresentacao/apresentacao_state_of_data.html](output/apresentacao/apresentacao_state_of_data.html): Relatório interativo em formato widescreen (16:9) com navegação por teclado e índice lateral.
-   * [output/apresentacao/apresentacao_state_of_data.pdf](output/apresentacao/apresentacao_state_of_data.pdf): Documento formal em 18 páginas widescreen para distribuição institucional.
+   * [`output/apresentacao/apresentacao_state_of_data.html`](output/apresentacao/apresentacao_state_of_data.html): Relatório interativo em formato widescreen (16:9) com navegação por teclado e índice lateral.
+   * [`output/apresentacao/apresentacao_state_of_data.pdf`](output/apresentacao/apresentacao_state_of_data.pdf): Documento formal em 18 páginas widescreen para distribuição institucional.
 2. **Arquitetura da Plataforma AWS**:
-   * [diagrams/arquitetura_aws.drawio](diagrams/arquitetura_aws.drawio): Diagrama técnico com detalhamento de camadas, orquestração e fluxo de dados.
+   * [`diagrams/arquitetura_aws.drawio`](diagrams/arquitetura_aws.drawio): Diagrama técnico editável no Draw.io detalhando todo o fluxo de ingestão, processamento e catálogo nas 3 camadas.
+   * [`diagrams/arquitetura_aws.png`](diagrams/arquitetura_aws.png): Visualização estática em alta resolução (2292x1000) incorporada diretamente à documentação.
 3. **Engenharia e Governança de Dados**:
    * Scripts de infraestrutura como código (IaC), jobs PySpark para processamento distribuído, suíte de qualidade de dados com 16 asserções de Quality Gate e catálogo completo de variáveis.
